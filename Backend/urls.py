@@ -6,5 +6,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
     path("", include("Accounts.urls")),
+    path("", include("DiseasePredictor.urls")),
 ]
 

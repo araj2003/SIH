@@ -47,8 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'Accounts',
-    
-    
+    'DiseasePredictor',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +67,7 @@ import os
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend/dist')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,8 +90,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': '[Enter yout postgresql username]',
-        'PASSWORD': '[Enter Your postgresql password]',
+        'USER': 'postgres',
+        'PASSWORD': 'K@13032003',
         'HOST': 'localhost',
         'PORT': 5432,
     }
@@ -144,9 +143,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'assets/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend/build/static')
+    os.path.join(BASE_DIR, 'frontend/dist/assets')
 ]
 
 # Default primary key field type
