@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import data
+from .views import model
 
 urlpatterns = [
-    path('data', data),
+    path('prediction', model),
 ]
