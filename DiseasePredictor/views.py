@@ -23,18 +23,19 @@ def scale_dataset(dataframe, oversample=False):
 
   return data, X, y
 
+data = read_frame(patient_data.objects.all())
+unique1 = data['prognosis'].unique()
+
+data_dict = data.to_dict('records')
+context = {'data': data_dict}
+
+train, X, Y = scale_dataset(data, oversample=True)
+
+svm_model = SVC(probability=True)
+svm_model = svm_model.fit(X, Y)
+
 
 def model(request):
-    data = read_frame(patient_data.objects.all())
-    unique1 = data['prognosis'].unique()
-
-    data_dict = data.to_dict('records')
-    context = {'data': data_dict}
-
-    train, X, Y = scale_dataset(data, oversample=True)
-
-    svm_model = SVC(probability=True)
-    svm_model = svm_model.fit(X, Y)
     x = np.zeros(130)
     x[1] = 1
     x[0] = 1
@@ -45,15 +46,17 @@ def model(request):
 
     top5_indices = np.argsort(probas, axis=1)[:, -5:]
 
+    top5_values = np.take_along_axis(probas, top5_indices, axis=1)
+
     # Get the corresponding class labels
     top5_labels = svm_model.classes_[top5_indices]
 
     # Print the top 5 class labels for the first sample in the test data
     print(top5_labels[0][::-1])
-
+    print(top5_values[0][::-1])
     print(unique1)
     print(probas)
-    return render(request, 'data.html', context)
+    return render(request, 'index.html', context)
 
     
 

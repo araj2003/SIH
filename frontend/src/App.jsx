@@ -26,7 +26,7 @@ function App() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    client.get("/api/user")
+    client.get("/user")
     .then(function(res) {
       setCurrentUser(true);
     })
@@ -48,7 +48,7 @@ function App() {
   function submitRegistration(e) {
     e.preventDefault();
     client.post(
-      "/api/register",
+      "/register",
       {
         email: email,
         username: username,
@@ -56,7 +56,7 @@ function App() {
       }
     ).then(function(res) {
       client.post(
-        "/api/login",
+        "/login",
         {
           email: email,
           password: password
@@ -70,7 +70,7 @@ function App() {
   function submitLogin(e) {
     e.preventDefault();
     client.post(
-      "/api/login",
+      "/login",
       {
         email: email,
         password: password
@@ -83,7 +83,7 @@ function App() {
   function submitLogout(e) {
     e.preventDefault();
     client.post(
-      "/api/logout",
+      "/logout",
       {withCredentials: true}
     ).then(function(res) {
       setCurrentUser(false);
