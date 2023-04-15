@@ -24,6 +24,7 @@ function App() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [history, setHistory] = useState('');
 
   useEffect(() => {
     client.get("/user")
@@ -52,7 +53,8 @@ function App() {
       {
         email: email,
         username: username,
-        password: password
+        password: password,
+        history:history
       }
     ).then(function(res) {
       client.post(
@@ -143,6 +145,10 @@ function App() {
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicUsername">
+              <Form.Label>History</Form.Label>
+              <Form.Control type="text" placeholder="Enter any history" value={history} onChange={e => setHistory(e.target.value)} />
             </Form.Group>
             <Button variant="primary" type="submit">
               Submit
