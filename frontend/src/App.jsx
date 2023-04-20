@@ -25,7 +25,7 @@ function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [age, setAge] = useState('');
-  const [medicalhistory, setMedicalHistory] = useState(['abc', 'xyz']);
+  const [medicalhistory, setMedicalHistory] = useState([]);
   const [sex, setSex] = useState('');
 
   useEffect(() => {
