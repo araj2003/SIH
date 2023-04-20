@@ -24,7 +24,9 @@ function App() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [history, setHistory] = useState('');
+  const [age, setAge] = useState('');
+  const [medicalhistory, setMedicalHistory] = useState(['abc', 'xyz']);
+  const [sex, setSex] = useState('');
 
   useEffect(() => {
     client.get("/user")
@@ -54,7 +56,9 @@ function App() {
         email: email,
         username: username,
         password: password,
-        history:history
+        age: Number(age),
+        sex: sex,
+        medical_history: medicalhistory,
       }
     ).then(function(res) {
       client.post(
@@ -147,9 +151,23 @@ function App() {
               <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicUsername">
-              <Form.Label>History</Form.Label>
-              <Form.Control type="text" placeholder="Enter any history" value={history} onChange={e => setHistory(e.target.value)} />
+              <Form.Label>Age</Form.Label>
+              <Form.Control type="text" placeholder="Enter your age" value={age} onChange={e => setAge(e.target.value)} />
             </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicUsername">
+              <Form.Label>Sex</Form.Label>
+              <Form.Control type="text" placeholder="Enter your sex" value={sex} onChange={e => setSex(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="formMedicalHistory">
+              <Form.Label>Medical History</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Enter medical history, separated by commas"
+                value={medicalhistory.join(",")}
+                onChange={(e) => setMedicalHistory(e.target.value.split(","))}
+              />
+            </Form.Group>
+
             <Button variant="primary" type="submit">
               Submit
             </Button>

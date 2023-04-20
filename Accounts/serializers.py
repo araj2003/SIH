@@ -14,6 +14,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 		user_obj.history = clean_data['history']
 		user_obj.age = clean_data['age']
 		user_obj.sex = clean_data['sex']
+		user_obj.medical_history = clean_data['medical_history']
 		user_obj.save()
 		return user_obj
 
