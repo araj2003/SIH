@@ -12,6 +12,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 		user_obj = UserModel.objects.create_user(email=clean_data['email'], password=clean_data['password'])
 		user_obj.username = clean_data['username']
 		user_obj.history = clean_data['history']
+		user_obj.age = clean_data['age']
+		user_obj.sex = clean_data['sex']
 		user_obj.save()
 		return user_obj
 

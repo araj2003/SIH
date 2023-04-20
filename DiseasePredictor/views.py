@@ -3,7 +3,6 @@ from django.shortcuts import render
 import pandas as pd
 import numpy as np
 from django_pandas.io import read_frame
-from sklearn import preprocessing
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
@@ -37,8 +36,23 @@ svm_model = svm_model.fit(X, Y)
 
 def model(request):
     x = np.zeros(130)
-    x[1] = 1
-    x[0] = 1
+    x[98] = 1
+    x[96] = 1
+    x[47] = 1
+    x[36] = 1
+    x[35] = 1
+    x[34] = 1
+    x[33] = 1
+    x[2] = 1
+    x[4] = 1
+    x[5] = 1
+    x[10] = 1
+    x[13] = 1
+
+    x = x.reshape(-1, 1)
+    scaler = StandardScaler()
+    x = scaler.fit_transform(x)
+
     x_ = x.reshape(1, -1)
     Y_ = svm_model.predict(x_)
 
