@@ -29,7 +29,24 @@ const Login = () => {
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
-                
+                <Form.Group className="mb-3" controlId="formBasicUsername">
+              <Form.Label>Age</Form.Label>
+              <Form.Control type="text" placeholder="Enter your age" value={age} onChange={e => setAge(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicUsername">
+              <Form.Label>Sex</Form.Label>
+              <Form.Control type="text" placeholder="Enter your sex" value={sex} onChange={e => setSex(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="formMedicalHistory">
+              <Form.Label>Medical History</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Enter medical history, separated by commas"
+                value={medicalhistory.join(",")}
+                onChange={(e) => setMedicalHistory(e.target.value.split(","))}
+              />
+            </Form.Group>
+            
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
@@ -49,23 +66,6 @@ const Login = () => {
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicUsername">
-              <Form.Label>Age</Form.Label>
-              <Form.Control type="text" placeholder="Enter your age" value={age} onChange={e => setAge(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicUsername">
-              <Form.Label>Sex</Form.Label>
-              <Form.Control type="text" placeholder="Enter your sex" value={sex} onChange={e => setSex(e.target.value)} />
-            </Form.Group>
-            <Form.Group controlId="formMedicalHistory">
-              <Form.Label>Medical History</Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Enter medical history, separated by commas"
-                value={medicalhistory.join(",")}
-                onChange={(e) => setMedicalHistory(e.target.value.split(","))}
-              />
-            </Form.Group>
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
