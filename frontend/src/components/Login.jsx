@@ -1,80 +1,118 @@
 
 import React from 'react';
-import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useGlobalContext } from '../context';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 
 const Login = () => {
     const {submitRegistration,email,setEmail,username,setUsername,password,setPassword,submitLogin,registrationToggle,age,setAge,sex,setSex,medicalhistory,setMedicalHistory} = useGlobalContext();
     return (
-        <div>
-        {
-          registrationToggle ? (
-            <div className="center">
-              <Form onSubmit={e => submitRegistration(e)}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
-                  <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                  </Form.Text>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicUsername">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicUsername">
-              <Form.Label>Age</Form.Label>
-              <Form.Control type="text" placeholder="Enter your age" value={age} onChange={e => setAge(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicUsername">
-              <Form.Label>Sex</Form.Label>
-              <Form.Control type="text" placeholder="Enter your sex" value={sex} onChange={e => setSex(e.target.value)} />
-            </Form.Group>
-            <Form.Group controlId="formMedicalHistory">
-              <Form.Label>Medical History</Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Enter medical history, separated by commas"
-                value={medicalhistory.join(",")}
-                onChange={(e) => setMedicalHistory(e.target.value.split(","))}
-              />
-            </Form.Group>
-            
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </div>        
+      <div>
+        {registrationToggle ? (
+          <div className="center">
+            <form onSubmit={submitRegistration}>
+              <div className="mb-3">
+                <label htmlFor="email">Email address</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="formBasicEmail"
+                  placeholder="Enter email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <small className="form-text text-muted">
+                  We'll never share your email with anyone else.
+                </small>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="formBasicUsername"
+                  placeholder="Enter username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="formBasicPassword"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="age">Age</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="age"
+                  placeholder="Enter your age"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="sex">Sex</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="sex"
+                  placeholder="Enter your sex"
+                  value={sex}
+                  onChange={(e) => setSex(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="medicalhistory">Medical History</label>
+                <textarea
+                  className="form-control"
+                  id="medicalhistory"
+                  rows="3"
+                  placeholder="Enter medical history, separated by commas"
+                  value={medicalhistory.join(",")}
+                  onChange={(e) => setMedicalHistory(e.target.value.split(","))}
+                ></textarea>
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </form>
+          </div>
+        
           ) : (
             <div className="center">
-              <Form onSubmit={e => submitLogin(e)}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
-                  <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                  </Form.Text>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          )
-        }
+          <form onSubmit={(event) => submitLogin(event)}>
+            <label htmlFor="email">Email address</label>
+            <input
+              type="email"
+              id="FormBasicEmail"
+              placeholder="Enter email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <small>We'll never share your email with anyone else.</small>
+
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="formBasicPassword"
+              placeholder="Password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+
+            <button type="submit">Submit</button>
+          </form>
         </div>
-      );
+      )}
+    </div>
+  );
 }
+
 
 export default Login
