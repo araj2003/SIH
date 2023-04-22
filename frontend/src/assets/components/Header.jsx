@@ -1,5 +1,4 @@
 import React from "react";
-import Notice from "./Notice";
 import LoginBtn from "./Login-Button";
 import LogoHorizontal from "../img/logo.svg";
 
@@ -24,7 +23,7 @@ const Header = () => {
           <LoginBtn />
         </nav>
       </div>
-      <Notice />
+      
     </div>
   );
 };
