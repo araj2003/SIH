@@ -1,23 +1,15 @@
-import './App.css';
-import React from 'react';
-import Header from './components/Header';
-import Login from './components/Login';
-import { useGlobalContext } from './context';
+import "./App.css";
+import React from "react";
+import Header from "./assets/components/Header";
+import Main from "./assets/components/Main";
 
 function App() {
-  
-  const {currentUser} = useGlobalContext();
-  
-
-  
   return (
     <div>
-      <Header/>
-      {
-        !currentUser&&<Login/>
-      }
+      <Header />
+      <Main />
     </div>
   );
 }
 
-export default App; 
+export default App;
