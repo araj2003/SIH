@@ -1,5 +1,5 @@
 import { useGlobalContext } from "./context";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, TextareaAutosize } from "@mui/material";
 
 const RegisterForm = () => {
   const {
@@ -58,7 +58,7 @@ const RegisterForm = () => {
             type="password"
             required
           />
-          {/* <TextField
+          <TextField
             id="age"
             label="Age"
             variant="outlined"
@@ -67,9 +67,9 @@ const RegisterForm = () => {
             color="success"
             type="number"
             required
-          /> */}
-          {/* <TextField
-            id="sex"
+          />
+          <TextField
+            // id="sex"
             label="Enter your sex"
             variant="outlined"
             value={sex}
@@ -77,18 +77,15 @@ const RegisterForm = () => {
             color="success"
             type="search"
             required
-          /> */}
-          {/* <div className="mb-3">
-            <label htmlFor="medicalhistory">Medical History</label>
-            <textarea
-              className="form-control"
-              id="medicalhistory"
-              rows="3"
-              placeholder="Enter medical history, separated by commas"
-              value={medicalhistory.join(",")}
-              onChange={(e) => setMedicalHistory(e.target.value.split(","))}
-            ></textarea>
-          </div> */}
+          />
+          <TextareaAutosize
+            value={medicalhistory.join(",")}
+            minRows={3}
+            placeholder="Enter medical history separated by commas,"
+            id="medicalHistory"
+            className="border border-gray-400 rounded py-1 px-2 text-md resize-none focus:outline-2 focus:outline-green-700"
+            onChange={(e) => setMedicalHistory(e.target.value.split(","))}
+          />
           <Button variant="outlined" color="primary" type="submit">
             Submit
           </Button>

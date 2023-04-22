@@ -3,8 +3,8 @@ const Notice = () => {
   const { currentUser } = useGlobalContext();
   if (currentUser) {
     return (
-      <div>
-        <h2>You're logged in!</h2>
+      <div className="flex justify-center">
+        <h2 className="text-2xl">You're logged in!</h2>
       </div>
     );
   }
