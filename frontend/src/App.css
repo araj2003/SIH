@@ -1,8 +1,45 @@
-.App {
-  text-align: center;
+/* CSS Styles */
+/* @import url("https://fonts.googleapis.com/css2?family=Alkalami&family=Roboto:wght@300;700&family=Source+Sans+Pro&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Alkalami&family=Roboto:wght@500;500&family=Source+Sans+Pro&family=Titillium+Web:wght@500&display=swap"); /* .. */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --primary-color-1: #76c893;
+  --primary-color-2: #52b69a;
+  --secondary-color-1: #34a0a4;
+  --secondary-color-2: #168aa6;
+  --secondary-color-3: #093e1a;
+  --accent-color-1: #c5f9c9;
+  --background-color-1: #f5f5f5;
+  --background-color-2: #152b2c;
+  --font-family-1: "Roboto", sans-serif;
+  --font-family-heading: "Titillium Web", sans-serif;
+}
+
+nav {
+  width: 35vw;
+}
+
+nav a,
+nav button {
+  padding: 2px 8px;
+  height: 2rem;
+  font-family: var(--font-family-1);
+  font-weight: lighter;
+}
+
+nav a:hover,
+nav button:hover {
+  background-color: var(--primary-color-2);
+  color: var(--background-color-1);
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.modal-heading {
+  font-family: var(--font-family-heading);
 }
