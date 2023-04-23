@@ -19,6 +19,7 @@ const AppProvider = ({ children }) => {
   const [age, setAge] = useState("");
   const [medicalhistory, setMedicalHistory] = useState([]);
   const [sex, setSex] = useState("");
+  const [loginButtonClicked, setLoginButtonClicked] = useState(false);
 
   useEffect(() => {
     client
@@ -35,9 +36,11 @@ const AppProvider = ({ children }) => {
     if (registrationToggle) {
       document.getElementById("form_btn").innerHTML = "Register";
       setRegistrationToggle(false);
+      setLoginButtonClicked(true);
     } else {
       document.getElementById("form_btn").innerHTML = "Log in";
       setRegistrationToggle(true);
+      setLoginButtonClicked(true);
     }
   }
 
@@ -107,6 +110,8 @@ const AppProvider = ({ children }) => {
         setMedicalHistory,
         sex,
         setSex,
+        loginButtonClicked,
+        setLoginButtonClicked,
       }}
     >
       {children}
