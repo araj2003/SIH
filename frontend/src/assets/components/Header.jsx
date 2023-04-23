@@ -16,14 +16,13 @@ const Header = () => {
             className="h-full w-full object-cover"
           />
         </figure>
-        <nav className="flex gap-3 text-lg z-20 justify-center">
+        <nav className="flex gap-3 text-lg z-20 justify-center text-gray-700o">
           <a href="">Home</a>
           <a href="">Services</a>
           <a href="">About Us</a>
           <LoginBtn />
         </nav>
       </div>
-      
     </div>
   );
 };

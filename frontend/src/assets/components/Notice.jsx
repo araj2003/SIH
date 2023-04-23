@@ -8,9 +8,7 @@ const Notice = () => {
       </div>
     );
   }
-  return <div>
-
-  </div>;
+  return <div></div>;
 };
 
 export default Notice;
