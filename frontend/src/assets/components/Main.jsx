@@ -3,10 +3,12 @@ import { useGlobalContext } from "./context";
 import Notice from "./Notice";
 const Main = () => {
   const { currentUser } = useGlobalContext();
-  return <main>
-    <Notice />
-    {!currentUser && <Modal />}
-  </main>;
+  return (
+    <main>
+      <Notice />
+      {!currentUser && <Modal />}
+    </main>
+  );
 };
 
 export default Main;
