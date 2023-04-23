@@ -58,7 +58,7 @@ const RegisterForm = () => {
             type="password"
             required
           />
-          <TextField
+          {/* <TextField
             id="age"
             label="Age"
             variant="outlined"
@@ -85,7 +85,7 @@ const RegisterForm = () => {
             id="medicalHistory"
             className="border border-gray-400 rounded py-1 px-2 text-md resize-none focus:outline-2 focus:outline-green-700"
             onChange={(e) => setMedicalHistory(e.target.value.split(","))}
-          />
+          /> */}
           <Button variant="outlined" color="primary" type="submit">
             Submit
           </Button>
