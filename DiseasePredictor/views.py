@@ -1,4 +1,4 @@
-from Accounts.models import patient_data
+from Accounts.models import symptoms_diseases
 from django.shortcuts import render
 import pandas as pd
 import numpy as np
@@ -22,7 +22,7 @@ def scale_dataset(dataframe, oversample=False):
 
   return data, X, y
 
-data = read_frame(patient_data.objects.all())
+data = read_frame(symptoms_diseases.objects.all())
 unique1 = data['prognosis'].unique()
 
 data_dict = data.to_dict('records')

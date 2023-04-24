@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
+from .models import PatientProfile, DoctorProfile
 
 UserModel = get_user_model()
 
@@ -11,9 +12,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 	def create(self, clean_data):
 		user_obj = UserModel.objects.create_user(email=clean_data['email'], password=clean_data['password'])
 		user_obj.username = clean_data['username']
-		user_obj.age = clean_data['age']
-		user_obj.sex = clean_data['sex']
-		user_obj.medical_history = clean_data['medical_history']
 		user_obj.save()
 		return user_obj
 
@@ -31,3 +29,37 @@ class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = UserModel
 		fields = ('email', 'username')
+
+
+class PatientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PatientProfile
+        fields = ('__all__')
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        profile = PatientProfile.objects.create(user=user, **validated_data)
+        return profile
+
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+
+class DoctorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DoctorProfile
+        fields = ('__all__')
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        profile = DoctorProfile.objects.create(user=user, **validated_data)
+        return profile
+
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+		

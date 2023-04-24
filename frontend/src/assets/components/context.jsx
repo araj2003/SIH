@@ -51,10 +51,6 @@ const AppProvider = ({ children }) => {
         email: email,
         username: username,
         password: password,
-
-        age: Number(5),
-        sex: "male",
-        medical_history: ["abc"],
       })
       .then(function (res) {
         client
