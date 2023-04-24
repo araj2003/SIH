@@ -15,7 +15,7 @@ class AppUserManager(BaseUserManager):
         user.set_password(password)
         user.save()
         # import PatientProfile here to avoid circular import
-        from .models import PatientProfile, DoctorProfile
+        from .models import PatientProfile
         profile = PatientProfile.objects.create(user=user)
         
         return user
@@ -49,12 +49,6 @@ class PatientProfile(models.Model):
     age = models.IntegerField(default=0)
     sex = models.CharField(max_length=20, default='Not to say')
     medical_history = ArrayField(models.CharField(max_length=200), blank=True, default=list)
-
-class DoctorProfile(models.Model):
-    
-    age = models.IntegerField(default=0)
-    sex = models.CharField(max_length=20, default='Not to say')
-
 
 class symptoms_diseases(models.Model):
     itching = models.IntegerField()

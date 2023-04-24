@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
-from .models import PatientProfile, DoctorProfile
+from .models import PatientProfile
 
 UserModel = get_user_model()
 
@@ -47,19 +47,3 @@ class PatientSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class DoctorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DoctorProfile
-        fields = ('__all__')
-
-    def create(self, validated_data):
-        user = self.context['request'].user
-        profile = DoctorProfile.objects.create(user=user, **validated_data)
-        return profile
-
-    def update(self, instance, validated_data):
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        instance.save()
-        return instance
-		
