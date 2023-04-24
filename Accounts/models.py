@@ -17,7 +17,7 @@ class AppUserManager(BaseUserManager):
         # import PatientProfile here to avoid circular import
         from .models import PatientProfile, DoctorProfile
         profile = PatientProfile.objects.create(user=user)
-        DoctorProfile.objects.create()
+        
         return user
 
     def create_superuser(self, email, password=None):
