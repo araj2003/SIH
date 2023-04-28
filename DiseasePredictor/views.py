@@ -1,4 +1,5 @@
-from Accounts.models import symptoms_diseases
+from Accounts.models import symptoms_diseases, Predicted_Diseases
+from Accounts.serializers import PredictionSerializer
 from django.shortcuts import render
 import pandas as pd
 import numpy as np
@@ -6,6 +7,8 @@ from django_pandas.io import read_frame
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 def scale_dataset(dataframe, oversample=False):
   X = dataframe[dataframe.columns[:-1]].values
@@ -34,7 +37,8 @@ svm_model = SVC(probability=True)
 svm_model = svm_model.fit(X, Y)
 
 
-def model(request):
+@api_view()
+def model(request, symptoms=''):
     x = np.zeros(130)
     x[98] = 1
     x[96] = 1
@@ -66,11 +70,15 @@ def model(request):
     top5_labels = svm_model.classes_[top5_indices]
 
     # Print the top 5 class labels for the first sample in the test data
-    print(top5_labels[0][::-1])
-    print(top5_values[0][::-1])
-    print(unique1)
-    print(probas)
-    return render(request, 'index.html', context)
+    pd = top5_labels[0][::-1].tolist()
+    pd_prob = top5_values[0][::-1].astype(float).tolist()
 
+    
+
+    Predicted_Diseases.objects.all().delete()
+    Predicted_Diseases(diseases=pd, diseases_prob=pd_prob).save()
+    data = Predicted_Diseases.objects.all()
+    serializer = PredictionSerializer(data, many=True)
+    return Response(serializer.data, template_name=None)
     
 

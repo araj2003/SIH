@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.postgres.fields import ArrayField
+from django.db.models import JSONField
+
 
 
 class AppUserManager(BaseUserManager):
@@ -48,7 +50,22 @@ class PatientProfile(models.Model):
     user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='profile')
     age = models.IntegerField(default=0)
     sex = models.CharField(max_length=20, default='Not to say')
+    first_name = models.CharField(max_length=20, default='a')
+    last_name = models.CharField(max_length=20, default='a')
     medical_history = ArrayField(models.CharField(max_length=200), blank=True, default=list)
+    dob_day = models.IntegerField(default=0)
+    dob_month = models.IntegerField(default=0)
+    dob_year = models.IntegerField(default=0)
+    height = models.IntegerField(default=0)
+    weight = models.IntegerField(default=0)
+    current_med = ArrayField(models.CharField(max_length=200), blank=True, default=list)
+    exercise = models.CharField(max_length=200, default='no exercise')
+    diet = models.CharField(max_length=200, default='no diet')
+    smoke_cons  = models.CharField(max_length=200, default='no smoke')
+    alcohol_cons = models.CharField(max_length=200, default='no alcohol')
+    bp_log = JSONField(default=dict)
+    blood_glucose = JSONField(default=dict)
+
 
 class symptoms_diseases(models.Model):
     itching = models.IntegerField()
@@ -186,4 +203,6 @@ class symptoms_diseases(models.Model):
     class Meta:
         db_table = 'symptoms_diseases'
 
-
+class Predicted_Diseases(models.Model) :
+    diseases = ArrayField(models.CharField(max_length=200), blank=True, default=list)
+    diseases_prob = ArrayField(models.FloatField(default=0), blank=True, default=list)
