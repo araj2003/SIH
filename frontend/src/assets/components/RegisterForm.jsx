@@ -1,6 +1,8 @@
 import { useGlobalContext } from "./context";
 import { TextField, Button, TextareaAutosize } from "@mui/material";
 
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+
 const RegisterForm = () => {
   const {
     submitRegistration,
@@ -10,15 +12,17 @@ const RegisterForm = () => {
     setUsername,
     password,
     setPassword,
-    age,
-    setAge,
-    sex,
-    setSex,
-    medicalhistory,
-    setMedicalHistory,
+    closeModal,
   } = useGlobalContext();
   return (
-    <>
+    <div>
+      <div className="flex justify-end mb-3 mr-2 ">
+        <CancelOutlinedIcon
+          color="primary"
+          onClick={closeModal}
+          className="hover:scale-105 hover:cursor-pointer"
+        />
+      </div>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col  items-center gap-2 ">
           <h2 className="text-4xl modal-heading text-center full">
@@ -91,7 +95,7 @@ const RegisterForm = () => {
           </Button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

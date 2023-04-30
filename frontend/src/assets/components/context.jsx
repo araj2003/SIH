@@ -44,6 +44,10 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  function closeModal() {
+    setLoginButtonClicked(false);
+  }
+
   function submitRegistration(e) {
     e.preventDefault();
     client
@@ -108,6 +112,7 @@ const AppProvider = ({ children }) => {
         setSex,
         loginButtonClicked,
         setLoginButtonClicked,
+        closeModal,
       }}
     >
       {children}
