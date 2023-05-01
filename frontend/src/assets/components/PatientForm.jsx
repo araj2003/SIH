@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-
+import React,{useEffect, useState} from 'react'
+import axios from 'axios';
 const PatientForm = () => {
   const [firstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
@@ -13,14 +12,15 @@ const PatientForm = () => {
   const [currMed, setCurrMed] = useState("");
   const [exercise, setExersice] = useState("");
   const [diet, setDiet] = useState("");
-  const [smoke, setSmoke] = useState("");
-  const [alcohol, setAlcohol] = useState("");
-  const [bpLog, setBpLog] = useState("");
-  const [glucose, setGlucose] = useState("");
+  const [smoke,setSmoke] = useState("");
+  const [alcohol,setAlcohol] = useState("");
+  const [bpLog,setBpLog] = useState("");
+  const [glucose,setGlucose] = useState("");
 
   const url = "http://127.0.0.1:8000/patient";
 
-  const updateData = async (newData) => {
+
+  const updateData = async ( newData) => {
     try {
       const response = await axios.put(`${url}`, newData);
       console.log(response.data);
@@ -29,12 +29,36 @@ const PatientForm = () => {
     }
   };
 
-  useEffect(() => {
-    updateData({ age: 30 });
-  }, []);
+  
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+  
+    const payload = {
+      firstName,
+      LastName,
+      medicalhistory,
+      age,
+      gender,
+      dob,
+      height,
+      weight,
+      currMed,
+      exercise,
+      diet,
+      smoke,
+      alcohol,
+      bpLog,
+      glucose,
+    };
+  
+    try {
+      await updateData(payload);
+      // handle successful update
+    } catch (error) {
+      console.log(error);
+      // handle error
+    }
   };
 
   return (
