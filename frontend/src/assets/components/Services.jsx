@@ -1,8 +1,13 @@
 import { Button } from "@mui/material";
 import servicesImg from "../img/services-img.svg";
 import diseasePredImg from "../img/diseasepredictor.svg";
+import { useState } from "react";
+import PatientForm from "./PatientForm";
 const Services = () => {
+  const [open,setOpen] = useState(false);
   return (
+    <>
+    {open && PatientForm}
     <div
       id="services"
       className="w-full  overflow-hidden flex flex-col items-center"
@@ -44,6 +49,7 @@ const Services = () => {
                 variant="outlined"
                 color="primary"
                 className="hover:scale-105 w-60 h-16 hover:transition-all duration-200"
+                onClick={setOpen(true)}
               >
                 Contact Doctor
               </Button>
@@ -52,6 +58,7 @@ const Services = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

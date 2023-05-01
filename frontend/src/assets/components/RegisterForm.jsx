@@ -1,7 +1,7 @@
 import { useGlobalContext } from "./context";
 import { TextField, Button, TextareaAutosize } from "@mui/material";
 
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+// import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 const RegisterForm = () => {
   const {
@@ -17,11 +17,11 @@ const RegisterForm = () => {
   return (
     <div>
       <div className="flex justify-end mb-3 mr-2 ">
-        <CancelOutlinedIcon
+        {/* <CancelOutlinedIcon
           color="primary"
           onClick={closeModal}
           className="hover:scale-105 hover:cursor-pointer"
-        />
+        /> */}
       </div>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col  items-center gap-2 ">
