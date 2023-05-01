@@ -2,7 +2,7 @@ import { useGlobalContext } from "./context";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+// import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 const LoginForm = () => {
   const { email, setEmail, password, setPassword, submitLogin, closeModal } =
@@ -10,11 +10,11 @@ const LoginForm = () => {
   return (
     <div>
       <div className="flex justify-end mb-3 mr-2">
-        <CancelOutlinedIcon
+        {/* <CancelOutlinedIcon
           color="primary"
           className="hover:scale-105 hover:cursor-pointer"
           onClick={closeModal}
-        />
+        /> */}
       </div>
       <div className="flex flex-col gap-8">
         <div className="flex flex-col  items-center gap-2 ">
