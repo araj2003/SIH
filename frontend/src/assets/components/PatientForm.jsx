@@ -1,193 +1,109 @@
-import React,{useEffect, useState} from 'react'
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-const PatientForm = () => {
-  const [firstName, setFirstName] = useState("");
-  const [LastName, setLastName] = useState("");
-  const [medicalhistory, setMedicalHistory] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [dob, setDob] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [currMed, setCurrMed] = useState("");
-  const [exercise, setExersice] = useState("");
-  const [diet, setDiet] = useState("");
-  const [smoke,setSmoke] = useState("");
-  const [alcohol,setAlcohol] = useState("");
-  const [bpLog,setBpLog] = useState("");
-  const [glucose,setGlucose] = useState("");
 
-  const url = "http://127.0.0.1:8000/patient";
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 
-  const updateData = async ( newData) => {
-    try {
-      const response = await axios.put(`${url}`, newData);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+
+function PatientForm(props) {
+  const [profileData, setProfileData] = useState({
+    age: 0,
+    sex: '',
+    first_name: '',
+    last_name: '',
+    medical_history: [],
+    dob_day: 0,
+    dob_month: 0,
+    dob_year: 0,
+    height: 0,
+    weight: 0,
+    current_med: [],
+    exercise: '',
+    diet: '',
+    smoke_cons: '',
+    alcohol_cons: '',
+    bp_log: {},
+    blood_glucose: {}
+  });
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/patient')
+      .then(response => {
+        setProfileData(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setProfileData({ ...profileData, [name]: value });
   };
 
-  
-
-  const handleSubmit = async (event) => {
+  const handleFormSubmit = event => {
     event.preventDefault();
-  
-    const payload = {
-      firstName,
-      LastName,
-      medicalhistory,
-      age,
-      gender,
-      dob,
-      height,
-      weight,
-      currMed,
-      exercise,
-      diet,
-      smoke,
-      alcohol,
-      bpLog,
-      glucose,
-    };
-  
-    try {
-      await updateData(payload);
-      // handle successful update
-    } catch (error) {
-      console.log(error);
-      // handle error
-    }
+    axios.put('http://127.0.0.1:8000/patient', profileData, {
+      withCredentials: true
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          First Name:
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </label>
-        <label>
-          Last Name:
-          <input
-            type="text"
-            value={LastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </label>
-        <label>
-          Age:
-          <input
-            type="text"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-          />
-        </label>
-        <label>
-          Gender:
-          <input
-            type="text"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          />
-        </label>
-        <label>
-          Medical History:
-          <input
-            type="text"
-            value={medicalhistory}
-            onChange={(e) => setMedicalHistory(e.target.value)}
-          />
-        </label>
-        <label>
-          Date Of Birth:
-          <input
-            type="text"
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
-          />
-        </label>
-        <label>
-          Height:
-          <input
-            type="text"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
-          />
-        </label>
-        <label>
-          Weight:
-          <input
-            type="text"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-          />
-        </label>
-        <label>
-          current Medicine:
-          <input
-            type="text"
-            value={currMed}
-            onChange={(e) => setCurrMed(e.target.value)}
-          />
-        </label>
-        <label>
-          Exercise:
-          <input
-            type="text"
-            value={exercise}
-            onChange={(e) => setExersice(e.target.value)}
-          />
-        </label>
-        <label>
-          Diet:
-          <input
-            type="text"
-            value={diet}
-            onChange={(e) => setDiet(e.target.value)}
-          />
-        </label>
-        <label>
-          Do You Smoke:
-          <input
-            type="text"
-            value={smoke}
-            onChange={(e) => setSmoke(e.target.value)}
-          />
-        </label>
-        <label>
-          Alcohol Consumption:
-          <input
-            type="text"
-            value={alcohol}
-            onChange={(e) => setAlcohol(e.target.value)}
-          />
-        </label>
-        <label>
-          Bp :
-          <input
-            type="text"
-            value={bpLog}
-            onChange={(e) => setBpLog(e.target.value)}
-          />
-        </label>
-        <label>
-          Glucose Level:
-          <input
-            type="text"
-            value={glucose}
-            onChange={(e) => setGlucose(e.target.value)}
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
-};
+      <h1>Patient Profile</h1>
+      <form onSubmit={handleFormSubmit}>
+        <label>Age:</label>
+        <input type="number" name="age" value={profileData.age} onChange={handleInputChange} />
 
-export default PatientForm;
+        <label>Sex:</label>
+        <input type="text" name="sex" value={profileData.sex} onChange={handleInputChange} />
+
+        <label>First Name:</label>
+        <input type="text" name="first_name" value={profileData.first_name} onChange={handleInputChange} />
+
+        <label>Last Name:</label>
+        <input type="text" name="last_name" value={profileData.last_name} onChange={handleInputChange} />
+
+        <label>Medical History:</label>
+        <input type="text" name="medical_history" value={profileData.medical_history} onChange={handleInputChange} />
+
+        <label>DOB Day:</label>
+        <input type="number" name="dob_day" value={profileData.dob_day} onChange={handleInputChange} />
+
+        <label>DOB Month:</label>
+        <input type="number" name="dob_month" value={profileData.dob_month} onChange={handleInputChange} />
+
+        <label>DOB Year:</label>
+        <input type="number" name="dob_year" value={profileData.dob_year} onChange={handleInputChange} />
+
+        <label>Height:</label>
+        <input type="number" name="height" value={profileData.height} onChange={handleInputChange} />
+
+        <label>Weight:</label>
+        <input type="number" name="weight" value={profileData.weight} onChange={handleInputChange} />
+
+        <label>Current Medications:</label>
+        <input type="text" name="current_med" value={profileData.current_med} onChange={handleInputChange} />
+
+        <label>Exercise:</label>
+        <input type="text" name="exercise" value={profileData.exercise} onChange={handleInputChange} />
+
+        <label>Diet:</label>
+        <input type="text" name="diet" value={profileData.diet} onChange={handleInputChange} />
+
+        <button type="submit">Submit</button>
+
+        </form>
+    </div>
+  )
+
+  }
+
+  export default PatientForm
