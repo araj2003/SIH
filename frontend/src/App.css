@@ -1,6 +1,5 @@
 /* CSS Styles */
-@import url("https://fonts.googleapis.com/css2?family=Comme:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Alkalami&family=Roboto:wght@500;500&family=Source+Sans+Pro&family=Titillium+Web:wght@500&display=swap"); /* .. */
+@import url("https://fonts.googleapis.com/css2?family=Comme:wght@500&family=Open+Sans:wght@500&family=Roboto:wght@400&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -18,7 +17,7 @@
   --background-color-2: #152b2c;
   --font-family-1: "Roboto", sans-serif;
   --font-family-heading: "Comme", sans-serif;
-  --font-family-2: "Alkalami", sans-serif;
+  --font-family-2: "Open Sans", sans-serif;
 }
 
 nav {
@@ -29,7 +28,7 @@ nav a,
 nav button {
   padding: 2px 8px;
   height: 2rem;
-  font-family: var(--font-family-1);
+  font-family: var(--font-family-2);
   font-weight: lighter;
 }
 
@@ -68,4 +67,15 @@ nav button:hover {
 
 #about {
   height: 75vh;
+}
+
+.dpWindow {
+  min-height: 75vh;
+}
+.symptoms {
+  max-height: 50vh;
+  flex-grow: 1;
+}
+.added-symptoms {
+  overflow: scroll;
 }
