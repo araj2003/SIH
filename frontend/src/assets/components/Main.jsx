@@ -22,7 +22,7 @@ const Main = () => {
   return (
     <main className="flex items-center flex-col min-h-screen">
       <DpWindow />
-      <Notice />
+      {/* <Notice /> */}
       {/* <PatientForm /> */}
     </main>
   );
