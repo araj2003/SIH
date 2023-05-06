@@ -1,9 +1,14 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import MyAutocomplete from "./searchSymptoms";
+import { useGlobalContext } from "./context";
+import { useEffect } from "react";
+import axios from "axios";
 
 const DpWindow = () => {
+  let { allSymptomsString } = useGlobalContext();
   const [symptoms, setSymptoms] = useState([]);
+  const [prediction, setPrediction] = useState({});
   const isDuplicate = (symptom) => symptoms.includes(symptom);
 
   const addSymptom = (symptom) => {
@@ -17,6 +22,17 @@ const DpWindow = () => {
   const removeSymptom = (symptom) => {
     setSymptoms((prevSymptoms) => prevSymptoms.filter((s) => s !== symptom));
   };
+
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/prediction/${allSymptomsString}`)
+      .then(response => {
+        setPrediction(response.data);
+        console.log(prediction)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div className="dpWindow outline outline-indigo-300 w-full flex items-center flex-col justify-evenly gap-5">

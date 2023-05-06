@@ -11,6 +11,7 @@ const client = axios.create({
 });
 
 const AppProvider = ({ children }) => {
+  let allSymptomsString = '0'.repeat(130);
   const [currentUser, setCurrentUser] = useState();
   const [registrationToggle, setRegistrationToggle] = useState(false);
   const [email, setEmail] = useState("");
@@ -113,6 +114,7 @@ const AppProvider = ({ children }) => {
         loginButtonClicked,
         setLoginButtonClicked,
         closeModal,
+        allSymptomsString,
       }}
     >
       {children}

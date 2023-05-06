@@ -39,20 +39,8 @@ svm_model = svm_model.fit(X, Y)
 
 @api_view()
 def model(request, symptoms=''):
-    x = np.zeros(130)
-    x[98] = 1
-    x[96] = 1
-    x[47] = 1
-    x[36] = 1
-    x[35] = 1
-    x[34] = 1
-    x[33] = 1
-    x[2] = 1
-    x[4] = 1
-    x[5] = 1
-    x[10] = 1
-    x[13] = 1
-
+    x = np.asarray(list(symptoms), dtype=np.int)
+    print(x)
     x = x.reshape(-1, 1)
     scaler = StandardScaler()
     x = scaler.fit_transform(x)
