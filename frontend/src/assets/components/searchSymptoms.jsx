@@ -30,8 +30,10 @@ export default function MyAutocomplete({ addSymptom, isDuplicate }) {
         setIndex((i) => i + 1);
         setSelectedSymptom(null);
         addSymptom(selectedSymptom);
-      } else {
+      } else if (isDuplicate(selectedSymptom)) {
         alert("This symptom has already been added!");
+      } else {
+        alert("Choose a valid  symptom");
       }
     }
   };
