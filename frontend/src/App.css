@@ -79,3 +79,8 @@ nav button:hover {
 .added-symptoms {
   overflow: scroll;
 }
+
+/* footer */
+footer {
+  min-height: 25vh;
+}
