@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import MyAutocomplete from "./searchSymptoms";
 import { useGlobalContext } from "./context";
 import { useEffect } from "react";
+import cancelIcon from "../img/cross icon.svg";
 import axios from "axios";
 
 const DpWindow = () => {
@@ -24,12 +25,13 @@ const DpWindow = () => {
   };
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/prediction/${allSymptomsString}`)
-      .then(response => {
+    axios
+      .get(`http://127.0.0.1:8000/prediction/${allSymptomsString}`)
+      .then((response) => {
         setPrediction(response.data);
-        console.log(prediction)
+        console.log(prediction);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
@@ -51,10 +53,12 @@ const DpWindow = () => {
             {symptoms.map((symptom) => (
               <div
                 key={symptom}
-                className="added-symptom p-2 m-1.5 flex rounded-md gap-3 text-center bg-green-100 text-green-950"
+                className="added-symptom p-2 m-1.5 flex rounded-md gap-2 text-center bg-green-100 text-green-950"
               >
-                <div>{symptom}</div>
-                <button onClick={() => removeSymptom(symptom)}>X</button>
+                <div className="mb-1">{symptom}</div>
+                <button onClick={() => removeSymptom(symptom)}>
+                  <img src={cancelIcon} alt="" className="h-5" />
+                </button>
               </div>
             ))}
           </div>
