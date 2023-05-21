@@ -1,7 +1,7 @@
 import { useGlobalContext } from "./context";
 import { TextField, Button, TextareaAutosize } from "@mui/material";
 
-// import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import cancelIcon from "../img/cross icon.svg";
 
 const RegisterForm = () => {
   const {
@@ -17,11 +17,9 @@ const RegisterForm = () => {
   return (
     <div>
       <div className="flex justify-end mb-3 mr-2 ">
-        {/* <CancelOutlinedIcon
-          color="primary"
-          onClick={closeModal}
-          className="hover:scale-105 hover:cursor-pointer"
-        /> */}
+        <button onClick={closeModal}>
+          <img src={cancelIcon} alt="cross" />
+        </button>
       </div>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col  items-center gap-2 ">
