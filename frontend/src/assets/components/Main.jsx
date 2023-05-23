@@ -4,7 +4,6 @@ import Notice from "./Notice";
 import Hero from "./Hero";
 import Services from "./Services";
 import About from "./About";
-import PatientForm from "./PatientForm";
 import DpWindow from "./dpWindow";
 
 const Main = () => {
@@ -23,7 +22,6 @@ const Main = () => {
     <main className="flex items-center flex-col min-h-screen">
       <DpWindow />
       {/* <Notice /> */}
-      <PatientForm />
     </main>
   );
 };

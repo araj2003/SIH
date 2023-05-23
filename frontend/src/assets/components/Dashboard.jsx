@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import PatientForm from "./PatientForm";
 
 const Dashboard = () => {
   return (
     <div>
-      This is the dashboard
+      <PatientForm />
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
