@@ -65,6 +65,7 @@ class PatientProfile(models.Model):
     alcohol_cons = models.CharField(max_length=200, default='no alcohol')
     bp_log = JSONField(default=dict)
     blood_glucose = JSONField(default=dict)
+    new_patient = models.BooleanField(default=True)
 
 
 class symptoms_diseases(models.Model):

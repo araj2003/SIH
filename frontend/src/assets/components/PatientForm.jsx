@@ -25,6 +25,7 @@ function PatientForm(props) {
     alcohol_cons: "",
     bp_log: {},
     blood_glucose: {},
+    new_patient: true,
   });
 
   useEffect(() => {
