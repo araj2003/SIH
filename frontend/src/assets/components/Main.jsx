@@ -23,7 +23,7 @@ const Main = () => {
     <main className="flex items-center flex-col min-h-screen">
       <DpWindow />
       {/* <Notice /> */}
-      {/* <PatientForm /> */}
+      <PatientForm />
     </main>
   );
 };
