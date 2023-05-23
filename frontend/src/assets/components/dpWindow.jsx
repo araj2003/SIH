@@ -5,6 +5,9 @@ import { useGlobalContext } from "./context";
 import { useEffect } from "react";
 import cancelIcon from "../img/cross icon.svg";
 import axios from "axios";
+import { BrowserRouter,  Route ,Routes} from 'react-router-dom';
+import Dashboard from "./Dashboard";
+import ContactDoctor from "./ContactDoctor";
 
 const DpWindow = () => {
   let { allSymptomsString } = useGlobalContext();
@@ -37,15 +40,18 @@ const DpWindow = () => {
   }, []);
 
   return (
+    <BrowserRouter>
     <div className="dpWindow outline outline-indigo-300 w-full flex items-center flex-col justify-evenly gap-5">
       <div className="bttns-container flex w-4/5 justify-center gap-10">
         <MyAutocomplete addSymptom={addSymptom} isDuplicate={isDuplicate} />
+        <Routes>
         <Button variant="outlined" color="primary" className="w-1/5">
-          Contact Doctor
+        <Route path='/contactdoctor' element={<ContactDoctor/>}></Route>
         </Button>
         <Button variant="outlined" color="secondary" className="w-1/5">
-          Dashboard
+        <Route path='/dashboard' element={<Dashboard/>}></Route>
         </Button>
+        </Routes>
       </div>
       <div className="symptoms w-4/5 flex justify-around outline outline-blue-400 p-5">
         <div className="outline-red-400 outline w-1/2">
@@ -66,6 +72,7 @@ const DpWindow = () => {
         <div className="outline-red-400 outline w-1/3">Predicted Disease</div>
       </div>
     </div>
+    </BrowserRouter>
   );
 };
 
