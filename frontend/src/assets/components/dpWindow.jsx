@@ -1,17 +1,37 @@
-import { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
-import MyAutocomplete from "./searchSymptoms";
+import SymptomSearch from "./searchSymptoms";
 import { useGlobalContext } from "./context";
-import { useEffect } from "react";
 import cancelIcon from "../img/cross icon.svg";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
 
 const DpWindow = () => {
-  let { allSymptomsString } = useGlobalContext();
+  let { options } = useGlobalContext();
+  let index = useRef(null);
+  let allSymptomsString = useRef("0".repeat(130));
   const [symptoms, setSymptoms] = useState([]);
   const [prediction, setPrediction] = useState({});
+  const [allSymptoms, setAllSymptoms] = useState(
+    Array(options.length + 1).fill("0")
+  );
+
+  const [selectedSymptom, setSelectedSymptom] = useState(null);
   const isDuplicate = (symptom) => symptoms.includes(symptom);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      if (selectedSymptom && !isDuplicate(selectedSymptom)) {
+        index.current = options.indexOf(selectedSymptom) + 1;
+        setSelectedSymptom(null);
+        addSymptom(selectedSymptom);
+      } else if (isDuplicate(selectedSymptom)) {
+        alert("This symptom has already been added!");
+      } else {
+        alert("Choose a valid  symptom");
+      }
+    }
+  };
 
   const addSymptom = (symptom) => {
     if (!symptom) return;
@@ -26,8 +46,17 @@ const DpWindow = () => {
   };
 
   useEffect(() => {
+    const newSymptomsArray = [...allSymptoms];
+    newSymptomsArray[index.current] = "1";
+    setAllSymptoms(newSymptomsArray);
+    console.log(index.current); // Log the value of index whenever it changes
+  }, [index.current]);
+
+  useEffect(() => {
+    allSymptomsString.current = allSymptoms.join(""); // Convert allSymptoms array to string
+    console.log(allSymptomsString.current); //
     axios
-      .get(`http://127.0.0.1:8000/prediction/${allSymptomsString}`)
+      .get(`http://127.0.0.1:8000/prediction/${allSymptomsString.current}`)
       .then((response) => {
         setPrediction(response.data);
         console.log(prediction);
@@ -35,12 +64,16 @@ const DpWindow = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [allSymptoms]); // axios useEffect
 
   return (
     <div className="dpWindow outline outline-indigo-300 w-full flex items-center flex-col justify-evenly gap-5">
       <div className="bttns-container flex w-4/5 justify-center gap-10">
-        <MyAutocomplete addSymptom={addSymptom} isDuplicate={isDuplicate} />
+        <SymptomSearch
+          handleKeyDown={handleKeyDown}
+          selectedSymptom={selectedSymptom}
+          setSelectedSymptom={setSelectedSymptom}
+        />
         <NavLink to="contactdoctor" className="w-1/5">
           <Button variant="outlined" color="primary" className="w-full h-full">
             Contact Doctor
