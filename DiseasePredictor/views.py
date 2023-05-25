@@ -10,20 +10,22 @@ from sklearn.svm import SVC
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+
 def scale_dataset(dataframe, oversample=False):
-  X = dataframe[dataframe.columns[:-1]].values
-  y = dataframe[dataframe.columns[-1]].values
+    X = dataframe[dataframe.columns[:-1]].values
+    y = dataframe[dataframe.columns[-1]].values
 
-  scaler = StandardScaler()
-  X = scaler.fit_transform(X)
+    scaler = StandardScaler()
+    X = scaler.fit_transform(X)
 
-  if oversample:
-    ros = RandomOverSampler()
-    X, y = ros.fit_resample(X, y)
+    if oversample:
+        ros = RandomOverSampler()
+        X, y = ros.fit_resample(X, y)
 
-  data = np.hstack((X, np.reshape(y, (-1, 1))))
+    data = np.hstack((X, np.reshape(y, (-1, 1))))
 
-  return data, X, y
+    return data, X, y
+
 
 data = read_frame(symptoms_diseases.objects.all())
 unique1 = data['prognosis'].unique()
@@ -39,7 +41,7 @@ svm_model = svm_model.fit(X, Y)
 
 @api_view()
 def model(request, symptoms=''):
-    x = np.asarray(list(symptoms), dtype=np.int)
+    x = np.asarray(list(symptoms), dtype=np.int_)
     print(x)
     x = x.reshape(-1, 1)
     scaler = StandardScaler()
@@ -61,12 +63,8 @@ def model(request, symptoms=''):
     pd = top5_labels[0][::-1].tolist()
     pd_prob = top5_values[0][::-1].astype(float).tolist()
 
-    
-
     Predicted_Diseases.objects.all().delete()
     Predicted_Diseases(diseases=pd, diseases_prob=pd_prob).save()
     data = Predicted_Diseases.objects.all()
     serializer = PredictionSerializer(data, many=True)
     return Response(serializer.data, template_name=None)
-    
-
