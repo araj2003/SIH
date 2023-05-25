@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
-from .models import PatientProfile, Predicted_Diseases
+from .models import PatientProfile, Predicted_Diseases, DoctorProfile
 
 UserModel = get_user_model()
 
@@ -51,3 +51,9 @@ class PredictionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Predicted_Diseases
         fields = ('diseases', 'diseases_prob')
+
+
+class DoctorProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DoctorProfile
+        fields = '__all__'
