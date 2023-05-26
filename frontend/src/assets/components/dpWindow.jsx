@@ -10,9 +10,9 @@ import Prediction from "./Prediction";
 const DpWindow = () => {
   let { options } = useGlobalContext();
   let index = useRef(null);
-  let allSymptomsString = useRef("0".repeat(130));
+  let allSymptomsString = useRef(null);
   const [symptoms, setSymptoms] = useState([]);
-  const [prediction, setPrediction] = useState({});
+  const [prediction, setPrediction] = useState(null);
   const [copySymptoms, setCopySymptoms] = useState([]);
   const [allSymptoms, setAllSymptoms] = useState(
     Array(options.length + 1).fill("0")
@@ -66,20 +66,12 @@ const DpWindow = () => {
     axios
       .get(`http://127.0.0.1:8000/prediction/${allSymptomsString.current}`)
       .then((response) => {
-        const { diseases, diseases_prob } = response.data;
-        if (diseases && Array.isArray(diseases)) {
-          setPrediction({
-            diseases: [...diseases],
-            diseases_prob: [...diseases_prob],
-          });
-          console.log(diseases);
-          console.log(diseases_prob);
-        } else {
-          console.log(
-            "Invalid response format: diseases property is missing or not an array"
-          );
+        if (symptoms.length != 0) {
+          setPrediction(response.data);
+          console.log(prediction);
         }
       })
+
       .catch((error) => {
         console.log(error);
       });
@@ -135,7 +127,7 @@ const DpWindow = () => {
           </div>
         </div>
         <div className="outline-red-400 outline w-1/3">
-          <Prediction prediction={prediction} />
+          {prediction ? <div>Yes</div> : <div>No</div>}
         </div>
       </div>
     </div>
