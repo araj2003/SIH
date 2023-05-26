@@ -69,6 +69,7 @@ function PatientForm(props) {
                 label="Age"
                 variant="outlined"
                 fullWidth
+                type="number"
                 value={profileData.age}
                 onChange={handleInputChange}
               />

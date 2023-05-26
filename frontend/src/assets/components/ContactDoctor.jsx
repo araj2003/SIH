@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const ContactDoctor = () => {
   const [doctors, setDoctors] = useState([]);
@@ -7,8 +7,10 @@ const ContactDoctor = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/doctor/Dentist');
-        // Set the doctors data in state
+        const response = await axios.get(
+          "http://127.0.0.1:8000/doctor/Dentist"
+        );
+        // Set the doctors data in state'
         setDoctors(response.data);
       } catch (error) {
         // Handle error here
