@@ -21,25 +21,28 @@ const DpWindow = () => {
   const [selectedSymptom, setSelectedSymptom] = useState(null);
   const isDuplicate = (symptom) => symptoms.includes(symptom);
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      if (selectedSymptom && !isDuplicate(selectedSymptom)) {
-        index.current = options.indexOf(selectedSymptom) + 1;
-        setSelectedSymptom(null);
-        addSymptom(selectedSymptom);
-      } else if (isDuplicate(selectedSymptom)) {
-        alert("This symptom has already been added!");
-      } else {
-        alert("Choose a valid  symptom");
-      }
+  const handleAddSymptom = (event) => {
+    if (selectedSymptom && !isDuplicate(selectedSymptom)) {
+      index.current = options.indexOf(selectedSymptom) + 1;
+      setSelectedSymptom(null);
+      addSymptom(selectedSymptom);
+    } else if (isDuplicate(selectedSymptom)) {
+      alert("This symptom has already been added!");
+    } else {
+      alert("Choose a valid  symptom");
     }
   };
 
-  const clearSymptoms = () => {};
   const handleClick = () => {
     if (symptoms.length != 0) {
       setCopySymptoms(allSymptoms);
     }
+  };
+
+  const clearSymptoms = () => {
+    setSymptoms([]);
+    setCopySymptoms(null);
+    setPrediction(false);
   };
 
   const addSymptom = (symptom) => {
@@ -52,6 +55,17 @@ const DpWindow = () => {
 
   const removeSymptom = (symptom) => {
     setSymptoms((prevSymptoms) => prevSymptoms.filter((s) => s !== symptom));
+    const symptomIndex = options.indexOf(symptom) + 1;
+    setAllSymptoms((prevAllSymptoms) => {
+      const newAllSymptoms = [...prevAllSymptoms];
+      newAllSymptoms[symptomIndex] = "0";
+      return newAllSymptoms;
+    });
+
+    // Check if symptoms will become empty after removing
+    if (symptoms.length === 1) {
+      setPrediction(false);
+    }
   };
 
   useEffect(() => {
@@ -78,7 +92,7 @@ const DpWindow = () => {
     <div className="dpWindow w-full flex items-center flex-col justify-evenly ">
       <div className="bttns-container flex w-4/5 justify-center items-center gap-10">
         <SymptomSearch
-          handleKeyDown={handleKeyDown}
+          handleAddSymptom={handleAddSymptom}
           selectedSymptom={selectedSymptom}
           setSelectedSymptom={setSelectedSymptom}
         />
@@ -100,17 +114,23 @@ const DpWindow = () => {
               Your Symptoms
             </h2>
             <div className="flex flex-wrap bg-green-50 w-full m-1 p-1 h-full rounded-lg content-start">
-              {symptoms.map((symptom) => (
-                <div
-                  key={symptom}
-                  className="added-symptom p-2 m-1.5 flex rounded-md gap-2 text-center bg-green-200 text-green-950 h-11 "
-                >
-                  <div className="mb-1">{symptom}</div>
-                  <button onClick={() => removeSymptom(symptom)}>
-                    <img src={cancelIcon} alt="" className="h-5" />
-                  </button>
+              {symptoms.length === 0 ? (
+                <div className="text-gray-500 italic grid place-content-center text-lg w-full h-full ">
+                  Add your first symptom
                 </div>
-              ))}
+              ) : (
+                symptoms.map((symptom) => (
+                  <div
+                    key={symptom}
+                    className="added-symptom p-2 m-1.5 flex rounded-md gap-2 text-center bg-green-200 text-green-950 h-11"
+                  >
+                    <div className="mb-1">{symptom}</div>
+                    <button onClick={() => removeSymptom(symptom)}>
+                      <img src={cancelIcon} alt="" className="h-5" />
+                    </button>
+                  </div>
+                ))
+              )}
             </div>
             <div className="btn-container w-full flex gap-2 px-2 mt-2 justify-center">
               <Button
@@ -121,7 +141,12 @@ const DpWindow = () => {
               >
                 Predict
               </Button>
-              <Button variant="outlined" color="error" className="w-1/3 h-11">
+              <Button
+                variant="outlined"
+                color="error"
+                className="w-1/3 h-11"
+                onClick={clearSymptoms}
+              >
                 Clear Symptoms
               </Button>
             </div>
@@ -134,7 +159,7 @@ const DpWindow = () => {
           {prediction ? (
             <Prediction prediction={prediction} />
           ) : (
-            <div className="w-full h-full bg-sky-50 mt-2 rounded-lg p-2 grid place-content-center text-xl italic text-gray-800">
+            <div className="w-full h-full bg-sky-50 mt-2 rounded-lg p-2 grid place-content-center text-xl italic text-gray-500">
               No prediction
             </div>
           )}
