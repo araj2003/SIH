@@ -56,58 +56,53 @@ const DpWindow = () => {
   useEffect(() => {
     const newSymptomsArray = [...allSymptoms];
     newSymptomsArray[index.current] = "1";
-    setAllSymptoms(newSymptomsArray);
-    console.log(index.current); // Log the value of index whenever it changes
+    setAllSymptoms(newSymptomsArray); // Log the value of index whenever it changes
   }, [index.current]);
 
   useEffect(() => {
     allSymptomsString.current = allSymptoms.join(""); // Convert allSymptoms array to string
-    // console.log(allSymptomsString); //
     axios
       .get(`http://127.0.0.1:8000/prediction/${allSymptomsString.current}`)
       .then((response) => {
         if (symptoms.length != 0) {
           setPrediction(response.data);
-          console.log(prediction);
         }
       })
-
       .catch((error) => {
         console.log(error);
       });
   }, [copySymptoms]); // axios useEffect
 
   return (
-    <div className="dpWindow outline outline-indigo-300 w-full flex items-center flex-col justify-evenly gap-5">
-      <div className="bttns-container flex w-4/5 justify-center gap-10">
+    <div className="dpWindow w-full flex items-center flex-col justify-evenly ">
+      <div className="bttns-container flex w-4/5 justify-center items-center gap-10">
         <SymptomSearch
           handleKeyDown={handleKeyDown}
           selectedSymptom={selectedSymptom}
           setSelectedSymptom={setSelectedSymptom}
         />
         <NavLink to="contactdoctor" className="w-1/5">
-          <Button variant="outlined" color="primary" className="w-full h-full">
+          <Button variant="outlined" color="primary" className="w-full h-12">
             Contact Doctor
           </Button>
         </NavLink>
         <NavLink to="dashboard" className="w-1/5">
-          <Button
-            variant="outlined"
-            color="secondary"
-            className="w-full h-full"
-          >
+          <Button variant="outlined" color="secondary" className="w-full h-12">
             Dashboard
           </Button>
         </NavLink>
       </div>
-      <div className="symptoms w-4/5 flex justify-around outline outline-blue-400 p-5">
-        <div className="outline-red-400 outline w-1/2">
-          <div className="w-full h-full flex flex-col justify-between items-center outline outline-green-200 pb-2">
-            <div className="flex flex-row flex-wrap justify-center items-center">
+      <div className="symptoms w-5/6 flex justify-center gap-10 flex-wrap">
+        <div className="w-1/2">
+          <div className="w-full h-full flex flex-col justify-between items-center p-1 pb-2">
+            <h2 className="w-full text-lg md:text-xl lg:text-2xl xl:text-3xl p-1">
+              Your Symptoms
+            </h2>
+            <div className="flex flex-wrap bg-green-50 w-full m-1 p-1 h-full rounded-lg content-start">
               {symptoms.map((symptom) => (
                 <div
                   key={symptom}
-                  className="added-symptom p-2 m-1.5 flex rounded-md gap-2 text-center bg-green-100 text-green-950"
+                  className="added-symptom p-2 m-1.5 flex rounded-md gap-2 text-center bg-green-200 text-green-950 h-11 "
                 >
                   <div className="mb-1">{symptom}</div>
                   <button onClick={() => removeSymptom(symptom)}>
@@ -116,18 +111,32 @@ const DpWindow = () => {
                 </div>
               ))}
             </div>
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={handleClick}
-              className="w-1/2 h-10"
-            >
-              Predict
-            </Button>
+            <div className="btn-container w-full flex gap-2 px-2 mt-2 justify-center">
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleClick}
+                className="w-1/3 h-11"
+              >
+                Predict
+              </Button>
+              <Button variant="outlined" color="error" className="w-1/3 h-11">
+                Clear Symptoms
+              </Button>
+            </div>
           </div>
         </div>
-        <div className="outline-red-400 outline w-1/3">
-          {prediction ? <div>Yes</div> : <div>No</div>}
+        <div className="w-1/3 p-2 flex flex-col">
+          <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl">
+            Predicted Result
+          </h2>
+          {prediction ? (
+            <Prediction prediction={prediction} />
+          ) : (
+            <div className="w-full h-full bg-sky-50 mt-2 rounded-lg p-2 grid place-content-center text-xl italic text-gray-800">
+              No prediction
+            </div>
+          )}
         </div>
       </div>
     </div>
