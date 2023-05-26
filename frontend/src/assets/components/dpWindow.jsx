@@ -35,6 +35,7 @@ const DpWindow = () => {
     }
   };
 
+  const clearSymptoms = () => {};
   const handleClick = () => {
     if (symptoms.length != 0) {
       setCopySymptoms(allSymptoms);
