@@ -54,6 +54,9 @@ nav button:hover {
   font-family: var(--font-family-1);
 }
 
+.img-wrapper {
+  min-width: 300px;
+}
 /* services section */
 .services-container {
   height: 90vh;
@@ -70,14 +73,17 @@ nav button:hover {
 }
 
 .dpWindow {
-  min-height: 75vh;
+  min-height: 165vh;
 }
 .symptoms {
-  max-height: 50vh;
-  flex-grow: 1;
+  min-height: 60vh;
 }
 .added-symptoms {
   overflow: scroll;
+}
+
+.bttns-container:nth-child(n) {
+  min-width: 425px;
 }
 
 /* footer */

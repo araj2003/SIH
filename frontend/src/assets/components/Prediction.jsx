@@ -16,7 +16,7 @@ const Prediction = ({ prediction }) => {
           prediction[0].diseases.map((disease, index) => (
             <div
               key={index}
-              className="rounded-md m-1 py-1 px-2 bg-sky-100 text-lg text-indigo-950 flex justify-between"
+              className="rounded-md m-1 py-1 px-2 bg-sky-100 text-base md:text-lg text-indigo-950 flex justify-between"
             >
               <div>{disease}</div>
               <div>{handleProbability(prediction[0].diseases_prob[index])}</div>

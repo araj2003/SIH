@@ -6,6 +6,7 @@ import { useGlobalContext } from "./context";
 import cancelIcon from "../img/cross icon.svg";
 import axios from "axios";
 import Prediction from "./Prediction";
+import dpImg from "../img/dp-image.svg";
 
 const DpWindow = () => {
   let { options } = useGlobalContext();
@@ -90,27 +91,27 @@ const DpWindow = () => {
 
   return (
     <div className="dpWindow w-full flex items-center flex-col justify-evenly ">
-      <div className="bttns-container flex w-4/5 justify-center items-center gap-10">
+      <div className="bttns-container flex w-2/3 justify-center items-center gap-3 flex-wrap md:flex-nowrap">
         <SymptomSearch
           handleAddSymptom={handleAddSymptom}
           selectedSymptom={selectedSymptom}
           setSelectedSymptom={setSelectedSymptom}
         />
-        <NavLink to="contactdoctor" className="w-1/5">
+        <NavLink to="contactdoctor" className="w-1/3">
           <Button variant="outlined" color="primary" className="w-full h-12">
             Contact Doctor
           </Button>
         </NavLink>
-        <NavLink to="dashboard" className="w-1/5">
+        <NavLink to="dashboard" className="w-1/3">
           <Button variant="outlined" color="secondary" className="w-full h-12">
             Dashboard
           </Button>
         </NavLink>
       </div>
       <div className="symptoms w-5/6 flex justify-center gap-10 flex-wrap">
-        <div className="w-1/2">
+        <div className="w-full md:w-4/5 lg:w-1/2 overflow-y-scroll">
           <div className="w-full h-full flex flex-col justify-between items-center p-1 pb-2">
-            <h2 className="w-full text-lg md:text-xl lg:text-2xl xl:text-3xl p-1">
+            <h2 className="w-full text-xl lg:text-2xl xl:text-3xl p-1">
               Your Symptoms
             </h2>
             <div className="flex flex-wrap bg-green-50 w-full m-1 p-1 h-full rounded-lg content-start">
@@ -137,14 +138,14 @@ const DpWindow = () => {
                 variant="outlined"
                 color="primary"
                 onClick={handleClick}
-                className="w-1/3 h-11"
+                className="w-1/2 md:w-1/3 h-11 "
               >
                 Predict
               </Button>
               <Button
                 variant="outlined"
                 color="error"
-                className="w-1/3 h-11"
+                className="w-1/2 md:w-1/3 h-11 "
                 onClick={clearSymptoms}
               >
                 Clear Symptoms
@@ -152,10 +153,8 @@ const DpWindow = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/3 p-2 flex flex-col">
-          <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl">
-            Predicted Result
-          </h2>
+        <div className="w-full md:w-4/5 lg:w-1/3 p-2 flex flex-col">
+          <h2 className="text-xl lg:text-2xl xl:text-3xl">Predicted Result</h2>
           {prediction ? (
             <Prediction prediction={prediction} />
           ) : (
@@ -165,6 +164,25 @@ const DpWindow = () => {
           )}
         </div>
       </div>
+      <section className="w-full flex justify-center sm:px-8 md:px-10 lg:px-12 xl:px-14 flex-wrap">
+        <div className="hero flex flex-col justify-center sm:w-5/6 md:w-4/5 lg:w-3/5 xl:w-2/5  px-5 md:px-6 lg:pd-8">
+          <div className="hero-text text-3xl lg:text-4xl mb-5">
+            About our Disease Predictor
+          </div>
+          <div className="text-base xl:text-lg flex items-center w-full text-gray-800">
+            Introducing our advanced disease predictor, a powerful tool designed
+            to simplify healthcare for you. Built upon cutting-edge machine
+            learning technology and trained on extensive medical data, our
+            predictor provides accurate predictions and analysis for various
+            diseases. With a user-friendly interface and easy-to-understand
+            results, you can gain valuable insights into potential health risks
+            and take proactive measures to safeguard your well-being.
+          </div>
+        </div>
+        <div className="img-wrapper w-1/2 flex justify-center">
+          <img src={dpImg} alt="hero-image" className="block w-4/5 z-10" />
+        </div>
+      </section>
     </div>
   );
 };

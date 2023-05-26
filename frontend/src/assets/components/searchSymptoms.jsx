@@ -11,14 +11,14 @@ const SymptomSearch = ({
   const { options } = useGlobalContext();
 
   return (
-    <div className="flex w-3/5 justify-center gap-5 items-center">
+    <div className="flex w-4/5 lg:w-full justify-center gap-3 items-center lg:mr-10 ">
       <Autocomplete
         options={options}
         value={selectedSymptom}
         onChange={(e, newValue) => {
           setSelectedSymptom(newValue);
         }}
-        className="w-1/2 bg-white"
+        className="searchbox w-full bg-white"
         renderInput={(params) => (
           <TextField
             variant="outlined"
