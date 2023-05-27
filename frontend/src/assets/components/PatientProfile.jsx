@@ -1,39 +1,45 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect } from "react";
 
-const url = "http://127.0.0.1:8000/patient";
+const PatientProfile = ({ responseData }) => {
+  console.log(responseData);
+  const {
+    age,
+    alcohol_cons,
+    blood_glucose,
+    bp_log,
+    current_med,
+    diet,
+    dob_day,
+    dob_month,
+    dob_year,
+    exercise,
+    first_name,
+    height,
+    id,
+    last_name,
+    medical_history,
+    new_patient,
+    sex,
+    smoke_cons,
+    user,
+    weight,
+  } = responseData;
+  useEffect(() => {}, [responseData]);
 
-const PatientProfile = () => {
-    const [data, setData] = useState({});
-
-    const fetchData = async () => {
-        try {
-            const response = await axios.get(url);
-            setData(response.data);
-            console.log(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    return (
-        <div>
-
-            {Object.keys(data).length > 0 ? (
-                <>
-                    <p>Age: {data.age}</p>
-                    <p>Sex: {data.sex}</p>
-                    <p>Medical History: {data.medical_history.join(", ")}</p>
-                </>
-            ) : (
-                <p>Loading...</p>
-            )}
-        </div>
-    );
+  return (
+    <div>
+      {Object.keys(responseData).length > 0 ? (
+        <>
+          <p>Age: {age}</p>
+          <p>Sex: {sex}</p>
+          <p>Medical History: {medical_history.join(", ")}</p>
+          {/* Display other properties as needed */}
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
 };
 
 export default PatientProfile;

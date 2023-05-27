@@ -42,7 +42,7 @@ const DpWindow = () => {
 
   const clearSymptoms = () => {
     setSymptoms([]);
-    setCopySymptoms(null);
+    setAllSymptoms(Array(options.length + 1).fill("0"));
     setPrediction(false);
   };
 
