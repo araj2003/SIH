@@ -94,19 +94,590 @@ class DoctorProfileListAPIView(generics.ListAPIView):
 
 def insert_data(request):
     query = """
-        INSERT INTO "Accounts_doctorprofile" (name, speciality, experience, work_address, mobile_no, image_link, profile_link)
-        VALUES (%s, %s, %s, %s, %s, %s, %s);
+        INSERT INTO "Accounts_doctorprofile" (name, speciality, sex, experience, work_address, mobile_no, image_link, profile_link)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
     """
     values = [
-        ('Dr. Pankaj Rao', 'Dentist', 17, 'E-517, Rohit Plaza, Sector 7, Ramphal Chowk, Delhi', '0011001100', 'https://imagesx.practo.com/providers/dr-pankaj-rao-endodontist-delhi-277153c0-1b5f-49cb-9b86-96c94cc09e0c.jpg?i_type=t_100x100',
-         'https://www.practo.com/delhi/doctor/dr-pankaj-rao-dentist?practice_id=676006&specialization=Dentist&referrer=doctor_listing'),
-        ('Dr. Rajat Sachdeva', 'Dentist', 17, 'I - 101, Phase 1, Landmark: Near Grammar School, Delhi', '0111101100', 'https://imagesx.practo.com/providers/dr-rajat-sachdeva-implantologist-delhi-21960fca-0004-4742-8cda-bbbbc6cfacb9.jpg?i_type=t_100x100',
-         'https://www.practo.com/delhi/doctor/dr-rajat-sachdeva-dentist?practice_id=652415&specialization=Dentist&referrer=doctor_listing'),
-        ('Dr. Dheeraj Setia', 'Dentist', 22, 'S - 115, Landmark: Near Hauz Khas Metro Station, Delhi', '1011001101', 'https://imagesx.practo.com/providers/dr-dheeraj-setia-endodontist-delhi-ee381d8f-2186-4d54-9270-01c6dc59ff84.jpg?i_type=t_100x100',
-         'https://www.practo.com/delhi/doctor/dr-dheeraj-setia-dentist?practice_id=1416653&specialization=Dentist&referrer=doctor_listing'),
-        ('Dr. Ruchi Gupta', 'Dentist', 16, 'LP-14C, Maurya Enclave, Landmark: Opposite Hotel City Park, Delhi', '0111111100', 'https://imagesx.practo.com/providers/dr-ruchi-gupta-dentist-delhi-41fd8a76-c78b-4571-bd4e-d814a1c9269a.jpg?i_type=t_100x100',
-         'https://www.practo.com/delhi/doctor/dr-ruchi-gupta-1-dentist?practice_id=712546&specialization=Dentist&referrer=doctor_listing'),
-        ('Dr. Aparna Singhal', 'Dentist', 15, '39/35, Main Rohtak Road, Punjabi Bagh West, Landmark: Shivaji Park Metro Station & Opposite Metro Pillar Number 145, Delhi', '0010001100', 'https://imagesx.practo.com/providers/dr-aparna-singhal-dentist-delhi-d22bb2a7-ccd7-4604-9015-09e11f9d5e19.jpg?i_type=t_100x100', 'https://www.practo.com/delhi/doctor/dr-aparna-singhal-2-dentist?practice_id=954839&specialization=Dentist&referrer=doctor_listing'),
+    (
+        'Dr. Emily Smith',
+        'Cardiologist',
+        'female',
+        12,
+        '123 Oak Street, Chicago',
+        '9876543210',
+        'https://example.com/doctor-emily-smith.jpg',
+        'https://www.example.com/doctors/emily-smith'
+    ),
+    (
+        'Dr. John Johnson',
+        'Pediatrician',
+        'male',
+        8,
+        '456 Elm Avenue, Los Angeles',
+        '1234567890',
+        'https://example.com/doctor-john-johnson.jpg',
+        'https://www.example.com/doctors/john-johnson'
+    ),
+    (
+        'Dr. Emma Davis',
+        'Dermatologist',
+        'female',
+        15,
+        '789 Maple Lane, New York',
+        '5551234567',
+        'https://example.com/doctor-emma-davis.jpg',
+        'https://www.example.com/doctors/emma-davis'
+    ),
+    (
+        'Dr. Michael Wilson',
+        'Orthopedic Surgeon',
+        'male',
+        20,
+        '321 Pine Street, San Francisco',
+        '9876543210',
+        'https://example.com/doctor-michael-wilson.jpg',
+        'https://www.example.com/doctors/michael-wilson'
+    ),
+    (
+        'Dr. Olivia Anderson',
+        'Gynecologist',
+        'female',
+        10,
+        '567 Cedar Avenue, Houston',
+        '1234567890',
+        'https://example.com/doctor-olivia-anderson.jpg',
+        'https://www.example.com/doctors/olivia-anderson'
+    ),
+    (
+        'Dr. Benjamin Garcia',
+        'Ophthalmologist',
+        'male',
+        18,
+        '789 Oak Street, Miami',
+        '5559876543',
+        'https://example.com/doctor-benjamin-garcia.jpg',
+        'https://www.example.com/doctors/benjamin-garcia'
+    ),
+    (
+        'Dr. Sophia Lee',
+        'Psychiatrist',
+        'female',
+        14,
+        '234 Elm Avenue, Seattle',
+        '9876543210',
+        'https://example.com/doctor-sophia-lee.jpg',
+        'https://www.example.com/doctors/sophia-lee'
+    ),
+    (
+        'Dr. Alexander Brown',
+        'General Surgeon',
+        'male',
+        22,
+        '789 Oak Street, Atlanta',
+        '5551234567',
+        'https://example.com/doctor-alexander-brown.jpg',
+        'https://www.example.com/doctors/alexander-brown'
+    ),
+    (
+        'Dr. Chloe Martinez',
+        'Neurologist',
+        'female',
+        9,
+        '456 Pine Lane, Dallas',
+        '1234567890',
+        'https://example.com/doctor-chloe-martinez.jpg',
+        'https://www.example.com/doctors/chloe-martinez'
+    ),
+    (
+        'Dr. William Taylor',
+        'ENT Specialist',
+        'male',
+        16,
+        '321 Elm Avenue, Boston',
+        '5559876543',
+        'https://example.com/doctor-william-taylor.jpg',
+        'https://www.example.com/doctors/william-taylor'
+    ),
+    (
+        'Dr. Harper Rodriguez',
+        'Endocrinologist',
+        'female',
+        11,
+        '789 Oak Street, Phoenix',
+        '9876543210',
+        'https://example.com/doctor-harper-rodriguez.jpg',
+        'https://www.example.com/doctors/harper-rodriguez'
+    ),
+    (
+        'Dr. Ethan Turner',
+        'Rheumatologist',
+        'male',
+        7,
+        '234 Pine Lane, Denver',
+        '5551234567',
+        'https://example.com/doctor-ethan-turner.jpg',
+        'https://www.example.com/doctors/ethan-turner'
+    ),
+    (
+        'Dr. Lily Harris',
+        'Dentist',
+        'female',
+        13,
+        '567 Cedar Avenue, Austin',
+        '1234567890',
+        'https://example.com/doctor-lily-harris.jpg',
+        'https://www.example.com/doctors/lily-harris'
+    ),
+    (
+        'Dr. Gabriel Clark',
+        'Orthodontist',
+        'male',
+        19,
+        '789 Oak Street, San Diego',
+        '5559876543',
+        'https://example.com/doctor-gabriel-clark.jpg',
+        'https://www.example.com/doctors/gabriel-clark'
+    ),
+    (
+        'Dr. Aria Walker',
+        'Dermatologist',
+        'female',
+        16,
+        '321 Elm Avenue, Nashville',
+        '9876543210',
+        'https://example.com/doctor-aria-walker.jpg',
+        'https://www.example.com/doctors/aria-walker'
+    ),
+    (
+        'Dr. Samuel Evans',
+        'Gastroenterologist',
+        'male',
+        14,
+        '789 Oak Street, Portland',
+        '5551234567',
+        'https://example.com/doctor-samuel-evans.jpg',
+        'https://www.example.com/doctors/samuel-evans'
+    ),
+    (
+        'Dr. Scarlett Cooper',
+        'Psychologist',
+        'female',
+        10,
+        '456 Pine Lane, Las Vegas',
+        '1234567890',
+        'https://example.com/doctor-scarlett-cooper.jpg',
+        'https://www.example.com/doctors/scarlett-cooper'
+    ),
+    (
+        'Dr. Noah Turner',
+        'Urologist',
+        'male',
+        18,
+        '567 Cedar Avenue, Charlotte',
+        '5559876543',
+        'https://example.com/doctor-noah-turner.jpg',
+        'https://www.example.com/doctors/noah-turner'
+    ),
+    (
+        'Dr. Ava Rodriguez',
+        'Oncologist',
+        'female',
+        12,
+        '789 Oak Street, San Antonio',
+        '9876543210',
+        'https://example.com/doctor-ava-rodriguez.jpg',
+        'https://www.example.com/doctors/ava-rodriguez'
+    ),
+    (
+        'Dr. Daniel Collins',
+        'Neurosurgeon',
+        'male',
+        9,
+        '234 Pine Lane, Philadelphia',
+        '5551234567',
+        'https://example.com/doctor-daniel-collins.jpg',
+        'https://www.example.com/doctors/daniel-collins'
+    ),
+    (
+        'Dr. Penelope Martinez',
+        'Dentist',
+        'female',
+        15,
+        '567 Cedar Avenue, Minneapolis',
+        '1234567890',
+        'https://example.com/doctor-penelope-martinez.jpg',
+        'https://www.example.com/doctors/penelope-martinez'
+    ),
+    (
+        'Dr. James Wright',
+        'Plastic Surgeon',
+        'male',
+        20,
+        '789 Oak Street, Detroit',
+        '5559876543',
+        'https://example.com/doctor-james-wright.jpg',
+        'https://www.example.com/doctors/james-wright'
+    ),
+    (
+        'Dr. Harper Mitchell',
+        'Psychiatrist',
+        'female',
+        14,
+        '321 Elm Avenue, Baltimore',
+        '9876543210',
+        'https://example.com/doctor-harper-mitchell.jpg',
+        'https://www.example.com/doctors/harper-mitchell'
+    ),
+    (
+        'Dr. Logan Hughes',
+        'Ophthalmologist',
+        'male',
+        17,
+        '789 Oak Street, Seattle',
+        '5551234567',
+        'https://example.com/doctor-logan-hughes.jpg',
+        'https://www.example.com/doctors/logan-hughes'
+    ),
+    (
+        'Dr. Stella Brooks',
+        'Dermatologist',
+        'female',
+        11,
+        '456 Pine Lane, Houston',
+        '1234567890',
+        'https://example.com/doctor-stella-brooks.jpg',
+        'https://www.example.com/doctors/stella-brooks'
+    ),
+    (
+        'Dr. Nathan Turner',
+        'ENT Specialist',
+        'male',
+        16,
+        '567 Cedar Avenue, Miami',
+        '5559876543',
+        'https://example.com/doctor-nathan-turner.jpg',
+        'https://www.example.com/doctors/nathan-turner'
+    ),
+    (
+        'Dr. Bella Evans',
+        'Gynecologist',
+        'female',
+        13,
+        '789 Oak Street, Atlanta',
+        '9876543210',
+        'https://example.com/doctor-bella-evans.jpg',
+        'https://www.example.com/doctors/bella-evans'
+    ),
+    (
+        'Dr. Isaac Martinez',
+        'Endocrinologist',
+        'male',
+        8,
+        '234 Pine Lane, Dallas',
+        '5551234567',
+        'https://example.com/doctor-isaac-martinez.jpg',
+        'https://www.example.com/doctors/isaac-martinez'
+    ),
+    (
+        'Dr. Violet Anderson',
+        'Orthopedic Surgeon',
+        'female',
+        20,
+        '567 Cedar Avenue, Phoenix',
+        '1234567890',
+        'https://example.com/doctor-violet-anderson.jpg',
+        'https://www.example.com/doctors/violet-anderson'
+    ),
+    (
+        'Dr. Elijah Wilson',
+        'Rheumatologist',
+        'male',
+        9,
+        '789 Oak Street, Denver',
+        '5559876543',
+        'https://example.com/doctor-elijah-wilson.jpg',
+        'https://www.example.com/doctors/elijah-wilson'
+    ),
+    (
+        'Dr. Aurora Thompson',
+        'Dentist',
+        'female',
+        15,
+        '321 Elm Avenue, Austin',
+        '9876543210',
+        'https://example.com/doctor-aurora-thompson.jpg',
+        'https://www.example.com/doctors/aurora-thompson'
+    ),
+    (
+        'Dr. Eli Collins',
+        'Orthodontist',
+        'male',
+        19,
+        '789 Oak Street, San Diego',
+        '5551234567',
+        'https://example.com/doctor-eli-collins.jpg',
+        'https://www.example.com/doctors/eli-collins'
+    ),
+    (
+        'Dr. Nora Walker',
+        'Dermatologist',
+        'female',
+        16,
+        '456 Pine Lane, Nashville',
+        '1234567890',
+        'https://example.com/doctor-nora-walker.jpg',
+        'https://www.example.com/doctors/nora-walker'
+    ),
+    (
+        'Dr. Luke Evans',
+        'Gastroenterologist',
+        'male',
+        14,
+        '789 Oak Street, Portland',
+        '5559876543',
+        'https://example.com/doctor-luke-evans.jpg',
+        'https://www.example.com/doctors/luke-evans'
+    ),
+    (
+        'Dr. Grace Cooper',
+        'Psychologist',
+        'female',
+        10,
+        '234 Pine Lane, Las Vegas',
+        '9876543210',
+        'https://example.com/doctor-grace-cooper.jpg',
+        'https://www.example.com/doctors/grace-cooper'
+    ),
+    (
+        'Dr. Oliver Turner',
+        'Urologist',
+        'male',
+        18,
+        '567 Cedar Avenue, Charlotte',
+        '5551234567',
+        'https://example.com/doctor-oliver-turner.jpg',
+        'https://www.example.com/doctors/oliver-turner'
+    ),
+    (
+        'Dr. Hazel Rodriguez',
+        'Oncologist',
+        'female',
+        12,
+        '789 Oak Street, San Antonio',
+        '1234567890',
+        'https://example.com/doctor-hazel-rodriguez.jpg',
+        'https://www.example.com/doctors/hazel-rodriguez'
+    ),
+    (
+        'Dr. Henry Collins',
+        'Neurosurgeon',
+        'male',
+        9,
+        '234 Pine Lane, Philadelphia',
+        '5559876543',
+        'https://example.com/doctor-henry-collins.jpg',
+        'https://www.example.com/doctors/henry-collins'
+    ),
+    (
+        'Dr. Luna Martinez',
+        'Dentist',
+        'female',
+        15,
+        '567 Cedar Avenue, Minneapolis',
+        '9876543210',
+        'https://example.com/doctor-luna-martinez.jpg',
+        'https://www.example.com/doctors/luna-martinez'
+    ),
+    (
+        'Dr. Samuel Wright',
+        'Plastic Surgeon',
+        'male',
+        20,
+        '789 Oak Street, Detroit',
+        '5551234567',
+        'https://example.com/doctor-samuel-wright.jpg',
+        'https://www.example.com/doctors/samuel-wright'
+    ),
+    (
+        'Dr. Riley Mitchell',
+        'Psychiatrist',
+        'female',
+        14,
+        '321 Elm Avenue, Baltimore',
+        '1234567890',
+        'https://example.com/doctor-riley-mitchell.jpg',
+        'https://www.example.com/doctors/riley-mitchell'
+    ),
+    (
+        'Dr. Leo Hughes',
+        'Ophthalmologist',
+        'male',
+        17,
+        '789 Oak Street, Seattle',
+        '5559876543',
+        'https://example.com/doctor-leo-hughes.jpg',
+        'https://www.example.com/doctors/leo-hughes'
+    ),
+    (
+        'Dr. Stella Brooks',
+        'Dermatologist',
+        'female',
+        11,
+        '456 Pine Lane, Houston',
+        '9876543210',
+        'https://example.com/doctor-stella-brooks.jpg',
+        'https://www.example.com/doctors/stella-brooks'
+    ),
+    (
+        'Dr. Nathan Turner',
+        'ENT Specialist',
+        'male',
+        16,
+        '567 Cedar Avenue, Miami',
+        '5551234567',
+        'https://example.com/doctor-nathan-turner.jpg',
+        'https://www.example.com/doctors/nathan-turner'
+    ),
+    (
+        'Dr. Bella Evans',
+        'Gynecologist',
+        'female',
+        13,
+        '789 Oak Street, Atlanta',
+        '1234567890',
+        'https://example.com/doctor-bella-evans.jpg',
+        'https://www.example.com/doctors/bella-evans'
+    ),
+    (
+        'Dr. Isaac Martinez',
+        'Endocrinologist',
+        'male',
+        8,
+        '234 Pine Lane, Dallas',
+        '5551234567',
+        'https://example.com/doctor-isaac-martinez.jpg',
+        'https://www.example.com/doctors/isaac-martinez'
+    ),
+    (
+        'Dr. Violet Anderson',
+        'Orthopedic Surgeon',
+        'female',
+        20,
+        '567 Cedar Avenue, Phoenix',
+        '5559876543',
+        'https://example.com/doctor-violet-anderson.jpg',
+        'https://www.example.com/doctors/violet-anderson'
+    ),
+    (
+        'Dr. Elijah Wilson',
+        'Rheumatologist',
+        'male',
+        9,
+        '789 Oak Street, Denver',
+        '1234567890',
+        'https://example.com/doctor-elijah-wilson.jpg',
+        'https://www.example.com/doctors/elijah-wilson'
+    ),
+    (
+        'Dr. Aurora Thompson',
+        'Dentist',
+        'female',
+        15,
+        '321 Elm Avenue, Austin',
+        '5559876543',
+        'https://example.com/doctor-aurora-thompson.jpg',
+        'https://www.example.com/doctors/aurora-thompson'
+    ),
+    (
+        'Dr. Eli Collins',
+        'Orthodontist',
+        'male',
+        19,
+        '789 Oak Street, San Diego',
+        '1234567890',
+        'https://example.com/doctor-eli-collins.jpg',
+        'https://www.example.com/doctors/eli-collins'
+    ),
+    (
+        'Dr. Nora Walker',
+        'Dermatologist',
+        'female',
+        16,
+        '456 Pine Lane, Nashville',
+        '5559876543',
+        'https://example.com/doctor-nora-walker.jpg',
+        'https://www.example.com/doctors/nora-walker'
+    ),
+    (
+        'Dr. Luke Evans',
+        'Gastroenterologist',
+        'male',
+        14,
+        '789 Oak Street, Portland',
+        '1234567890',
+        'https://example.com/doctor-luke-evans.jpg',
+        'https://www.example.com/doctors/luke-evans'
+    ),
+    (
+        'Dr. Grace Cooper',
+        'Psychologist',
+        'female',
+        10,
+        '234 Pine Lane, Las Vegas',
+        '5559876543',
+        'https://example.com/doctor-grace-cooper.jpg',
+        'https://www.example.com/doctors/grace-cooper'
+    ),
+    (
+        'Dr. Oliver Turner',
+        'Urologist',
+        'male',
+        18,
+        '567 Cedar Avenue, Charlotte',
+        '1234567890',
+        'https://example.com/doctor-oliver-turner.jpg',
+        'https://www.example.com/doctors/oliver-turner'
+    ),
+    (
+        'Dr. Hazel Rodriguez',
+        'Oncologist',
+        'female',
+        12,
+        '789 Oak Street, San Antonio',
+        '5559876543',
+        'https://example.com/doctor-hazel-rodriguez.jpg',
+        'https://www.example.com/doctors/hazel-rodriguez'
+    ),
+    (
+        'Dr. Henry Collins',
+        'Neurosurgeon',
+        'male',
+        9,
+        '234 Pine Lane, Philadelphia',
+        '1234567890',
+        'https://example.com/doctor-henry-collins.jpg',
+        'https://www.example.com/doctors/henry-collins'
+    ),
+    (
+        'Dr. Luna Martinez',
+        'Dentist',
+        'female',
+        15,
+        '567 Cedar Avenue, Minneapolis',
+        '5559876543',
+        'https://example.com/doctor-luna-martinez.jpg',
+        'https://www.example.com/doctors/luna-martinez'
+    ),
+    (
+        'Dr. Samuel Wright',
+        'Plastic Surgeon',
+        'male',
+        20,
+        '789 Oak Street, Detroit',
+        '1234567890',
+        'https://example.com/doctor-samuel-wright.jpg',
+        'https://www.example.com/doctors/samuel-wright'
+    )
     ]
 
     with connection.cursor() as cursor:

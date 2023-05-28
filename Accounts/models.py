@@ -68,11 +68,12 @@ class PatientProfile(models.Model):
     new_patient = models.BooleanField(default=True)
 
 class DoctorProfile(models.Model):
-    name = models.CharField(max_length=20, default='NA')
-    speciality = models.CharField(max_length=50, default='NA')
+    name = models.CharField(max_length=200, default='NA')
+    speciality = models.CharField(max_length=200, default='NA')
+    sex = models.CharField(max_length=200, default='NA')
     experience = models.IntegerField(default=0)
     work_address = models.CharField(max_length=200, default='NA')
-    mobile_no = models.CharField(max_length=20, default='0000000000')
+    mobile_no = models.CharField(max_length=200, default='0000000000')
     image_link = models.URLField(max_length=200)
     profile_link = models.URLField(max_length=200)
 
