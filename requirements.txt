@@ -1,0 +1,11 @@
+django
+django-cors-headers
+djangorestframework
+numpy
+scikit-learn
+python-decouple
+pandas
+imbalanced-learn
+scikit-learn
+csv
+psycopg2

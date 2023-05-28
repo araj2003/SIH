@@ -53,32 +53,30 @@ def scale_dataset(dataframe, oversample=False):
 
 @api_view()
 def model(request, symptoms=''):
-    data = read_frame(symptoms_diseases.objects.all())
+    import pandas as pd
+    data = pd.DataFrame.from_records(symptoms_diseases.objects.all().values()).drop('id', axis=1)
     unique1 = data['prognosis'].unique()
 
     data_dict = data.to_dict('records')
     context = {'data': data_dict}
 
-    # Exclude the first column from the dataset
-    train, X, Y = scale_dataset(data.iloc[:, 1:], oversample=True)
-    print(X)
-    print(Y)
-
+    train, X, Y = scale_dataset(data, oversample=True)
+    
+    
     svm_model = SVC(probability=True)
-    svm_model = svm_model.fit(X, Y)  # Exclude last column from X
+    svm_model = svm_model.fit(X, Y)  
 
     x = np.asarray(list(symptoms), dtype=np.int_)
-    x = x.reshape(1, -1)  # Reshape to a row vector
-
-    # Exclude the first column from x
-    x = x[:, :-1]
+    x = x[1:]
+    x = x.reshape(-1, 1)  
 
     scaler = StandardScaler()
     x = scaler.fit_transform(x)
 
-    Y_ = svm_model.predict(x)
+    x_ = x.reshape(1, -1)
+    Y_ = svm_model.predict(x_)
 
-    probas = svm_model.predict_proba(x)
+    probas = svm_model.predict_proba(x_)
 
     top5_indices = np.argsort(probas, axis=1)[:, -5:]
     top5_values = np.take_along_axis(probas, top5_indices, axis=1)
@@ -89,7 +87,6 @@ def model(request, symptoms=''):
     # Print the top 5 class labels for the first sample in the test data
     pd = top5_labels[0][::-1].tolist()
     pd_prob = top5_values[0][::-1].astype(float).tolist()
-
     Predicted_Diseases.objects.all().delete()
     Predicted_Diseases(diseases=pd, diseases_prob=pd_prob).save()
     data = Predicted_Diseases.objects.all()
