@@ -13,8 +13,10 @@ import csv
 from django.db import transaction
 import os
 
+
 def insert_patient_data(request):
-    data = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'Training.csv')
+    data = os.path.join(os.path.dirname(
+        os.path.realpath(__file__)), 'Training.csv')
     with open(data, 'r') as file:
         reader = csv.reader(file)
         next(reader)  # Skip the header row
@@ -22,18 +24,22 @@ def insert_patient_data(request):
         with transaction.atomic():
             for row in reader:
                 # Map the values from the CSV row to the model fields
-                symptom_values = [int(value) for value in row[:-1]]  # Exclude the last column
+                # Exclude the last column
+                symptom_values = [int(value) for value in row[:-1]]
                 prognosis = row[-1]
 
                 # Create a new instance of the model
-                field_names = [field.name for field in symptoms_diseases._meta.get_fields() if field.name != 'id' and field.name != 'prognosis']
+                field_names = [field.name for field in symptoms_diseases._meta.get_fields(
+                ) if field.name != 'id' and field.name != 'prognosis']
                 field_values = dict(zip(field_names, symptom_values))
-                instance = symptoms_diseases.objects.create(prognosis=prognosis, **field_values)
+                instance = symptoms_diseases.objects.create(
+                    prognosis=prognosis, **field_values)
 
                 # Save the instance to the database
                 instance.save()
 
             return render(request, 'index.html')
+
 
 def scale_dataset(dataframe, oversample=False):
     X = dataframe[dataframe.columns[:-1]].values
@@ -50,25 +56,25 @@ def scale_dataset(dataframe, oversample=False):
 
     return data, X, y
 
+svm_model = None
 
-@api_view()
-def model(request, symptoms=''):
-    import pandas as pd
-    data = pd.DataFrame.from_records(symptoms_diseases.objects.all().values()).drop('id', axis=1)
-    unique1 = data['prognosis'].unique()
-
-    data_dict = data.to_dict('records')
-    context = {'data': data_dict}
+def train(request):
+    global svm_model
+    data = pd.DataFrame.from_records(
+        symptoms_diseases.objects.all().values()).drop('id', axis=1)
 
     train, X, Y = scale_dataset(data, oversample=True)
-    
-    
-    svm_model = SVC(probability=True)
-    svm_model = svm_model.fit(X, Y)  
 
+    svm_model = SVC(probability=True)
+    svm_model = svm_model.fit(X, Y)
+    return render(request, 'index.html')
+
+
+@api_view()
+def predict(request, symptoms=''):
     x = np.asarray(list(symptoms), dtype=np.int_)
     x = x[1:]
-    x = x.reshape(-1, 1)  
+    x = x.reshape(-1, 1)
 
     scaler = StandardScaler()
     x = scaler.fit_transform(x)
@@ -92,4 +98,3 @@ def model(request, symptoms=''):
     data = Predicted_Diseases.objects.all()
     serializer = PredictionSerializer(data, many=True)
     return Response(serializer.data, template_name=None)
-

@@ -8,7 +8,7 @@ const DoctorProfile = ({ doctors }) => {
         >
           <img
             className="w-24 h-24 mb-3 rounded-full shadow-lg"
-            src={doctors.image_link}
+            src={doctor.image_link}
             alt="Bonnie image"
           />
           <h5 className=" text-xl text-gray-900 font-semibold">

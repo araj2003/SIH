@@ -10,9 +10,10 @@ const ContactDoctor = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/doctor/Dentist"
+          "http://127.0.0.1:8000/doctor/All"
         );
         // Set the doctors data in state'
+        console.log(response.data)
         setDoctors(response.data);
       } catch (error) {
         // Handle error here
