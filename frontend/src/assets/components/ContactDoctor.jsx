@@ -8,7 +8,7 @@ const docOptions = [
   "Family Medicine",
   "Internal Medicine",
   "Pediatrician",
-  "Obstetricians/gynecologist (OBGYNs)",
+  "Gynecologist",
   "Cardiologist",
   "Oncologist",
   "Gastroenterologist",
