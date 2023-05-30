@@ -45,6 +45,7 @@ const PatientForm = ({ profileData, handleInputChange, handleFormSubmit }) => {
                 fullWidth
                 value={profileData.first_name}
                 onChange={handleInputChange}
+                required
               />
             </Grid>
 

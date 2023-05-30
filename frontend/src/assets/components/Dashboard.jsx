@@ -12,9 +12,8 @@ const Dashboard = () => {
   const [formData, setFormData] = useState({
     age: "",
     sex: "",
-    // first_name: "",
-    // last_name: "",
-    // medical_history: "",
+    first_name: "",
+    last_name: "",
   });
 
   const fetchData = async () => {
@@ -46,6 +45,7 @@ const Dashboard = () => {
         withCredentials: true,
       });
       fetchData();
+      setData({});
     } catch (error) {
       console.log(error);
     }

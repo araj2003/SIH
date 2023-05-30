@@ -1,6 +1,7 @@
 import React from "react";
 
 const PatientProfile = ({ responseData }) => {
+  console.log(responseData);
   const {
     age = "",
     alcohol_cons,
@@ -15,7 +16,7 @@ const PatientProfile = ({ responseData }) => {
     first_name = "",
     height,
     id,
-    last_name,
+    last_name = "",
     medical_history,
     new_patient,
     sex,
@@ -38,7 +39,7 @@ const PatientProfile = ({ responseData }) => {
           </p>
           <p>Height: {height}</p>
           <p>Weight: {weight}</p>
-          <p>Current Medication: {current_med.join(",")}</p>
+          {/* <p>Current Medication: {current_med.join(",")}</p> */}
           <p>Exercise: {exercise}</p>
           <p>Diet: {diet}</p>
         </>
