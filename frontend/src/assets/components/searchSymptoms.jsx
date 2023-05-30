@@ -11,7 +11,7 @@ const SymptomSearch = ({
   const { options } = useGlobalContext();
 
   return (
-    <div className="flex w-4/5 lg:w-full justify-center gap-3 items-center lg:mr-10 ">
+    <div className="flex w-4/5 lg:w-full justify-center gap-3 items-center   ">
       <Autocomplete
         options={options}
         value={selectedSymptom}

@@ -1,3 +1,4 @@
+import React from "react";
 import { useGlobalContext } from "./context";
 
 const LoginBtn = () => {
@@ -13,4 +14,5 @@ const LoginBtn = () => {
     </button>
   );
 };
+
 export default LoginBtn;
