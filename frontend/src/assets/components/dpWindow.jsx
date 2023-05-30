@@ -91,22 +91,12 @@ const DpWindow = () => {
 
   return (
     <div className="dpWindow w-full flex items-center flex-col justify-evenly ">
-      <div className="bttns-container flex w-2/3 justify-center items-center gap-3 flex-wrap md:flex-nowrap">
+      <div className="bttns-container flex w-2/3  xl:w-1/2 justify-center items-center">
         <SymptomSearch
           handleAddSymptom={handleAddSymptom}
           selectedSymptom={selectedSymptom}
           setSelectedSymptom={setSelectedSymptom}
         />
-        <NavLink to="contactdoctor" className="w-1/3">
-          <Button variant="outlined" color="primary" className="w-full h-12">
-            Contact Doctor
-          </Button>
-        </NavLink>
-        <NavLink to="dashboard" className="w-1/3">
-          <Button variant="outlined" color="secondary" className="w-full h-12">
-            Dashboard
-          </Button>
-        </NavLink>
       </div>
       <div className="symptoms w-5/6 flex justify-center gap-10 flex-wrap">
         <div className="w-full md:w-4/5 lg:w-1/2 overflow-y-scroll">
