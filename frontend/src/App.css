@@ -90,3 +90,7 @@ nav button:hover {
 footer {
   min-height: 25vh;
 }
+
+.heading {
+  max-width: 1200px;
+}
