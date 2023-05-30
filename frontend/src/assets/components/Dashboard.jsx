@@ -45,7 +45,6 @@ const Dashboard = () => {
         withCredentials: true,
       });
       fetchData();
-      setData({});
     } catch (error) {
       console.log(error);
     }
