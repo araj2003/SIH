@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import jwt_decode from "jwt-decode";
 import { useGlobalContext } from "./context";
 
@@ -14,50 +14,65 @@ const SignIn = () => {
     submitRegistration,
   } = useGlobalContext();
 
+  const userObject = useRef({});
+  const user_email = useRef("");
+  const user_name = useRef("");
+  const password_ = useRef("");
+
+  const updaterFunction = (user_email, user_name, password) => {
+    setEmail(user_email);
+    setUsername(user_name);
+    setPassword(password);
+  };
+
   const handleCallback = async (response, event) => {
     console.log(response.credential);
-    const userObject = jwt_decode(response.credential);
-    console.log(userObject);
-    const user_email = userObject.email;
-    setEmail(user_email);
-    console.log(email);
-    const user_name = userObject.name;
-    setUsername(user_name);
-    console.log(username);
-    const password_ = response.credential.slice(0, 8);
-    setPassword(password_);
-    console.log(password);
+    userObject.current = jwt_decode(response.credential);
+    console.log(userObject.current);
 
-    await fetch("http://localhost:8000/check_email?email=" + user_email)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.email_exists); // true if email exists in the database
-        // You can use the email exists information here or call submitLogin function based on your requirement
-        if (data.email_exists) {
-          submitLogin(event); // Call the submitLogin function if the email exists
-        } else {
-          submitRegistration(event);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    user_name.current = userObject.current.name;
+    user_email.current = userObject.current.email;
+    password_.current = response.credential.slice(0, 8);
+
+    console.log(user_name.current);
+    console.log(user_email.current);
+    console.log(password_.current);
+
+    try {
+      const fetchResponse = await fetch(
+        "http://127.0.0.01:8000/check_email?email=" + user_email.current
+      );
+      const data = await fetchResponse.json();
+      console.log(data.email_exists);
+
+      if (data.email_exists) {
+        submitLogin(event);
+      } else {
+        submitRegistration(event);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   useEffect(() => {
-    window.google.accounts.id.initialize({
-      client_id:
-        "400096200976-8a5jsv00o9pnijg0mq64hh3oer3nnbab.apps.googleusercontent.com",
-      callback: (response) => handleCallback(response, null),
-    });
+    const initializeGoogleSignIn = () => {
+      window.google.accounts.id.initialize({
+        client_id:
+          "400096200976-8a5jsv00o9pnijg0mq64hh3oer3nnbab.apps.googleusercontent.com",
+        callback: (response) => handleCallback(response, null),
+      });
 
-    window.google.accounts.id.renderButton(
-      document.getElementById("signInDiv"),
-      {
-        theme: "outline",
-        size: "large",
-      }
-    );
+      window.google.accounts.id.renderButton(
+        document.getElementById("signInDiv"),
+        {
+          theme: "outline",
+          size: "large",
+        }
+      );
+    };
+
+    initializeGoogleSignIn();
   }, []);
 
   return (
