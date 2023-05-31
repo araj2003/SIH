@@ -217,12 +217,11 @@ const AppProvider = ({ children }) => {
       });
   }
 
-  function submitLogout(e) {
-    e.preventDefault();
+  function submitLogout() {
     client.post("/logout", { withCredentials: true }).then(function (res) {
       setCurrentUser(false);
     });
-    document.getElementById("signIndiv").hidden = false;
+    // document.getElementById("signIndiv").hidden = false;
   }
 
   return (
