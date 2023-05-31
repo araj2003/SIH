@@ -40,7 +40,7 @@ const SignIn = () => {
 
     try {
       const fetchResponse = await fetch(
-        "http://localhost:8000/check_email?email=" + user_email.current
+        "http://127.0.0.01:8000/check_email?email=" + user_email.current
       );
       const data = await fetchResponse.json();
       console.log(data.email_exists);
