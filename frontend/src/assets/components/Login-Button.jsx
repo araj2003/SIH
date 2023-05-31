@@ -1,5 +1,6 @@
 import React from "react";
 import { useGlobalContext } from "./context";
+import SignIn from "./GoogleSignIn";
 
 const LoginBtn = () => {
   const { submitLogout, update_form_btn, currentUser } = useGlobalContext();
@@ -9,9 +10,12 @@ const LoginBtn = () => {
   }
 
   return (
-    <button id="form_btn" onClick={update_form_btn}>
-      Register
-    </button>
+    <>
+      <button id="form_btn" onClick={update_form_btn}>
+        Register
+      </button>
+      <SignIn />
+    </>
   );
 };
 

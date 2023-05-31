@@ -9,7 +9,8 @@ from rest_framework.response import Response
 from .serializers import UserRegisterSerializer, UserLoginSerializer, PatientSerializer, UserSerializer, DoctorProfileSerializer
 from rest_framework import permissions, status, generics
 from .validations import custom_validation, validate_email, validate_password
-from .models import DoctorProfile
+from .models import DoctorProfile, AppUser
+from django.http import JsonResponse
 
 
 class UserRegister(APIView):
@@ -58,6 +59,16 @@ class UserView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+
+def check_email(request):
+    email = request.GET.get('email')
+    if email:
+        email_exists = AppUser.objects.filter(email=email).exists()
+        response_data = {'email_exists': email_exists}
+        return JsonResponse(response_data)
+    else:
+        response_data = {'error': 'Email parameter is missing'}
+        return JsonResponse(response_data, status=400)
 
 
 class PatientProfile(APIView):

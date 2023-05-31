@@ -9,4 +9,5 @@ urlpatterns = [
 	path('patient', views.PatientProfile.as_view(), name='patient'),
 	path('doctor/<str:sp>/', views.DoctorProfileListAPIView.as_view(), name='doctor'),
 	path('insert', views.insert_data, name='data'),
+	path('check_email', views.check_email, name='check'),
 ]

@@ -36,6 +36,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 POSTGRES_PASS = config('POSTGRES_PASS')
 
+SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+
+
 # Application definition
 
 INSTALLED_APPS = [

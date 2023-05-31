@@ -182,7 +182,9 @@ const AppProvider = ({ children }) => {
   }
 
   function submitRegistration(e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     client
       .post("/register", {
         email: email,
@@ -202,7 +204,9 @@ const AppProvider = ({ children }) => {
   }
 
   function submitLogin(e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     client
       .post("/login", {
         email: email,
@@ -218,6 +222,7 @@ const AppProvider = ({ children }) => {
     client.post("/logout", { withCredentials: true }).then(function (res) {
       setCurrentUser(false);
     });
+    document.getElementById("signIndiv").hidden = false;
   }
 
   return (
