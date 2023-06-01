@@ -1,6 +1,9 @@
 import React from "react";
 
-const Record = () => {
+const Record = ({ isRecordModalOpen, toggleRecordModal }) => {
+  const handleCloseModal = () => {
+    toggleRecordModal();
+  };
   const closeModal = () => {
     const modal = document.getElementById("authentication-modal");
     modal.classList.add("hidden");
@@ -29,6 +32,8 @@ const Record = () => {
       </button>
 
       <div
+        onClose={handleCloseModal}
+        isOpen={isRecordModalOpen}
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
