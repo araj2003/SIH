@@ -1,7 +1,11 @@
 import React from "react";
 import Calendar from "./Calendar";
 import Sidebar from "./Sidebar";
+import { useState } from "react";
+import Record from "./Record";
+import dashboardHero from "../img/dashboard-hero.svg";
 const PatientProfile = ({ responseData }) => {
+  const [record, setRecord] = useState(false);
   const {
     age,
     alcohol_cons,
@@ -29,30 +33,32 @@ const PatientProfile = ({ responseData }) => {
     return null;
   }
   return (
-    <div className="min-h-screen flex justify-center flex-col items-center outline outline-green-400">
+    <div className=" flex justify-center flex-col items-center outline outline-green-400">
       {Object.keys(responseData).length > 0 ? (
         <>
-          <div className="bg-gray-200 w-full rounded-2xl flex flex-wrap  justify-center gap-2 p-3">
-            <div className="bg-gray-800 w-5/6 p-2 sm:w-1/5 lg:w-1/12 rounded-md">
-              <Sidebar />
+          <div className="bg-gray-200 w-full rounded-2xl flex flex-wrap justify-center gap-2 p-3">
+            <div className="bg-gray-800 w-5/6 p-2 sm:w-1/5 lg:w-1/12  rounded-md">
+              <Sidebar setRecord={setRecord} />
             </div>
             <div className="w-96 sm:w-3/5 lg:w-2/5 py-2 px-2 gap-2 bg-white  rounded-md flex flex-col items-center justify-evenly">
-              <div className="h-36 w-full rounded-md p-2 gap-2 flex items-center">
-                <div className="w-1/2 rounded text-3xl font-semibold text-gray-800">
+              <div className="h-36 w-full rounded-md p-2 gap-2 flex items-center greeting">
+                <div className="w-1/2 rounded text-3xl font-semibold text-gray-800 pl-5">
                   <p>Hi, {first_name}</p>
                   <p>Check your</p>
                   <p>Health!</p>
                 </div>
-                <div className="w-1/2 bg-blue-500 h-full rounded">abc</div>
+                <div className="w-1/2 h-full rounded flex justify-center">
+                  <img src={dashboardHero} alt="" className="h-full" />
+                </div>
               </div>
-              <div className="h-52 bg-pink-400 w-full rounded-md py-1 px-2 gap-2 flex">
-                <div className="w-1/2 bg-white rounded-md">Chart 1</div>
-                <div className="w-1/2 bg-white rounded-md">Chart 2</div>
+              <div className="h-52 w-full rounded-md py-1 px-2 gap-2 flex">
+                <div className="w-1/2 bg-pink-200 rounded-md">Chart 1</div>
+                <div className="w-1/2 bg-pink-200 rounded-md">Chart 2</div>
               </div>
               <div className="h-56 bg-gray-300 w-full rounded-md">c</div>
             </div>
             <div className="w-96 sm:w-5/6 lg:w-1/2 gap-2 rounded-md-md flex flex-col items-center justify-evenly">
-              <div className="h-64 lg:h-1/2 w-full p-1 flex gap-2">
+              <div className="h-64 lg:h-1/2 w-full p-1 flex flex-wrap lg:flex-nowrap  gap-2 justify-center">
                 <div className="flex w-96 xs:w-2/3">
                   <Calendar />
                 </div>
@@ -81,6 +87,8 @@ const PatientProfile = ({ responseData }) => {
             <p>Exercise: {exercise}</p>
             <p>Diet: {diet}</p>
           </div>
+
+          <Record setRecord={setRecord} record={record} />
         </>
       ) : (
         <p>Loading...</p>
