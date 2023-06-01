@@ -94,3 +94,21 @@ footer {
 .heading {
   max-width: 1200px;
 }
+
+.grid-container {
+  max-width: 100%;
+}
+
+/* Create a 7-column grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(
+    7,
+    1fr
+  ); /* Adjust the gap between columns if desired */
+}
+
+.dropdown-option {
+  font-size: 12px;
+  color: gray;
+}

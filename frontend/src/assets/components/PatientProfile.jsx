@@ -1,4 +1,5 @@
 import React from "react";
+import Calendar from "./Calendar";
 const PatientProfile = ({ responseData }) => {
   const {
     age,
@@ -31,7 +32,9 @@ const PatientProfile = ({ responseData }) => {
       {Object.keys(responseData).length > 0 ? (
         <>
           <div className="bg-gray-200 w-full rounded-2xl flex flex-wrap  justify-center gap-2 p-3">
-            <div className="bg-gray-700 w-full  sm:w-1/5 lg:w-1/12 rounded-md"></div>
+            <div className="bg-gray-700 w-5/6 p-2 sm:w-1/5 lg:w-1/12 rounded-md">
+              abv
+            </div>
             <div className="w-96 sm:w-3/5 lg:w-2/5 py-2 px-2 gap-2 bg-white  rounded-md flex flex-col items-center justify-evenly">
               <div className="h-36 bg-cyan-300 w-full rounded-md p-2 gap-2 flex">
                 <div className="w-1/2 bg-blue-600 rounded">
@@ -48,9 +51,12 @@ const PatientProfile = ({ responseData }) => {
               <div className="h-56 bg-gray-300 w-full rounded-md">c</div>
             </div>
             <div className="w-96 sm:w-5/6 lg:w-1/2 p-2 gap-2 bg-gray-300 rounded-md-md flex flex-col items-center justify-evenly">
-              <div className="h-64 lg:h-1/2 w-full bg-white p-2 flex gap-2">
+              <div className="h-64 lg:h-1/2 w-full p-2 flex gap-2">
+                <div className="flex w-96 xs:w-2/3">
+                  <Calendar />
+                </div>
+
                 <div className="w-2/3 bg-green-300 h-full rounded-md"></div>
-                <div className="w-1/3 bg-green-300 h-full rounded-md"></div>
               </div>
               <div className="h-64 lg:h-1/2 w-full bg-white p-2 flex gap-2">
                 <div className="w-1/6 bg-teal-300 h-full rounded-md"></div>
