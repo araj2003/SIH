@@ -98,7 +98,7 @@ const Calendar = () => {
     return (
       <div className="relative inline-block" ref={monthDropdownRef}>
         <button
-          className="bg-white text-teal-500  hover:scale-105 w-18 md:mx-1  transition-all duration-300 text-3xl font-bold"
+          className="bg-white text-teal-500  hover:scale-105 w-18 sm:mx-1  transition-all duration-300 text-3xl font-bold"
           onClick={() => setIsMonthDropdownOpen(!isMonthDropdownOpen)}
         >
           {getMonthName(selectedMonth)}
@@ -132,7 +132,7 @@ const Calendar = () => {
     return (
       <div className="relative inline-block" ref={yearDropdownRef}>
         <button
-          className="bg-white text-gray-700 hover:scale-105 w-16 md:mx-1 transition-all duration-300 text-2xl font-bold"
+          className="bg-white text-gray-700 hover:scale-105 w-16 sm:mx-1 transition-all duration-300 text-2xl font-bold"
           onClick={() => setIsYearDropdownOpen(!isYearDropdownOpen)}
         >
           {selectedYear}
@@ -194,8 +194,8 @@ const Calendar = () => {
   };
 
   return (
-    <div className="w-full rounded-lg flex flex-col sm:flex-row bg-white shadow-lg px-2">
-      <div className="rounded-s-lg flex gap-1 sm:flex-col items-center justify-center md:w-40">
+    <div className="w-full rounded-lg flex flex-col gap-1 sm:gap-0 sm:flex-row bg-white shadow-lg px-2">
+      <div className="rounded-s-lg flex gap-1 sm:flex-col items-center justify-center sm:w-40">
         <div className="text-teal-500 font-bold text-xl">
           {renderMonthDropdown()}
         </div>
