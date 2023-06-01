@@ -29,8 +29,20 @@ const docOptions = [
 
 const ContactDoctor = () => {
   const [doctors, setDoctors] = useState([]);
-  const [speciality, setSpeciality] = useState("");
+  const [speciality, setSpeciality] = useState(null);
   const doctorType = useRef("All");
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/doctor/${doctorType.current}`
+      );
+      console.log(response.data);
+      setDoctors(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,18 +69,6 @@ const ContactDoctor = () => {
     }
   };
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/doctor/${doctorType.current}`
-      );
-      console.log(response.data);
-      setDoctors(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <section className="w-screen flex flex-col items-center p-5 h-full">
       <div className="flex w-80 md:w-3/5   justify-center gap-3 items-center mt-4 mb-4">
@@ -84,7 +84,7 @@ const ContactDoctor = () => {
               variant="outlined"
               color="primary"
               {...params}
-              label="Enter your symptoms.."
+              label="Select a speciality.."
             />
           )}
         />

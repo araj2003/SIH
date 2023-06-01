@@ -106,7 +106,7 @@ const DpWindow = () => {
             </h2>
             <div className="flex flex-wrap bg-green-50 w-full m-1 p-1 h-full rounded-lg content-start">
               {symptoms.length === 0 ? (
-                <div className="text-gray-500 italic grid place-content-center text-lg w-full h-full ">
+                <div className="text-gray-500 italic flex justify-center items-center text-lg w-full h-full ">
                   Add your first symptom
                 </div>
               ) : (
@@ -148,7 +148,7 @@ const DpWindow = () => {
           {prediction ? (
             <Prediction prediction={prediction} />
           ) : (
-            <div className="w-full h-full bg-sky-50 mt-2 rounded-lg p-2 grid place-content-center text-xl italic text-gray-500">
+            <div className="w-full h-full bg-sky-50 mt-2 rounded-lg p-2 flex justify-center items-center text-xl italic text-gray-500">
               No prediction
             </div>
           )}
