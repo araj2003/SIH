@@ -20,6 +20,10 @@
   --font-family-2: "Open Sans", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+  font-smooth: auto;
+}
 nav {
   width: 35vw;
 }
