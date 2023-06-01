@@ -26,7 +26,7 @@ const LoginBtn = () => {
   return (
     <>
       <button id="form_btn" onClick={update_form_btn}>
-        Register
+        Register/Login
       </button>
     </>
   );

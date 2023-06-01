@@ -27,10 +27,9 @@ const Header = () => {
             </>
           ) : (
             <>
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/services">Services</NavLink>
-              <NavLink to="/about">About Us</NavLink>
-              <SignIn />
+              <a href="#services">Services</a>
+              <a href="#about">About Us</a>
+              {/* <SignIn /> */}
             </>
           )}
           <LoginBtn />
