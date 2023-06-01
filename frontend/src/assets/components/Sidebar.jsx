@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 
-const Sidebar = () => {
-  const [activeTab, setActiveTab] = useState("profile");
-
+const Sidebar = ({ activeTab, setActiveTab }) => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
   const TabItem = ({ tab, icon }) => (
-    <li className="mr-2">
+    <li>
       <a
         className={`inline-flex p-4 border-b-2 rounded-t-lg ${
           activeTab === tab
@@ -36,7 +34,7 @@ const Sidebar = () => {
 
   return (
     <div className="border-b border-gray-200 dark:border-gray-700">
-      <ul className="flex flex-col -mb-px text-sm font-medium text-center text-gray-300 dark:text-gray-400">
+      <ul className="flex sm:flex-col h-8 sm:h-fit items-center justify-center text-sm text-center text-gray-300 dark:text-gray-400">
         <TabItem
           tab="profile"
           icon={
