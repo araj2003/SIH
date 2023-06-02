@@ -19,12 +19,6 @@ const SignIn = () => {
   const user_name = useRef("");
   const password_ = useRef("");
 
-  const updaterFunction = (user_email, user_name, password) => {
-    setEmail(user_email);
-    setUsername(user_name);
-    setPassword(password);
-  };
-
   const handleCallback = async (response, event) => {
     console.log(response.credential);
     userObject.current = jwt_decode(response.credential);
