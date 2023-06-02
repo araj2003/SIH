@@ -4,10 +4,13 @@ import Sidebar from "./Sidebar";
 import { useState } from "react";
 import Record from "./Record";
 import dashboardHero from "../img/dashboard-hero.svg";
-import LineGraph from "./BP_chart";
 import BP_chart from "./BP_chart";
+import LogModal from "./LogModal";
+import ProfileModal from "./ProfileModal";
 const PatientProfile = ({ responseData }) => {
   const [record, setRecord] = useState(false);
+  const [logModal, setLogModal] = useState(false);
+  const [profileModal, setProfileModal] = useState(false);
   const {
     age,
     alcohol_cons,
@@ -37,12 +40,16 @@ const PatientProfile = ({ responseData }) => {
     return null;
   }
   return (
-    <div className=" flex justify-center flex-col items-center outline outline-green-400">
+    <div className=" flex justify-center flex-col items-center  ">
       {Object.keys(responseData).length > 0 ? (
         <>
           <div className="bg-gray-200 w-full rounded-2xl flex flex-wrap justify-center gap-2 p-3">
             <div className="bg-gray-800 w-5/6 p-2 sm:w-1/5 lg:w-1/12  rounded-md">
-              <Sidebar setRecord={setRecord} />
+              <Sidebar
+                setRecord={setRecord}
+                setLogModal={setLogModal}
+                setProfileModal={setProfileModal}
+              />
             </div>
             <div className="w-96 sm:w-3/5 lg:w-2/5 py-2 px-2 gap-2 bg-white  rounded-md flex flex-col items-center justify-evenly">
               <div className="h-36 w-full rounded-md p-2 gap-2 flex items-center greeting">
@@ -77,7 +84,6 @@ const PatientProfile = ({ responseData }) => {
               </div>
             </div>
           </div>
-
           <div>
             <p>Age: {age}</p>
             <p>Sex: {sex}</p>
@@ -93,8 +99,12 @@ const PatientProfile = ({ responseData }) => {
             <p>Exercise: {exercise}</p>
             <p>Diet: {diet}</p>
           </div>
-
           <Record setRecord={setRecord} record={record} />
+          <LogModal setLogModal={setLogModal} logModal={logModal} />
+          <ProfileModal
+            setProfileModal={setProfileModal}
+            profileModal={profileModal}
+          />
         </>
       ) : (
         <p>Loading...</p>
