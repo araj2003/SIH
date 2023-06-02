@@ -34,8 +34,6 @@ const PatientProfile = ({ responseData }) => {
     weight,
   } = responseData;
 
-  console.log(bp_log);
-
   if (responseData.new_patient) {
     return null;
   }
@@ -51,10 +49,10 @@ const PatientProfile = ({ responseData }) => {
                 setProfileModal={setProfileModal}
               />
             </div>
-            <div className="w-96 sm:w-3/5 lg:w-2/5 py-2 px-2 gap-2 bg-white  rounded-md flex flex-col items-center justify-evenly">
+            <div className="w-96 sm:w-3/4 lg:w-2/5 py-2 px-2 gap-2 bg-white  rounded-md flex flex-col items-center justify-evenly">
               <div className="h-36 w-full rounded-md p-2 gap-2 flex items-center greeting">
                 <div className="w-1/2 rounded text-3xl font-semibold text-gray-800 pl-5">
-                  <p>Hi, {first_name}</p>
+                  <p>Hi, {first_name + " " + last_name}</p>
                   <p>Check your</p>
                   <p>Health!</p>
                 </div>

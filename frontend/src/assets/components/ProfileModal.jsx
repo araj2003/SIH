@@ -8,14 +8,14 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
-
-const currentDate = new Date();
-const options = { year: "numeric", month: "long", day: "numeric" };
+import { useGlobalContext } from "./context";
 
 const ProfileModal = ({ profileModal, setProfileModal }) => {
-  const dateString = currentDate.toLocaleDateString("en-IN", options);
+  const { handleInputChange, formData, handleFormSubmit, setFormData } =
+    useGlobalContext();
   const closeModal = () => {
     setProfileModal(false);
+    setFormData({});
   };
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
 
   return (
     <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-4 backdrop-blur-sm modal">
-      <div className="flex flex-col justify-center items-center w-96 sm:w-2/5  flex-wrap  bg-white rounded-lg shadow-lg px-8 py-8">
+      <div className="flex flex-col justify-center items-center w-96 lg:w-2/5  flex-wrap  bg-white rounded-lg shadow-lg px-8 py-8">
         <div className="w-full flex justify-end">
           <button onClick={closeModal} className="hover:scale-105">
             <img src={crossIcon} alt="cross-icon" loading="lazy" />
@@ -49,42 +49,48 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
         <h1 className="text-3xl pb-6 font-semibold text-gray-700 w-full">
           Edit Profile
         </h1>
-        <form className="w-full flex flex-col gap-4 items-center">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleFormSubmit(e);
+            closeModal();
+          }}
+          className="w-full flex flex-col gap-4 items-center"
+        >
           <Grid container spacing={2}>
             <Grid item xs={6} className="w-full">
               <TextField
-                id=""
+                name="first_name"
                 label="First Name"
                 fullWidth
-                // value={}
-                // onChange={}
+                value={formData.first_name}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                id=""
+                name="last_name"
                 label="Last Name"
                 fullWidth
-                // value={}
-                // onChange={}
+                value={formData.last_name}
+                onChange={handleInputChange}
               />
             </Grid>
-
             <Grid item xs={6} className="w-full">
               <TextField
-                id=""
+                name="age"
                 label="Age"
                 fullWidth
                 type="number"
-                // value={}
-                // onChange={}
+                value={formData.age}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={6}>
               <Select
-                // value={profile.dietType}
-                // onChange={handleChange}
-                name="excercise"
+                name="sex"
+                value={formData.sex}
+                onChange={handleInputChange}
                 fullWidth
               >
                 <MenuItem value="Male">Male</MenuItem>
@@ -96,22 +102,22 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                id=""
+                name="height"
                 label="Height (cm)"
                 fullWidth
                 type="number"
-                // value={}
-                // onChange={}
+                value={formData.height}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                id=""
+                name="weight"
                 label="Weight (Kg)"
                 fullWidth
                 type="number"
-                // value={}
-                // onChange={}
+                value={formData.weight}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={4}>
@@ -122,8 +128,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 fullWidth
                 helperText="Date of Birth"
                 type="number"
-                // value={profileData.dob_day}
-                // onChange={handleInputChange}
+                value={formData.dob_day}
+                onChange={handleInputChange}
               />
             </Grid>
 
@@ -135,8 +141,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 fullWidth
                 helperText="Month of Birth"
                 type="number"
-                // value={profileData.dob_month}
-                // onChange={handleInputChange}
+                value={formData.dob_month}
+                onChange={handleInputChange}
               />
             </Grid>
 
@@ -148,17 +154,17 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 fullWidth
                 helperText="Year of Birth"
                 type="number"
-                // value={profileData.dob_year}
-                // onChange={handleInputChange}
+                value={formData.dob_year}
+                onChange={handleInputChange}
               />
             </Grid>
 
             <Grid item xs={6}>
               <InputLabel>Diet Type</InputLabel>
               <Select
-                // value={profile.dietType}
-                // onChange={handleChange}
-                name="dietType"
+                name="diet"
+                value={formData.diet}
+                onChange={handleInputChange}
                 fullWidth
               >
                 <MenuItem value="Vegan">Vegan</MenuItem>
@@ -169,9 +175,9 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
             <Grid item xs={6}>
               <InputLabel>Excercise</InputLabel>
               <Select
-                // value={profile.dietType}
-                // onChange={handleChange}
                 name="excercise"
+                value={formData.exercise}
+                onChange={handleInputChange}
                 fullWidth
               >
                 <MenuItem value="Yoga">Yoga</MenuItem>
