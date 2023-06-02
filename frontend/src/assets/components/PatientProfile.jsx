@@ -4,6 +4,8 @@ import Sidebar from "./Sidebar";
 import { useState } from "react";
 import Record from "./Record";
 import dashboardHero from "../img/dashboard-hero.svg";
+import LineGraph from "./BP_chart";
+import BP_chart from "./BP_chart";
 const PatientProfile = ({ responseData }) => {
   const [record, setRecord] = useState(false);
   const {
@@ -29,6 +31,8 @@ const PatientProfile = ({ responseData }) => {
     weight,
   } = responseData;
 
+  console.log(bp_log);
+
   if (responseData.new_patient) {
     return null;
   }
@@ -52,7 +56,9 @@ const PatientProfile = ({ responseData }) => {
                 </div>
               </div>
               <div className="h-52 w-full rounded-md py-1 px-2 gap-2 flex">
-                <div className="w-1/2 bg-pink-200 rounded-md">Chart 1</div>
+                <div className="w-1/2 bg-pink-200 rounded-md">
+                  <BP_chart />
+                </div>
                 <div className="w-1/2 bg-pink-200 rounded-md">Chart 2</div>
               </div>
               <div className="h-56 bg-gray-300 w-full rounded-md">c</div>
