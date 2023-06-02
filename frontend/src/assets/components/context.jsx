@@ -153,6 +153,8 @@ const AppProvider = ({ children }) => {
   const [medicalhistory, setMedicalHistory] = useState([]);
   const [sex, setSex] = useState("");
   const [loginButtonClicked, setLoginButtonClicked] = useState(false);
+  const url = "http://127.0.0.1:8000/patient";
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     client
@@ -224,6 +226,54 @@ const AppProvider = ({ children }) => {
     // document.getElementById("signIndiv").hidden = false;
   }
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "medical_history" || name === "current_med") {
+      const arrValue = value.split(","); // Split the string value into an array
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: arrValue,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      setFormData((prevData) => ({
+        ...prevData,
+        new_patient: false,
+      }));
+
+      await axios.put(url, formData, {
+        withCredentials: true,
+      });
+
+      await fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [data, setData] = useState({});
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(url);
+      setData(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -251,6 +301,14 @@ const AppProvider = ({ children }) => {
         setLoginButtonClicked,
         closeModal,
         options,
+        handleInputChange,
+        formData,
+        setFormData,
+        handleFormSubmit,
+        url,
+        data,
+        setData,
+        fetchData,
       }}
     >
       {children}
