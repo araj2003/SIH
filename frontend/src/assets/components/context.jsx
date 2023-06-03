@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import axios from "axios";
 
 const AppContext = React.createContext();
@@ -146,9 +146,9 @@ const AppProvider = ({ children }) => {
 
   const [currentUser, setCurrentUser] = useState();
   const [registrationToggle, setRegistrationToggle] = useState(false);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const email = useRef("");
+  const username = useRef("");
+  const password = useRef("");
   const [age, setAge] = useState("");
   const [medicalhistory, setMedicalHistory] = useState([]);
   const [sex, setSex] = useState("");
@@ -192,15 +192,15 @@ const AppProvider = ({ children }) => {
     }
     client
       .post("/register", {
-        email: email,
-        username: username,
-        password: password,
+        email: email.current,
+        username: username.current,
+        password: password.current,
       })
       .then(function (res) {
         client
           .post("/login", {
-            email: email,
-            password: password,
+            email: email.current,
+            password: password.current,
           })
           .then(function (res) {
             setCurrentUser(true);
@@ -214,8 +214,8 @@ const AppProvider = ({ children }) => {
     }
     client
       .post("/login", {
-        email: email,
-        password: password,
+        email: email.current,
+        password: password.current,
       })
       .then(function (res) {
         setCurrentUser(true);
@@ -311,11 +311,8 @@ const AppProvider = ({ children }) => {
         registrationToggle,
         setRegistrationToggle,
         email,
-        setEmail,
         username,
-        setUsername,
         password,
-        setPassword,
         age,
         setAge,
         medicalhistory,
