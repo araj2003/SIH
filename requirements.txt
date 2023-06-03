@@ -7,5 +7,4 @@ python-decouple
 pandas
 imbalanced-learn
 scikit-learn
-csv
 psycopg2
