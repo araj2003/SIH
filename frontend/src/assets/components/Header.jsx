@@ -29,7 +29,7 @@ const Header = () => {
             <>
               <a href="#services">Services</a>
               <a href="#about">About Us</a>
-              {/* <SignIn /> */}
+              <SignIn />
             </>
           )}
           <LoginBtn />

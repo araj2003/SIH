@@ -5,36 +5,30 @@ import { useGlobalContext } from "./context";
 const SignIn = () => {
   const {
     email,
-    setEmail,
-    setPassword,
     submitLogin,
-    setUsername,
     username,
     password,
     submitRegistration,
   } = useGlobalContext();
 
   const userObject = useRef({});
-  const user_email = useRef("");
-  const user_name = useRef("");
-  const password_ = useRef("");
 
   const handleCallback = async (response, event) => {
     console.log(response.credential);
     userObject.current = jwt_decode(response.credential);
     console.log(userObject.current);
 
-    user_name.current = userObject.current.name;
-    user_email.current = userObject.current.email;
-    password_.current = response.credential.slice(0, 8);
+    username.current = userObject.current.name;
+    email.current = userObject.current.email;
+    password.current = response.credential.slice(0, 8);
 
-    console.log(user_name.current);
-    console.log(user_email.current);
-    console.log(password_.current);
+    console.log(username.current);
+    console.log(email.current);
+    console.log(password.current);
 
     try {
       const fetchResponse = await fetch(
-        "http://127.0.0.01:8000/check_email?email=" + user_email.current
+        "http://127.0.0.01:8000/check_email?email=" + email.current
       );
       const data = await fetchResponse.json();
       console.log(data.email_exists);
