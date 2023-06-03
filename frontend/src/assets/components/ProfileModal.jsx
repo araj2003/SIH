@@ -40,7 +40,7 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
 
   return (
     <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-4 backdrop-blur-sm modal">
-      <div className="flex flex-col justify-center items-center w-96 lg:w-2/5  flex-wrap  bg-white rounded-lg shadow-lg px-8 py-8">
+      <div className="flex flex-col justify-center items-center w-96 md:w-1/2 lg:w-2/5  flex-wrap  bg-white rounded-lg shadow-lg px-8 py-8">
         <div className="w-full flex justify-end">
           <button onClick={closeModal} className="hover:scale-105">
             <img src={crossIcon} alt="cross-icon" loading="lazy" />

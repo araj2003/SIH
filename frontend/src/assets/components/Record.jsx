@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import crossIcon from "../img/cross icon.svg";
 import { TextField, Button } from "@mui/material";
+import { useGlobalContext } from "./context";
 
 const Record = ({ record, setRecord }) => {
+  const { handleInputChange, formData, handleFormSubmit, setFormData } =
+    useGlobalContext();
   const closeRecord = () => {
+    setFormData({});
     setRecord(false);
   };
 
@@ -35,25 +39,38 @@ const Record = ({ record, setRecord }) => {
             <img src={crossIcon} alt="cross-icon" loading="lazy" />
           </button>
         </div>
-        <form className="w-full">
+        <form
+          className="w-full"
+          onSubmit={(e) => {
+            e.preventDefault();
+            closeRecord();
+            handleFormSubmit(e);
+          }}
+        >
           <h1 className="text-2xl p-1 font-semibold text-gray-700">
             Update your Medical Info
           </h1>
           <TextField
+            name="current_med"
             label="Current Medications"
             fullWidth
             margin="normal"
             multiline
             rows={3}
             helperText="Separate values by commas"
+            onChange={handleInputChange}
+            value={formData.current_med}
           />
           <TextField
+            name="medical_history"
             label="Medical History"
             fullWidth
             margin="normal"
             multiline
             rows={3}
             helperText="Separate values by commas"
+            onChange={handleInputChange}
+            value={formData.medical_history}
           />
           <Button variant="outlined" color="success" type="submit">
             Submit
