@@ -246,28 +246,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const handleBPandGlucose = (event) => {
-    const { name, value } = event.target;
-    const bpLogData = [dateString, parseInt(high), parseInt(low)];
-    const glucoseData = [
-      dateString,
-      parseInt(beforeBreakfast),
-      parseInt(afterBreakfast),
-    ];
-
-    if (name === "bp_log") {
-      setFormData((prevData) => ({
-        ...prevData,
-        bp_log: {
-          date: [dateString],
-          high: [parseInt(high)],
-          low: [parseInt(low)],
-        },
-      }));
-    }
-
-    // else if (name === "blood_glucose")
-  };
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 

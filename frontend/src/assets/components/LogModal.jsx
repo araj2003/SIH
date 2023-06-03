@@ -1,40 +1,58 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import crossIcon from "../img/cross icon.svg";
 import { TextField, Button, Grid } from "@mui/material";
+import axios from "axios";
 
 import { useGlobalContext } from "./context";
 const currentDate = new Date();
 const options = { year: "numeric", month: "long", day: "numeric" };
 
 const LogModal = ({ logModal, setLogModal }) => {
-  const { formData, handleFormSubmit, setFormData } = useGlobalContext();
-  const dateString = currentDate.toLocaleDateString("en-IN", options);
+  const { formData, fetchData, setFormData, url } = useGlobalContext();
+  const afterRef = useRef("");
+  const beforeRef = useRef("");
+  const highRef = useRef("");
+  const lowRef = useRef("");
+  const dateRef = useRef("");
+
+  useEffect(() => {
+    const dateString = currentDate.toLocaleDateString("en-IN", options);
+    dateRef.current = dateString;
+  }, []);
+
   const closeLogModal = () => {
     setLogModal(false);
   };
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    const [type, field] = name.split("-");
-
-    if (type === "bp_log" || type === "blood_glucose") {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [type]: {
-          ...prevFormData[type],
-          [field]: value,
-        },
-      }));
-    }
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    handleFormSubmit(event);
-    setFormData({
-      bp_log: { date: [], high: [], low: [] },
-      blood_glucose: { date: [], before: [], after: [] },
+
+    setFormData((prevFormData) => {
+      const updatedFormData = { ...prevFormData };
+
+      // Append form values and date to bp_log
+      updatedFormData.bp_log.high.push(highRef.current.value);
+      updatedFormData.bp_log.low.push(lowRef.current.value);
+      updatedFormData.bp_log.date.push(dateRef.current);
+
+      // Append form values and date to blood_glucose
+      updatedFormData.blood_glucose.before.push(beforeRef.current.value);
+      updatedFormData.blood_glucose.after.push(afterRef.current.value);
+      updatedFormData.blood_glucose.date.push(dateRef.current);
+
+      return updatedFormData;
     });
+
+    try {
+      await axios.put(url, formData, {
+        withCredentials: true,
+      });
+
+      await fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+
     closeLogModal();
   };
 
@@ -74,7 +92,7 @@ const LogModal = ({ logModal, setLogModal }) => {
           onSubmit={handleSubmit}
         >
           <h2 className="p-1 text-lg text-teal-600 font-semibold">
-            {dateString}
+            {dateRef.current}
           </h2>
           <h3 className="w-full text-xl font-semibold text-gray-600 px-1">
             Blood Pressure Level
@@ -82,19 +100,17 @@ const LogModal = ({ logModal, setLogModal }) => {
           <Grid container spacing={1}>
             <Grid item xs={6}>
               <TextField
-                name="bp_log-high"
+                name="high"
                 label="High"
-                value={formData.bp_log.high}
-                onChange={handleInputChange}
+                inputRef={highRef}
                 type="number"
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                name="bp_log-low"
+                name="low"
                 label="Low"
-                value={formData.bp_log.low}
-                onChange={handleInputChange}
+                inputRef={lowRef}
                 type="number"
               />
             </Grid>
@@ -105,19 +121,17 @@ const LogModal = ({ logModal, setLogModal }) => {
           <Grid container spacing={1}>
             <Grid item xs={6}>
               <TextField
-                name="blood_glucose-before"
+                name="before"
                 label="Before Breakfast"
-                value={formData.blood_glucose.before}
-                onChange={handleInputChange}
+                inputRef={beforeRef}
                 type="number"
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                name="blood_glucose-after"
+                name="after"
                 label="After Breakfast"
-                value={formData.blood_glucose.after}
-                onChange={handleInputChange}
+                inputRef={afterRef}
                 type="number"
               />
             </Grid>
