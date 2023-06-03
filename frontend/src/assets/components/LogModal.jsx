@@ -2,13 +2,40 @@ import React, { useEffect } from "react";
 import crossIcon from "../img/cross icon.svg";
 import { TextField, Button, Grid } from "@mui/material";
 
+import { useGlobalContext } from "./context";
 const currentDate = new Date();
 const options = { year: "numeric", month: "long", day: "numeric" };
 
 const LogModal = ({ logModal, setLogModal }) => {
+  const { formData, handleFormSubmit, setFormData } = useGlobalContext();
   const dateString = currentDate.toLocaleDateString("en-IN", options);
   const closeLogModal = () => {
     setLogModal(false);
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    const [type, field] = name.split("-");
+
+    if (type === "bp_log" || type === "blood_glucose") {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [type]: {
+          ...prevFormData[type],
+          [field]: value,
+        },
+      }));
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleFormSubmit(event);
+    setFormData({
+      bp_log: { date: [], high: [], low: [] },
+      blood_glucose: { date: [], before: [], after: [] },
+    });
+    closeLogModal();
   };
 
   useEffect(() => {
@@ -42,7 +69,10 @@ const LogModal = ({ logModal, setLogModal }) => {
         <h1 className="text-3xl  mt-4 font-semibold text-gray-700">
           MEDICAL LOG
         </h1>
-        <form className="w-full flex flex-col gap-4 items-center">
+        <form
+          className="w-full flex flex-col gap-4 items-center"
+          onSubmit={handleSubmit}
+        >
           <h2 className="p-1 text-lg text-teal-600 font-semibold">
             {dateString}
           </h2>
@@ -52,19 +82,19 @@ const LogModal = ({ logModal, setLogModal }) => {
           <Grid container spacing={1}>
             <Grid item xs={6}>
               <TextField
-                id=""
+                name="bp_log-high"
                 label="High"
-                // value={}
-                // onChange={}
+                value={formData.bp_log.high}
+                onChange={handleInputChange}
                 type="number"
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                id=""
+                name="bp_log-low"
                 label="Low"
-                // value={}
-                // onChange={}
+                value={formData.bp_log.low}
+                onChange={handleInputChange}
                 type="number"
               />
             </Grid>
@@ -75,24 +105,24 @@ const LogModal = ({ logModal, setLogModal }) => {
           <Grid container spacing={1}>
             <Grid item xs={6}>
               <TextField
-                id=""
+                name="blood_glucose-before"
                 label="Before Breakfast"
-                // value={}
-                // onChange={}
+                value={formData.blood_glucose.before}
+                onChange={handleInputChange}
                 type="number"
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                id=""
+                name="blood_glucose-after"
                 label="After Breakfast"
+                value={formData.blood_glucose.after}
+                onChange={handleInputChange}
                 type="number"
-                // value={}
-                // onChange={}
               />
             </Grid>
           </Grid>
-          <Button variant="outlined" color="success">
+          <Button variant="outlined" color="success" type="submit">
             Add
           </Button>
         </form>

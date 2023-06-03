@@ -154,7 +154,10 @@ const AppProvider = ({ children }) => {
   const [sex, setSex] = useState("");
   const [loginButtonClicked, setLoginButtonClicked] = useState(false);
   const url = "http://127.0.0.1:8000/patient";
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    bp_log: { date: [], high: [], low: [] },
+    blood_glucose: { date: [], before: [], after: [] },
+  });
 
   useEffect(() => {
     client
@@ -243,6 +246,28 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const handleBPandGlucose = (event) => {
+    const { name, value } = event.target;
+    const bpLogData = [dateString, parseInt(high), parseInt(low)];
+    const glucoseData = [
+      dateString,
+      parseInt(beforeBreakfast),
+      parseInt(afterBreakfast),
+    ];
+
+    if (name === "bp_log") {
+      setFormData((prevData) => ({
+        ...prevData,
+        bp_log: {
+          date: [dateString],
+          high: [parseInt(high)],
+          low: [parseInt(low)],
+        },
+      }));
+    }
+
+    // else if (name === "blood_glucose")
+  };
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
