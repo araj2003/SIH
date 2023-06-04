@@ -23,7 +23,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div>
+    <div className="pt-24">
       <PatientForm
         profileData={formData}
         handleInputChange={handleInputChange}

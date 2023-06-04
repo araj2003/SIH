@@ -70,7 +70,7 @@ const ContactDoctor = () => {
   };
 
   return (
-    <section className="w-screen flex flex-col items-center p-5 h-full">
+    <section className="w-screen flex flex-col items-center p-5 h-full pt-24">
       <div className="flex w-80 md:w-3/5   justify-center gap-3 items-center mt-4 mb-4">
         <Autocomplete
           options={docOptions}

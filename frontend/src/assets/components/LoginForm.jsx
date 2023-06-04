@@ -3,10 +3,10 @@ import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import cancelIcon from "../img/cross icon.svg";
+import SignIn from "../components/GoogleSignIn";
 
 const LoginForm = () => {
-  const { email,  password, submitLogin, closeModal } =
-    useGlobalContext();
+  const { email, password, submitLogin, closeModal } = useGlobalContext();
 
   const [user_email, setUserEmail] = useState();
   const [user_password, setUserPassword] = useState();
@@ -26,7 +26,7 @@ const LoginForm = () => {
         </div>
         <form
           onSubmit={(event) => submitLogin(event)}
-          className="flex flex-col justify-center gap-5"
+          className="flex flex-col justify-center gap-3 "
         >
           <TextField
             id="FormBasicEmail"
@@ -57,6 +57,7 @@ const LoginForm = () => {
           <Button variant="outlined" color="primary" type="submit">
             Login
           </Button>
+          <SignIn />
         </form>
       </div>
     </div>

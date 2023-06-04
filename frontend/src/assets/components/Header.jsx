@@ -3,14 +3,13 @@ import LoginBtn from "./Login-Button";
 import LogoHorizontal from "../img/logo.svg";
 import { useGlobalContext } from "./context";
 import { NavLink } from "react-router-dom";
-import SignIn from "../components/GoogleSignIn";
 
 const Header = () => {
   const { currentUser } = useGlobalContext();
 
   return (
-    <div>
-      <div className="shadow-md hidden md:flex justify-around gap-16 items-center w-screen py-2">
+    <div className="fixed z-40 bg-white">
+      <div className="shadow-md flex justify-around gap-24  items-center w-screen py-3 ">
         <figure className="h-16 w-auto z-20">
           <img
             src={LogoHorizontal}
@@ -18,7 +17,7 @@ const Header = () => {
             className="h-full w-full object-cover"
           />
         </figure>
-        <nav className="flex gap-3 text-lg z-20 justify-center text-gray-700">
+        <nav className=" gap-1 hidden md:flex lg:gap-3 text-lg z-20 justify-center text-gray-700">
           {currentUser ? (
             <>
               <NavLink to="/">Predictor</NavLink>
@@ -27,9 +26,12 @@ const Header = () => {
             </>
           ) : (
             <>
-              <a href="#services">Services</a>
-              <a href="#about">About Us</a>
-              <SignIn />
+              <a href="#services" className="px-1 ">
+                Services
+              </a>
+              <a href="#about" className="px-1">
+                About Us
+              </a>
             </>
           )}
           <LoginBtn />
