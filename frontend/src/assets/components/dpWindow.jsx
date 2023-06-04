@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import SymptomSearch from "./searchSymptoms";
 import { useGlobalContext } from "./context";

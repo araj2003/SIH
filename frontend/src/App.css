@@ -23,14 +23,16 @@
 html {
   scroll-behavior: smooth;
   font-smooth: auto;
+  overflow-x: hidden;
 }
 nav {
-  width: 35vw;
+  width: 40%;
 }
 
 nav a,
 nav button {
-  padding: 2px 8px;
+  display: flex;
+  align-items: center;
   height: 2rem;
   font-family: var(--font-family-2);
   font-weight: lighter;
@@ -61,19 +63,9 @@ nav button:hover {
 .img-wrapper {
   min-width: 300px;
 }
-/* services section */
-.services-container {
-  height: 90vh;
-}
-.disease-predictor {
-  height: 100vh;
-}
+
 .img-wrapper-predictor {
   background-color: var(--accent-color-1);
-}
-
-#about {
-  height: 75vh;
 }
 
 .dpWindow {

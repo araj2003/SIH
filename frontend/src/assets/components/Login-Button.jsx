@@ -17,6 +17,7 @@ const LoginBtn = () => {
           submitLogout();
           handleLogout();
         }}
+        className="px-1"
       >
         Log out
       </button>
@@ -25,7 +26,7 @@ const LoginBtn = () => {
 
   return (
     <>
-      <button id="form_btn" onClick={update_form_btn}>
+      <button id="form_btn" onClick={update_form_btn} className="px-1">
         Register/Login
       </button>
     </>

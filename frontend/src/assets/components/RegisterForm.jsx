@@ -1,29 +1,25 @@
 import { useGlobalContext } from "./context";
-import { TextField, Button, TextareaAutosize } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 
 import cancelIcon from "../img/cross icon.svg";
 import { useState } from "react";
+import SignIn from "./GoogleSignIn";
 
 const RegisterForm = () => {
-  const {
-    submitRegistration,
-    email,
-    username,
-    password,
-    closeModal,
-  } = useGlobalContext();
+  const { submitRegistration, email, username, password, closeModal } =
+    useGlobalContext();
 
   const [user_email, setUserEmail] = useState();
   const [user_username, setUserUsername] = useState();
   const [user_password, setUserPassword] = useState();
   return (
     <div>
-      <div className="flex justify-end mb-3 mr-2 ">
+      <div className="flex justify-end mb-2 mr-2 ">
         <button onClick={closeModal}>
           <img src={cancelIcon} alt="cross" />
         </button>
       </div>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
         <div className="flex flex-col  items-center gap-2 ">
           <h2 className="text-4xl modal-heading text-center full">
             Sign Up Now!
@@ -32,7 +28,7 @@ const RegisterForm = () => {
             Access personalized healthcare services
           </p>
         </div>
-        <form onSubmit={submitRegistration} className="flex flex-col gap-3 j">
+        <form onSubmit={submitRegistration} className="flex flex-col gap-2 j">
           <TextField
             id="FormBasicEmail"
             label="Email"
@@ -71,37 +67,10 @@ const RegisterForm = () => {
             type="password"
             required
           />
-          {/* <TextField
-            id="age"
-            label="Age"
-            variant="outlined"
-            value={age}
-            onChange={(event) => setAge(event.target.value)}
-            color="success"
-            type="number"
-            required
-          />
-          <TextField
-            // id="sex"
-            label="Enter your sex"
-            variant="outlined"
-            value={sex}
-            onChange={(event) => setSex(event.target.value)}
-            color="success"
-            type="search"
-            required
-          />
-          <TextareaAutosize
-            value={medicalhistory.join(",")}
-            minRows={3}
-            placeholder="Enter medical history separated by commas,"
-            id="medicalHistory"
-            className="border border-gray-400 rounded py-1 px-2 text-md resize-none focus:outline-2 focus:outline-green-700"
-            onChange={(e) => setMedicalHistory(e.target.value.split(","))}
-          /> */}
           <Button variant="outlined" color="primary" type="submit">
             Submit
           </Button>
+          <SignIn />
         </form>
       </div>
     </div>
