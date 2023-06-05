@@ -42,7 +42,7 @@ const Header = () => {
           {currentUser ? (
             <>
               <NavLink to="/">Predictor</NavLink>
-              <NavLink to="dashboard"></NavLink>
+              <NavLink to="dashboard">Dashboard</NavLink>
               <NavLink to="contactdoctor">Consult</NavLink>
             </>
           ) : (

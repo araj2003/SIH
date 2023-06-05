@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from dotenv import load_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +36,20 @@ CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173',]
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
-POSTGRES_PASS = config('POSTGRES_PASS')
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Get the absolute path of the root directory
+root_dir = os.path.abspath(os.path.join(script_dir, '..'))
+
+# Construct the absolute file path of .env
+env_file_path = os.path.join(root_dir, '.env')
+
+# Load environment variables from .env file
+load_dotenv(env_file_path)
+
+# Access environment variables
+POSTGRES_PASS = os.getenv('POSTGRES_PASS')
 
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
