@@ -41,11 +41,11 @@ const PatientProfile = ({ responseData }) => {
     return null;
   }
   return (
-    <div className=" flex justify-center flex-col items-cente">
+    <div className="profile flex justify-center flex-col items-center mt-2 pb-4">
       {Object.keys(responseData).length > 0 ? (
         <>
-          <div className="bg-gray-200 w-full rounded-2xl flex flex-wrap justify-center gap-2 p-3">
-            <div className="bg-gray-800 w-5/6 p-2 sm:w-1/5 lg:w-1/12  rounded-md">
+          <div className="w-full rounded-2xl flex flex-wrap justify-center gap-2">
+            <div className="bg-gray-800 w-5/6 md:p-2 sm:w-1/5 lg:w-1/12  rounded-md">
               <Sidebar
                 setRecord={setRecord}
                 setLogModal={setLogModal}
@@ -63,7 +63,7 @@ const PatientProfile = ({ responseData }) => {
                   <img src={dashboardHero} alt="" className="h-full" />
                 </div>
               </div>
-              <div className="w-full rounded-md py-1 px-1 flex flex-wrap h-96 sm:h-60 mt-5 md:mt-8">
+              <div className="w-full rounded-md py-1 px-1 flex flex-wrap h-96 sm:h-60 mt-5">
                 <div className="w-full sm:w-1/2 rounded-md ">
                   <BP_chart chartData={responseData.bp_log} />
                 </div>
@@ -74,22 +74,22 @@ const PatientProfile = ({ responseData }) => {
               <div className="h-56 bg-gray-300 w-full rounded-md">c</div>
             </div>
             <div className="w-96 sm:w-5/6 lg:w-1/2 gap-2 rounded-md-md flex flex-col items-center justify-evenly">
-              <div className="h-64 lg:h-1/2 w-full p-1 flex flex-wrap lg:flex-nowrap  gap-2 justify-center">
+              <div className="lg:h-1/2 w-full p-1 flex flex-wrap lg:flex-nowrap  gap-2 justify-center">
                 <div className="flex w-96 xs:w-2/3">
                   <Calendar />
                 </div>
 
-                <div className="w-2/3 bg-green-300 h-full rounded-md"></div>
+                <div className="w-screen h-60 bg-green-300 rounded-md"></div>
               </div>
-              <div className="h-96 lg:h-1/2 w-full bg-white shadow-md rounded-lg px-1 pt-3 pb-1 flex gap-2">
-                <div className="w-1/2 h-full  rounded-md overflow-scroll shadow-lg p-1">
-                  <h2 className="hero-text font-semibold text-xl text-teal-900 p-2">
+              <div className="lg:h-1/2 w-full flex-wrap shadow-md md:flex-nowrap rounded-lg flex gap-2">
+                <div className="w-full md:w-1/2 md:h-full  rounded-md overflow-scroll shadow-lg p-1">
+                  <h2 className="font-semibold text-2xl py-1 text-teal-900 text-center">
                     Glucose Log - BreakFast
                   </h2>
                   <GlucoseLevel responseData={responseData} />
                 </div>
-                <div className="w-1/2 h-full rounded-md overflow-scroll shadow-md p-1">
-                  <h2 className="hero-text font-semibold text-xl text-sky-800 p-2">
+                <div className="w-full md:w-1/2 md:h-full rounded-md overflow-scroll shadow-md p-1">
+                  <h2 className=" font-semibold text-2xl text-gray-900 text-center p-2">
                     Blood Pressure - High/Low
                   </h2>
                   <BP_Log responseData={responseData} />
@@ -97,7 +97,7 @@ const PatientProfile = ({ responseData }) => {
               </div>
             </div>
           </div>
-          <div>
+          {/* <div>
             <p>Medical History: {medical_history.join(",")}</p>
             <p>
               Date of Birth: {dob_day}/{dob_month}/{dob_year}
@@ -107,7 +107,7 @@ const PatientProfile = ({ responseData }) => {
             <p>Current Medication: {current_med.join(",")}</p>
             <p>Exercise: {exercise}</p>
             <p>Diet: {diet}</p>
-          </div>
+          </div> */}
           <Record setRecord={setRecord} record={record} />
           <LogModal setLogModal={setLogModal} logModal={logModal} />
           <ProfileModal

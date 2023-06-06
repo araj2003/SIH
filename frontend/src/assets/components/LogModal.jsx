@@ -32,8 +32,8 @@ const LogModal = ({ logModal, setLogModal }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setFormData((prevFormData) => {
-      const updatedFormData = { ...prevFormData };
+    setData((data) => {
+      const updatedFormData = { ...data };
 
       // Append form values and date to bp_log
       updatedFormData.bp_log.high.push(highRef.current.value);
@@ -49,7 +49,7 @@ const LogModal = ({ logModal, setLogModal }) => {
     });
 
     try {
-      await axios.put(url, formData, {
+      await axios.put(url, data, {
         withCredentials: true,
       });
 

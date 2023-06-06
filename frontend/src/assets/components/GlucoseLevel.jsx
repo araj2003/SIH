@@ -1,18 +1,31 @@
 import React from "react";
 
 const GlucoseLevel = ({ responseData }) => {
+  const getCellStyles = (value, isAfterColumn) => {
+    if (isAfterColumn) {
+      if (value > 180) {
+        return "bg-red-200";
+      }
+    } else {
+      if (value > 120) {
+        return "bg-red-200";
+      }
+    }
+    return "";
+  };
+
+  let prevDate = null; // Track previous date
+
   return (
-    <div className="p-4 rounded-lg bg-teal-50 h-full">
-      <table className="w-full text-center">
+    <div className="px-1 py-2 bg-white">
+      <table className="w-full border-collapse">
         <thead>
-          <tr>
-            <th className="py-2 border-r-2 border-b-2 border-gray-400 text-teal-900 font-semibold">
-              Date
-            </th>
-            <th className="py-2 border-r-2 border-b-2 border-gray-400 text-teal-900 font-semibold">
+          <tr className="bg-gray-200">
+            <th className="py-2 px-4 border-b font-semibold text-left">Date</th>
+            <th className="py-2 px-4 border-b font-semibold text-left">
               Before
             </th>
-            <th className="py-2 border-b-2 border-gray-400 text-teal-900 font-semibold">
+            <th className="py-2 px-4 border-b font-semibold text-left">
               After
             </th>
           </tr>
@@ -22,15 +35,36 @@ const GlucoseLevel = ({ responseData }) => {
             const currentBefore = responseData.blood_glucose.before[index];
             const currentAfter = responseData.blood_glucose.after[index];
 
+            const isFirstDate = prevDate !== date;
+            prevDate = date;
+
             return (
-              <tr key={index}>
-                <td className="py-2 border-r-2 border-gray-400 w-1/3 text-green-900">
-                  {date}
+              <tr key={index} className="border-b">
+                <td
+                  className={`py-2 px-1 border-r text-gray-800 ${
+                    isFirstDate ? "bg-teal-100" : "px-5"
+                  }`}
+                >
+                  <div className="flex items-center">
+                    {isFirstDate && (
+                      <div className="w-2 h-2 bg-gray-500 rounded-full mr-2"></div>
+                    )}
+                    <div>{date}</div>
+                  </div>
                 </td>
-                <td className="py-2 border-r-2 border-gray-400 w-1/3 text-green-900">
+                <td
+                  className={`py-2 px-4 border-r ${getCellStyles(
+                    currentBefore,
+                    false
+                  )}`}
+                >
                   {currentBefore}
                 </td>
-                <td className="py-2 text-teal-900">{currentAfter}</td>
+                <td
+                  className={`py-2 px-4 ${getCellStyles(currentAfter, true)}`}
+                >
+                  {currentAfter}
+                </td>
               </tr>
             );
           })}
