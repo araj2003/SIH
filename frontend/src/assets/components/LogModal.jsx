@@ -4,11 +4,10 @@ import { TextField, Button, Grid } from "@mui/material";
 import axios from "axios";
 
 import { useGlobalContext } from "./context";
-const currentDate = new Date();
-const options = { year: "numeric", month: "long", day: "numeric" };
 
 const LogModal = ({ logModal, setLogModal }) => {
-  const { formData, fetchData, setFormData, url } = useGlobalContext();
+  const { formData, fetchData, setFormData, url, data, setData } =
+    useGlobalContext();
   const afterRef = useRef("");
   const beforeRef = useRef("");
   const highRef = useRef("");

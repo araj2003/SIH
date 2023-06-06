@@ -154,6 +154,7 @@ const AppProvider = ({ children }) => {
   const [sex, setSex] = useState("");
   const [loginButtonClicked, setLoginButtonClicked] = useState(false);
   const url = "http://127.0.0.1:8000/patient";
+  const [data, setData] = useState({});
   const [formData, setFormData] = useState({
     bp_log: { date: [], high: [], low: [] },
     blood_glucose: { date: [], before: [], after: [] },
@@ -264,8 +265,6 @@ const AppProvider = ({ children }) => {
       console.log(error);
     }
   };
-
-  const [data, setData] = useState({});
 
   const fetchData = async () => {
     try {
