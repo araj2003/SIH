@@ -41,7 +41,7 @@ const PatientProfile = ({ responseData }) => {
     return null;
   }
   return (
-    <div className=" flex justify-center flex-col items-center  ">
+    <div className=" flex justify-center flex-col items-cente">
       {Object.keys(responseData).length > 0 ? (
         <>
           <div className="bg-gray-200 w-full rounded-2xl flex flex-wrap justify-center gap-2 p-3">
@@ -53,7 +53,7 @@ const PatientProfile = ({ responseData }) => {
               />
             </div>
             <div className="w-96 sm:w-3/4 lg:w-2/5 py-2 px-2 gap-2 bg-white  rounded-md flex flex-col items-center justify-evenly">
-              <div className="h-36 w-full rounded-md p-2 gap-2 flex items-center greeting">
+              <div className="h-40 w-full rounded-md p-2 pt-6 justify-between flex items-center greeting">
                 <div className="w-1/2 rounded text-3xl font-semibold text-gray-800 pl-5">
                   <p>Hi, {first_name + " " + last_name}</p>
                   <p>Check your</p>
@@ -63,11 +63,11 @@ const PatientProfile = ({ responseData }) => {
                   <img src={dashboardHero} alt="" className="h-full" />
                 </div>
               </div>
-              <div className="h-52 w-full rounded-md py-1 px-2 gap-2 flex">
-                <div className="w-1/2 rounded-md">
+              <div className="w-full rounded-md py-1 px-1 flex flex-wrap h-96 sm:h-60 mt-5 md:mt-8">
+                <div className="w-full sm:w-1/2 rounded-md ">
                   <BP_chart chartData={responseData.bp_log} />
                 </div>
-                <div className="w-1/2 rounded-md">
+                <div className="w-full  sm:w-1/2 rounded-md">
                   <Sugar_chart chartData={responseData.blood_glucose} />
                 </div>
               </div>
@@ -98,10 +98,6 @@ const PatientProfile = ({ responseData }) => {
             </div>
           </div>
           <div>
-            <p>Age: {age}</p>
-            <p>Sex: {sex}</p>
-            <p>First Name: {first_name}</p>
-            <p>Last Name: {last_name}</p>
             <p>Medical History: {medical_history.join(",")}</p>
             <p>
               Date of Birth: {dob_day}/{dob_month}/{dob_year}

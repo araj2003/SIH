@@ -11,7 +11,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-export default function Sugar_chart({ chartData }) {
+export default function SugarChart({ chartData }) {
   const { after, before, date } = chartData;
 
   ChartJS.register(
@@ -28,7 +28,7 @@ export default function Sugar_chart({ chartData }) {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Add this line to disable aspect ratio
+    maintainAspectRatio: false,
     interaction: {
       mode: "index",
       intersect: false,
@@ -46,14 +46,19 @@ export default function Sugar_chart({ chartData }) {
         display: true,
         position: "left",
         grid: {
-          display: false, // Set display to false to remove y-axis lines and margins
+          display: false,
         },
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.4, // Adjust the tension to control the curvature of the line
       },
     },
   };
 
   const data = {
-    labels: date, // Use the modified date array
+    labels: date,
     datasets: [
       {
         label: "Before",
