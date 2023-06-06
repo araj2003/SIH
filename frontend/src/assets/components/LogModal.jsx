@@ -16,7 +16,13 @@ const LogModal = ({ logModal, setLogModal }) => {
   const dateRef = useRef("");
 
   useEffect(() => {
-    const dateString = currentDate.toLocaleDateString("en-IN", options);
+    const currentDate = new Date();
+    const year = currentDate.getFullYear().toString().substr(-2);
+    const month = currentDate.toLocaleString("default", { month: "short" });
+    const day = currentDate.getDate();
+
+    const dateString = `${day} ${month} '${year}`;
+
     dateRef.current = dateString;
   }, []);
 

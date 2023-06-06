@@ -1,68 +1,76 @@
-import React from 'react';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { Line } from 'react-chartjs-2';
-export default function Sugar_chart({chartData}) {
+import React from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 
-    const {after,before,date} = chartData;
+export default function Sugar_chart({ chartData }) {
+  const { after, before, date } = chartData;
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
 
-const options = {
-  responsive: true,
-  interaction: {
-    mode: 'index',
-    intersect: false,
-  },
-  stacked: false,
-  plugins: {
-    title: {
-      display: true,
-      text: 'glucose-level-chart',
+  // Modify the date array to cut the strings to the first 10 characters
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false, // Add this line to disable aspect ratio
+    interaction: {
+      mode: "index",
+      intersect: false,
     },
-  },
-  scales: {
-    y: {
-      type: 'linear',
-      display: true,
-      position: 'left',
-    },
-    y1: {
-      type: 'linear',
-      display: true,
-      position: 'right',
-      grid: {
-        drawOnChartArea: false,
+    stacked: false,
+    plugins: {
+      title: {
+        display: true,
+        text: "Glucose Breakfast",
       },
     },
-  },
-};
-
-// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-// const generateRandomData = () => {
-//   return labels.map(() => Math.floor(Math.random() * 2000) - 1000);
-// };
-
-const data = {
-  labels: date,
-  datasets: [
-    {
-      label: 'after breakfast',
-      data: after,
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      yAxisID: 'y',
+    scales: {
+      y: {
+        type: "linear",
+        display: true,
+        position: "left",
+        grid: {
+          display: false, // Set display to false to remove y-axis lines and margins
+        },
+      },
     },
-    {
-      label: 'before breakfast',
-      data: before,
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      yAxisID: 'y1',
-    },
-  ],
-};
+  };
 
+  const data = {
+    labels: date, // Use the modified date array
+    datasets: [
+      {
+        label: "Before",
+        data: after,
+        borderColor: "purple",
+        backgroundColor: "white",
+        yAxisID: "y",
+      },
+      {
+        label: "After",
+        data: before,
+        borderColor: "teal",
+        backgroundColor: "white",
+        yAxisID: "y",
+      },
+    ],
+  };
 
   return <Line options={options} data={data} />;
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 const BP_Log = ({ responseData }) => {
   return (
-    <div className="p-4 rounded-lg bg-sky-50 shadow-md h-full pl-3">
+    <div className="p-4 rounded-lg bg-sky-50 shadow-md h-full ml-1">
       {responseData.bp_log.date.map((date, index) => {
         const currentHigh = responseData.bp_log.high[index];
         const currentLow = responseData.bp_log.low[index];

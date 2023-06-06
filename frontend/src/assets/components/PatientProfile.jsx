@@ -83,7 +83,7 @@ const PatientProfile = ({ responseData }) => {
               </div>
               <div className="h-96 lg:h-1/2 w-full bg-white shadow-md rounded-lg px-1 pt-3 pb-1 flex gap-2">
                 <div className="w-1/2 h-full  rounded-md overflow-scroll shadow-lg p-1">
-                  <h2 className="hero-text font-semibold text-xl text-teal-800 p-2">
+                  <h2 className="hero-text font-semibold text-xl text-teal-900 p-2">
                     Glucose Log - BreakFast
                   </h2>
                   <GlucoseLevel responseData={responseData} />
