@@ -8,5 +8,6 @@ urlpatterns = [
     path("", include("Accounts.urls")),
     path("", include("DiseasePredictor.urls")),
     path("contactdoctor", index),
+    path("dashboard", index),
 ]
 
