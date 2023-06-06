@@ -7,6 +7,7 @@ import dashboardHero from "../img/dashboard-hero.svg";
 import BP_chart from "./BP_chart";
 import LogModal from "./LogModal";
 import ProfileModal from "./ProfileModal";
+import Sugar_chart from "./Sugar_chart";
 const PatientProfile = ({ responseData }) => {
   const [record, setRecord] = useState(false);
   const [logModal, setLogModal] = useState(false);
@@ -61,10 +62,12 @@ const PatientProfile = ({ responseData }) => {
                 </div>
               </div>
               <div className="h-52 w-full rounded-md py-1 px-2 gap-2 flex">
-                <div className="w-1/2 bg-pink-200 rounded-md">
-                  <BP_chart />
+                <div className="w-1/2 rounded-md">
+                  <BP_chart chartData={responseData.bp_log}/>
                 </div>
-                <div className="w-1/2 bg-pink-200 rounded-md">Chart 2</div>
+                <div className="w-1/2 rounded-md">
+                  <Sugar_chart chartData={responseData.blood_glucose}/>
+                </div>
               </div>
               <div className="h-56 bg-gray-300 w-full rounded-md">c</div>
             </div>
