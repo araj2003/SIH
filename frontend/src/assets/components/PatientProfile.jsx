@@ -6,7 +6,9 @@ import Record from "./Record";
 import dashboardHero from "../img/dashboard-hero.svg";
 import BP_chart from "./BP_chart";
 import LogModal from "./LogModal";
+import BP_Log from "./BP_Log";
 import ProfileModal from "./ProfileModal";
+import GlucoseLevel from "./GlucoseLevel";
 import Sugar_chart from "./Sugar_chart";
 const PatientProfile = ({ responseData }) => {
   const [record, setRecord] = useState(false);
@@ -63,10 +65,10 @@ const PatientProfile = ({ responseData }) => {
               </div>
               <div className="h-52 w-full rounded-md py-1 px-2 gap-2 flex">
                 <div className="w-1/2 rounded-md">
-                  <BP_chart chartData={responseData.bp_log}/>
+                  <BP_chart chartData={responseData.bp_log} />
                 </div>
                 <div className="w-1/2 rounded-md">
-                  <Sugar_chart chartData={responseData.blood_glucose}/>
+                  <Sugar_chart chartData={responseData.blood_glucose} />
                 </div>
               </div>
               <div className="h-56 bg-gray-300 w-full rounded-md">c</div>
@@ -79,9 +81,19 @@ const PatientProfile = ({ responseData }) => {
 
                 <div className="w-2/3 bg-green-300 h-full rounded-md"></div>
               </div>
-              <div className="h-64 lg:h-1/2 w-full bg-white p-2 flex gap-2">
-                <div className="w-1/6 bg-teal-300 h-full rounded-md"></div>
-                <div className="w-5/6 bg-blue-300 h-full rounded-md"></div>
+              <div className="h-96 lg:h-1/2 w-full bg-white shadow-md rounded-lg px-1 pt-3 pb-1 flex gap-2">
+                <div className="w-1/2 h-full  rounded-md overflow-scroll shadow-lg p-1">
+                  <h2 className="hero-text font-semibold text-xl text-teal-800 p-2">
+                    Glucose Log - BreakFast
+                  </h2>
+                  <GlucoseLevel responseData={responseData} />
+                </div>
+                <div className="w-1/2 h-full rounded-md overflow-scroll shadow-md p-1">
+                  <h2 className="hero-text font-semibold text-xl text-sky-800 p-2">
+                    Blood Pressure - High/Low
+                  </h2>
+                  <BP_Log responseData={responseData} />
+                </div>
               </div>
             </div>
           </div>
