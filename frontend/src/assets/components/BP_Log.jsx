@@ -12,7 +12,7 @@ const BP_Log = ({ responseData }) => {
             <div key={index} className="flex flex-col mb-1">
               <div className="flex items-center mb-2  bg-slate-100 rounded-md mx-1 p-2">
                 <div className="h-2 w-2 bg-gray-700 rounded-full mr-2"></div>
-                <h2 className="text-xl font-semibold text-gray-900">{date}</h2>
+                <h2 className="text-lg font-semibold text-gray-900">{date}</h2>
               </div>
 
               <div className="ml-1">
@@ -23,7 +23,7 @@ const BP_Log = ({ responseData }) => {
                       : currentHigh > 190
                       ? "bg-red-100"
                       : currentLow > 90
-                      ? "bg-amber-100"
+                      ? "bg-pink-400"
                       : ""
                   }`}
                 >
@@ -47,7 +47,7 @@ const BP_Log = ({ responseData }) => {
                     : currentHigh > 190
                     ? "bg-orange-200"
                     : currentLow > 90
-                    ? "bg-amber-100"
+                    ? "bg-pink-100"
                     : "border border-gray-400"
                 }`}
               >
