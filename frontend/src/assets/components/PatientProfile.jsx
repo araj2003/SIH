@@ -52,18 +52,18 @@ const PatientProfile = ({ responseData }) => {
                 setProfileModal={setProfileModal}
               />
             </div>
-            <div className="w-96 sm:w-3/4 lg:w-2/5 bg-white  flex flex-col items-center">
-              <div className="h-40 w-full p-1 justify-between flex items-center greeting">
-                <div className="w-1/2 text-3xl font-semibold text-gray-800 pl-5 ">
+            <div className="h-screen md:fit-content w-96 sm:w-3/4 lg:w-2/5 bg-white  flex flex-col flex-wrap justify-start items-center">
+              <div className="pt-6 h-16 md:h-40 w-full p-1 justify-between flex items-center greeting">
+                <div className="w-full md:w-1/2 flex gap-2 md:block text-2xl md:text-3xl font-semibold text-gray-800 pl-5 ">
                   <p>Hi, {first_name + " " + last_name}</p>
                   <p>Check your</p>
                   <p>Health!</p>
                 </div>
-                <div className="w-1/3 h-5/6 rounded flex justify-center">
+                <div className="w-1/3 h-5/6 rounded hidden md:flex justify-center">
                   <img src={dashboardHero} alt="" className="h-full" />
                 </div>
               </div>
-              <div className="charts-container w-full rounded-md flex flex-wrap h-96 sm:h-1/2">
+              <div className="charts-container w-full rounded-md flex flex-wrap h-96 sm:h-1/3 py-2">
                 <div className="w-full sm:w-1/2 rounded-md ">
                   <BP_chart chartData={responseData.bp_log} />
                 </div>
@@ -71,9 +71,7 @@ const PatientProfile = ({ responseData }) => {
                   <Sugar_chart chartData={responseData.blood_glucose} />
                 </div>
               </div>
-              <div className="h-3/4 mt-2 bg-gray-300 w-full rounded-md">
-                abc
-              </div>
+              <div className=" mt-2 bg-gray-300 w-full h-80 sm:h-96 md:h-2/5 rounded-md "></div>
             </div>
             <div className=" sm:w-5/6 lg:w-1/2  rounded-md-md flex flex-col items-center justify-evenly">
               <div className="lg:h-1/3 w-full flex flex-wrap lg:flex-nowrap  gap-1 justify-center">
