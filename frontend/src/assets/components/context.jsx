@@ -265,6 +265,19 @@ const AppProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const handleDashboardSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await axios.put(url, data, {
+        withCredentials: true,
+      });
+
+      await fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -308,6 +321,7 @@ const AppProvider = ({ children }) => {
         data,
         setData,
         fetchData,
+        handleDashboardSubmit,
       }}
     >
       {children}

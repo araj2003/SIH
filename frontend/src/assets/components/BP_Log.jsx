@@ -1,8 +1,12 @@
 import React from "react";
 
 const BP_Log = ({ responseData }) => {
+  if (!responseData || !responseData.bp_log || !responseData.bp_log.date) {
+    return null;
+  }
+
   return (
-    <div className="p-2 rounded-lg bg-white">
+    <div className="p-2 mb-1 rounded-lg bg-white">
       {responseData.bp_log.date.map((date, index) => {
         const currentHigh = responseData.bp_log.high[index];
         const currentLow = responseData.bp_log.low[index];
@@ -10,7 +14,7 @@ const BP_Log = ({ responseData }) => {
         if (index === 0) {
           return (
             <div key={index} className="flex flex-col mb-1">
-              <div className="flex items-center mb-2  bg-slate-100 rounded-md mx-1 p-2">
+              <div className="flex items-center mb-2 bg-slate-100 rounded-md mx-1 p-2">
                 <div className="h-2 w-2 bg-gray-700 rounded-full mr-2"></div>
                 <h2 className="text-lg font-semibold text-gray-900">{date}</h2>
               </div>
@@ -41,7 +45,7 @@ const BP_Log = ({ responseData }) => {
           return (
             <div key={index} className="ml-1 mb-1">
               <div
-                className={`text-sm text-black  rounded-md p-3 flex items-center justify-between ${
+                className={`text-sm text-black rounded-md p-3 flex items-center justify-between ${
                   currentHigh > 190 && currentLow > 90
                     ? "bg-red-200"
                     : currentHigh > 190
