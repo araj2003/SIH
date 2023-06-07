@@ -4,10 +4,9 @@ import { TextField, Button } from "@mui/material";
 import { useGlobalContext } from "./context";
 
 const Record = ({ record, setRecord }) => {
-  const { handleInputChange, formData, handleFormSubmit, setFormData } =
+  const { handleDashboardChange, data, handleDashboardSubmit, setData } =
     useGlobalContext();
   const closeRecord = () => {
-    setFormData({});
     setRecord(false);
   };
 
@@ -44,7 +43,7 @@ const Record = ({ record, setRecord }) => {
           onSubmit={(e) => {
             e.preventDefault();
             closeRecord();
-            handleFormSubmit(e);
+            handleDashboardSubmit(e);
           }}
         >
           <h1 className="text-2xl p-1 font-semibold text-gray-700">
@@ -58,8 +57,8 @@ const Record = ({ record, setRecord }) => {
             multiline
             rows={3}
             helperText="Separate values by commas"
-            onChange={handleInputChange}
-            value={formData.current_med}
+            onChange={handleDashboardChange}
+            value={data.current_med}
           />
           <TextField
             name="medical_history"
@@ -69,8 +68,8 @@ const Record = ({ record, setRecord }) => {
             multiline
             rows={3}
             helperText="Separate values by commas"
-            onChange={handleInputChange}
-            value={formData.medical_history}
+            onChange={handleDashboardChange}
+            value={data.medical_history}
           />
           <Button variant="outlined" color="success" type="submit">
             Submit

@@ -11,11 +11,10 @@ import {
 import { useGlobalContext } from "./context";
 
 const ProfileModal = ({ profileModal, setProfileModal }) => {
-  const { handleInputChange, formData, handleFormSubmit, setFormData } =
+  const { handleDashboardChange, data, handleDashboardSubmit } =
     useGlobalContext();
   const closeModal = () => {
     setProfileModal(false);
-    setFormData({});
   };
 
   useEffect(() => {
@@ -39,7 +38,7 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
   }
 
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-4 backdrop-blur-sm modal">
+    <div className="fixed top-0 left-0 w-screen h-screen  flex justify-center items-center p-4 backdrop-blur-sm modal">
       <div className="flex flex-col justify-center items-center w-96 md:w-1/2 lg:w-2/5  flex-wrap  bg-white rounded-lg shadow-lg px-8 py-8">
         <div className="w-full flex justify-end">
           <button onClick={closeModal} className="hover:scale-105">
@@ -52,7 +51,7 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleFormSubmit(e);
+            handleDashboardSubmit(e);
             closeModal();
           }}
           className="w-full flex flex-col gap-4 items-center"
@@ -63,8 +62,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 name="first_name"
                 label="First Name"
                 fullWidth
-                value={formData.first_name}
-                onChange={handleInputChange}
+                value={data.first_name}
+                onChange={handleDashboardChange}
               />
             </Grid>
             <Grid item xs={6}>
@@ -72,8 +71,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 name="last_name"
                 label="Last Name"
                 fullWidth
-                value={formData.last_name}
-                onChange={handleInputChange}
+                value={data.last_name}
+                onChange={handleDashboardChange}
               />
             </Grid>
             <Grid item xs={6} className="w-full">
@@ -82,15 +81,15 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 label="Age"
                 fullWidth
                 type="number"
-                value={formData.age}
-                onChange={handleInputChange}
+                value={data.age}
+                onChange={handleDashboardChange}
               />
             </Grid>
             <Grid item xs={6}>
               <Select
                 name="sex"
-                value={formData.sex}
-                onChange={handleInputChange}
+                value={data.sex}
+                onChange={handleDashboardChange}
                 fullWidth
               >
                 <MenuItem value="Male">Male</MenuItem>
@@ -106,8 +105,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 label="Height (cm)"
                 fullWidth
                 type="number"
-                value={formData.height}
-                onChange={handleInputChange}
+                value={data.height}
+                onChange={handleDashboardChange}
               />
             </Grid>
             <Grid item xs={6}>
@@ -116,8 +115,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 label="Weight (Kg)"
                 fullWidth
                 type="number"
-                value={formData.weight}
-                onChange={handleInputChange}
+                value={data.weight}
+                onChange={handleDashboardChange}
               />
             </Grid>
             <Grid item xs={4}>
@@ -128,8 +127,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 fullWidth
                 helperText="Date of Birth"
                 type="number"
-                value={formData.dob_day}
-                onChange={handleInputChange}
+                value={data.dob_day}
+                onChange={handleDashboardChange}
               />
             </Grid>
 
@@ -141,8 +140,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 fullWidth
                 helperText="Month of Birth"
                 type="number"
-                value={formData.dob_month}
-                onChange={handleInputChange}
+                value={data.dob_month}
+                onChange={handleDashboardChange}
               />
             </Grid>
 
@@ -154,8 +153,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
                 fullWidth
                 helperText="Year of Birth"
                 type="number"
-                value={formData.dob_year}
-                onChange={handleInputChange}
+                value={data.dob_year}
+                onChange={handleDashboardChange}
               />
             </Grid>
 
@@ -163,8 +162,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
               <InputLabel>Diet Type</InputLabel>
               <Select
                 name="diet"
-                value={formData.diet}
-                onChange={handleInputChange}
+                value={data.diet}
+                onChange={handleDashboardChange}
                 fullWidth
               >
                 <MenuItem value="Vegan">Vegan</MenuItem>
@@ -176,8 +175,8 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
               <InputLabel>Excercise</InputLabel>
               <Select
                 name="excercise"
-                value={formData.exercise}
-                onChange={handleInputChange}
+                value={data.exercise}
+                onChange={handleDashboardChange}
                 fullWidth
               >
                 <MenuItem value="Yoga">Yoga</MenuItem>

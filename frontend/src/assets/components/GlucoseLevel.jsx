@@ -17,7 +17,7 @@ const GlucoseLevel = ({ responseData }) => {
   let prevDate = null; // Track previous date
 
   return (
-    <div className="px-1 py-2 bg-white">
+    <div className="px-1 bg-white">
       <table className="w-full border-collapse">
         <thead>
           <tr className="bg-gray-200">
@@ -31,43 +31,53 @@ const GlucoseLevel = ({ responseData }) => {
           </tr>
         </thead>
         <tbody>
-          {responseData.blood_glucose.date.map((date, index) => {
-            const currentBefore = responseData.blood_glucose.before[index];
-            const currentAfter = responseData.blood_glucose.after[index];
+          {responseData &&
+            responseData.blood_glucose.date &&
+            responseData.blood_glucose.date.map((date, index) => {
+              const currentBefore = responseData.blood_glucose.before[index];
+              const currentAfter = responseData.blood_glucose.after[index];
 
-            const isFirstDate = prevDate !== date;
-            prevDate = date;
+              const isFirstDate = prevDate !== date;
+              prevDate = date;
 
-            return (
-              <tr key={index} className="border-b">
-                <td
-                  className={`py-2 px-1 border-r text-gray-800 ${
-                    isFirstDate ? "bg-teal-100" : "px-5"
-                  }`}
-                >
-                  <div className="flex items-center">
-                    {isFirstDate && (
-                      <div className="w-2 h-2 bg-gray-500 rounded-full mr-2"></div>
-                    )}
-                    <div>{date}</div>
-                  </div>
-                </td>
-                <td
-                  className={`py-2 px-4 border-r ${getCellStyles(
-                    currentBefore,
-                    false
-                  )}`}
-                >
-                  {currentBefore}
-                </td>
-                <td
-                  className={`py-2 px-4 ${getCellStyles(currentAfter, true)}`}
-                >
-                  {currentAfter}
+              return (
+                <tr key={index} className="border-b">
+                  <td
+                    className={`py-2 px-1 border-r text-gray-800 ${
+                      isFirstDate ? "bg-teal-100" : "px-5"
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      {isFirstDate && (
+                        <div className="w-2 h-2 bg-gray-500 rounded-full mr-2"></div>
+                      )}
+                      <div>{date}</div>
+                    </div>
+                  </td>
+                  <td
+                    className={`py-2 px-4 border-r ${getCellStyles(
+                      currentBefore,
+                      false
+                    )}`}
+                  >
+                    {currentBefore}
+                  </td>
+                  <td
+                    className={`py-2 px-4 ${getCellStyles(currentAfter, true)}`}
+                  >
+                    {currentAfter}
+                  </td>
+                </tr>
+              );
+            })}
+          {!responseData ||
+            (!responseData.blood_glucose.date && (
+              <tr>
+                <td colSpan="3" className="py-2 px-4">
+                  No data available
                 </td>
               </tr>
-            );
-          })}
+            ))}
         </tbody>
       </table>
     </div>

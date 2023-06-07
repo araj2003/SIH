@@ -246,6 +246,22 @@ const AppProvider = ({ children }) => {
       }));
     }
   };
+  const handleDashboardChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "medical_history" || name === "current_med") {
+      const arrValue = value.split(","); // Split the string value into an array
+      setData((prevData) => ({
+        ...prevData,
+        [name]: arrValue,
+      }));
+    } else {
+      setData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -257,6 +273,19 @@ const AppProvider = ({ children }) => {
       }));
 
       await axios.put(url, formData, {
+        withCredentials: true,
+      });
+
+      await fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDashboardSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await axios.put(url, data, {
         withCredentials: true,
       });
 
@@ -308,6 +337,8 @@ const AppProvider = ({ children }) => {
         data,
         setData,
         fetchData,
+        handleDashboardSubmit,
+        handleDashboardChange,
       }}
     >
       {children}

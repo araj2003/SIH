@@ -104,7 +104,7 @@ const Calendar = () => {
           {getMonthName(selectedMonth)}
         </button>
         {isMonthDropdownOpen && (
-          <div className="absolute mt-2 py-1 w-20 overflow-y-auto max-h-44 bg-white text-gray-600 rounded-lg shadow-md z-10 font-medium">
+          <div className="absolute mt-2 py-1 w-20 overflow-y-auto max-h-44 bg-white text-gray-600 rounded-lg z-10 font-medium">
             {monthOptions.map((option) => (
               <div
                 key={option.value}
@@ -138,7 +138,7 @@ const Calendar = () => {
           {selectedYear}
         </button>
         {isYearDropdownOpen && (
-          <div className="absolute mt-2 py-1 w-24 max-h-44 overflow-y-auto text-gray-600 bg-white  rounded-lg shadow-md z-10 font-medium">
+          <div className="absolute mt-2 py-1 w-24 max-h-44 overflow-y-auto text-gray-600 bg-white  rounded-lg    z-10 font-medium">
             {yearOptions.map((option) => (
               <div
                 key={option.value}
@@ -194,21 +194,21 @@ const Calendar = () => {
   };
 
   return (
-    <div className="w-full rounded-lg flex flex-col gap-1 sm:gap-0 sm:flex-row bg-white shadow-lg px-2">
-      <div className="rounded-s-lg flex gap-1 sm:flex-col items-center justify-center sm:w-40">
+    <div className="w-full rounded-lg flex flex-col items-center p-3 justify-center md:flex-row lg:flex-col bg-white shadow-md">
+      <div className="rounded-s-lg flex gap-1 items-center mb-2 justify-center sm:w-40">
         <div className="text-teal-500 font-bold text-xl">
           {renderMonthDropdown()}
         </div>
         <div className="text-2xl font-bold">{renderYearDropdown()}</div>
       </div>
       <div className="flex flex-col rounded-e-md justify-center p-1 ">
-        <div className="flex justify-center sm:mb-3 lg:mb-6">
+        <div className="flex justify-center sm:mb-">
           <div className="grid-container mx-auto">
-            <div className="grid gap-1">{renderDaysList()}</div>
+            <div className="gridd gap-1">{renderDaysList()}</div>
           </div>
         </div>
         <div className="grid-container mx-auto">
-          <div className="grid gap-1">{renderCalendar()}</div>
+          <div className="gridd gap-1">{renderCalendar()}</div>
         </div>
       </div>
     </div>
