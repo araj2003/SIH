@@ -8,7 +8,7 @@ export default {
     extend: {
       height: {
         '28p': '28%',
-        '65': '65%'
+        '68': '68%'
 
       },
       width: {
