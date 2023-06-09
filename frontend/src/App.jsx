@@ -6,7 +6,7 @@ import Footer from "./assets/components/Footer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./assets/components/Dashboard";
 import ContactDoctor from "./assets/components/ContactDoctor";
-import logo from "./assets/img/icon.svg"
+
 function App() {
   return (
     <BrowserRouter>
