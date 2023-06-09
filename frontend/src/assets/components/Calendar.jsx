@@ -194,7 +194,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="w-full rounded-lg flex flex-col items-center p-3 justify-center md:flex-row lg:flex-col bg-white shadow-md">
+    <div className="w-full rounded-lg flex overflow-scroll flex-col items-center p-3 justify-center md:flex-row lg:flex-col bg-white shadow-md">
       <div className="rounded-s-lg flex gap-1 items-center mb-2 justify-center sm:w-40">
         <div className="text-teal-500 font-bold text-xl">
           {renderMonthDropdown()}

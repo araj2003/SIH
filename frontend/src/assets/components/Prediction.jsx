@@ -7,7 +7,7 @@ const Prediction = ({ prediction }) => {
   const firstDiseaseProbability =
     prediction.length > 0 ? prediction[0].diseases_prob[0] : null;
   const showNotice =
-    firstDiseaseProbability !== null && firstDiseaseProbability > 0.15;
+    firstDiseaseProbability !== null && firstDiseaseProbability > 0.3;
 
   return (
     <>

@@ -7,7 +7,12 @@ export default {
   theme: {
     extend: {
       height: {
-        '28p': '28%'
+        '28p': '28%',
+        '65': '65%'
+
+      },
+      width: {
+        '47': '47%'
       },
     },
   },

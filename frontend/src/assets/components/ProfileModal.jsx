@@ -174,7 +174,7 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
             <Grid item xs={6}>
               <InputLabel>Excercise</InputLabel>
               <Select
-                name="excercise"
+                name="exercise"
                 value={data.exercise}
                 onChange={handleDashboardChange}
                 fullWidth

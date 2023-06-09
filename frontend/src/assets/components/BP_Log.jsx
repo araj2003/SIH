@@ -45,14 +45,14 @@ const BP_Log = ({ responseData }) => {
           return (
             <div key={index} className="ml-1 mb-1">
               <div
-                className={`text-sm text-black rounded-md p-3 flex items-center justify-between ${
+                className={`text-sm text-black rounded-md border border-gray-400 p-3 flex items-center justify-between ${
                   currentHigh > 190 && currentLow > 90
-                    ? "bg-red-200"
+                    ? "bg-red-100"
                     : currentHigh > 190
-                    ? "bg-orange-200"
+                    ? "bg-orange-100"
                     : currentLow > 90
                     ? "bg-pink-100"
-                    : "border border-gray-400"
+                    : ""
                 }`}
               >
                 <div className="flex">

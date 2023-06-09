@@ -8,15 +8,8 @@ axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
 const Dashboard = () => {
-  const {
-    handleInputChange,
-    formData,
-    handleFormSubmit,
-    data,
-    setData,
-    fetchData,
-    url,
-  } = useGlobalContext();
+  const { handleInputChange, formData, handleFormSubmit, data, fetchData } =
+    useGlobalContext();
 
   useEffect(() => {
     fetchData();
