@@ -149,6 +149,7 @@ const AppProvider = ({ children }) => {
   const email = useRef("");
   const username = useRef("");
   const password = useRef("");
+  const error = useRef("");
   const [age, setAge] = useState("");
   const [medicalhistory, setMedicalHistory] = useState([]);
   const [sex, setSex] = useState("");
@@ -214,6 +215,7 @@ const AppProvider = ({ children }) => {
     if (e) {
       e.preventDefault();
     }
+  
     client
       .post("/login", {
         email: email.current,
@@ -221,6 +223,10 @@ const AppProvider = ({ children }) => {
       })
       .then(function (res) {
         setCurrentUser(true);
+        error.current = "";
+      })
+      .catch(function (error_) {
+        error.current = "Wrong email or password. Please try again.";
       });
   }
 
@@ -340,6 +346,7 @@ const AppProvider = ({ children }) => {
         fetchData,
         handleDashboardSubmit,
         handleDashboardChange,
+        error,
       }}
     >
       {children}
