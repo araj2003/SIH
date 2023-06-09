@@ -51,7 +51,7 @@ load_dotenv(env_file_path)
 # Access environment variables
 POSTGRES_PASS = os.getenv('POSTGRES_PASS')
 
-SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
+
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
 
