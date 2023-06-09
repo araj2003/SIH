@@ -181,9 +181,11 @@ const ProfileModal = ({ profileModal, setProfileModal }) => {
               >
                 <MenuItem value="Yoga">Yoga</MenuItem>
 
-                <MenuItem value="Mild">Mild Excercises - Walks, Jogs</MenuItem>
+                <MenuItem value="Mild Exercises">
+                  Mild Excercises - Walks, Jogs
+                </MenuItem>
 
-                <MenuItem value="Heavy">
+                <MenuItem value="Heavy Exercises">
                   Heavy Excercises - Running, Lifting
                 </MenuItem>
 

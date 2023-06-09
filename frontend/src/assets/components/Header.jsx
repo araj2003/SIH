@@ -84,11 +84,11 @@ const Header = () => {
       {dropdown ? (
         <div
           ref={dropdownRef}
-          className="dropdown fixed top-30 mt-2 md:hidden right-2 w-52 h-60 shadow-md rounded-md bg-slate-50 p-2 px-8"
+          className="dropdown fixed top-30 mt-2 lg:hidden right-2 w-52 h-60 shadow-md rounded-md bg-slate-50 p-2 px-8 mr-3"
         >
-          <nav className="gap-1 flex-col md:hidden text-xl w-full text-gray-900">
+          <nav className="gap-1 flex-col  text-xl w-full text-gray-900">
             <button
-              className="w-full flex justify-end mb-5 hover:bg-transparent"
+              className="w-full flex justify-end mb-5  hover:bg-transparent"
               onClick={() => {
                 setDropdown(false);
               }}

@@ -1,13 +1,14 @@
 import { useGlobalContext } from "./context";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import cancelIcon from "../img/cross icon.svg";
 import SignIn from "../components/GoogleSignIn";
 
 const LoginForm = () => {
-  const { email, password, submitLogin, closeModal, error } = useGlobalContext();
-
+  const [errorDisplay, setErrorDisplay] = useState("");
+  const { email, password, submitLogin, closeModal, error } =
+    useGlobalContext();
   const [user_email, setUserEmail] = useState("");
   const [user_password, setUserPassword] = useState("");
 
@@ -26,7 +27,10 @@ const LoginForm = () => {
           <p className="text-center w-full">Welcome back you've been missed!</p>
         </div>
         <form
-          onSubmit={(event) => submitLogin(event)}
+          onSubmit={(event) => {
+            setErrorDisplay(error.current);
+            submitLogin(event);
+          }}
           className="flex flex-col justify-center gap-3"
         >
           <TextField
@@ -58,7 +62,9 @@ const LoginForm = () => {
           <Button variant="outlined" color="primary" type="submit">
             Login
           </Button>
-          <p className="text-red-500">{error.current}</p>
+          <p className="text-red-500" style={{ fontSize: "13px" }}>
+            {errorDisplay}
+          </p>
           <SignIn />
         </form>
       </div>

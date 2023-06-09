@@ -87,8 +87,8 @@ const RegisterForm = () => {
           />
           {!isPasswordValid(user_password) && (
             <p
-              className="text-red-500 text-sm"
-              style={{ fontSize: "10px", width: "260px" }}
+              className="text-gray-500 font-medium"
+              style={{ fontSize: "12px", width: "280px", textAlign: "center" }}
             >
               Password must be at least 8 characters long, contain at least 1
               letter, 1 digit, and 1 special character.
