@@ -145,6 +145,7 @@ const AppProvider = ({ children }) => {
   ];
 
   const [currentUser, setCurrentUser] = useState();
+  const [responseCall, setResponseCall] = useState(false);
   const [registrationToggle, setRegistrationToggle] = useState(false);
   const email = useRef("");
   const username = useRef("");
@@ -155,6 +156,7 @@ const AppProvider = ({ children }) => {
   const [sex, setSex] = useState("");
   const [loginButtonClicked, setLoginButtonClicked] = useState(false);
   const url = "http://127.0.0.1:8000/patient";
+
   const [data, setData] = useState({});
   const [formData, setFormData] = useState({
     bp_log: { date: [], high: [], low: [] },
@@ -214,18 +216,20 @@ const AppProvider = ({ children }) => {
     if (e) {
       e.preventDefault();
     }
-
+    setResponseCall(true);
     client
       .post("/login", {
         email: email.current,
         password: password.current,
       })
       .then(function (res) {
+        setResponseCall(false);
         setCurrentUser(true);
         error.current = "";
       })
       .catch(function (error_) {
         error.current = "Wrong email or password. Please try again.";
+        setResponseCall(false);
       });
   }
 
@@ -346,6 +350,8 @@ const AppProvider = ({ children }) => {
         handleDashboardSubmit,
         handleDashboardChange,
         error,
+        responseCall,
+        setResponseCall,
       }}
     >
       {children}

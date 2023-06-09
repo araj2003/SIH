@@ -63,14 +63,14 @@ export default function SugarChart({ chartData }) {
       {
         label: "Before",
         data: after,
-        borderColor: "purple",
+        borderColor: "rgba(0, 205, 145, 0.61)",
         backgroundColor: "white",
         yAxisID: "y",
       },
       {
         label: "After",
         data: before,
-        borderColor: "teal",
+        borderColor: "rgba(84, 18, 255, 0.68)",
         backgroundColor: "white",
         yAxisID: "y",
       },

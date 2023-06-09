@@ -1,8 +1,17 @@
 import React from "react";
 
 const BP_Log = ({ responseData }) => {
-  if (!responseData || !responseData.bp_log || !responseData.bp_log.date) {
-    return null;
+  if (
+    !responseData ||
+    !responseData.bp_log ||
+    !responseData.bp_log.date ||
+    responseData.bp_log.date.length === 0
+  ) {
+    return (
+      <p className="h-full w-full grid place-content-center italic bg-pink-50 text-gray-500 md:text-lg">
+        Add your first value
+      </p>
+    );
   }
 
   return (
@@ -27,7 +36,7 @@ const BP_Log = ({ responseData }) => {
                       : currentHigh > 190
                       ? "bg-red-100"
                       : currentLow > 90
-                      ? "bg-pink-400"
+                      ? "bg-orange-100"
                       : ""
                   }`}
                 >
