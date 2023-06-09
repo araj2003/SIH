@@ -194,6 +194,7 @@ const AppProvider = ({ children }) => {
     if (e) {
       e.preventDefault();
     }
+    setResponseCall(true);
     client
       .post("/register", {
         email: email.current,
@@ -208,6 +209,7 @@ const AppProvider = ({ children }) => {
           })
           .then(function (res) {
             setCurrentUser(true);
+            setResponseCall(false);
           });
       });
   }
