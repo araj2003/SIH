@@ -45,6 +45,7 @@ const PatientForm = ({
                 <FormControl variant="outlined" fullWidth>
                   <InputLabel id="dropdown-label">Sex</InputLabel>
                   <Select
+                    required
                     name="sex"
                     labelId="dropdown-label"
                     value={profileData.sex}
@@ -213,10 +214,11 @@ const PatientForm = ({
               </Grid>
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
+                  <InputLabel id="demo-simple-select-label" required>
                     Alcohol Consumption
                   </InputLabel>
                   <Select
+                    required
                     name="alcohol_cons"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -232,7 +234,7 @@ const PatientForm = ({
               </Grid>
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
+                  <InputLabel id="demo-simple-select-label" required>
                     Smoking Consumption
                   </InputLabel>
                   <Select

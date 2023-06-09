@@ -4,19 +4,19 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
 export default function BP_chart({ chartData }) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
     PointElement,
-    LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend
@@ -26,12 +26,11 @@ export default function BP_chart({ chartData }) {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Add this line to disable aspect ratio
+    maintainAspectRatio: false,
     interaction: {
       mode: "index",
       intersect: false,
     },
-    stacked: false,
     plugins: {
       title: {
         display: true,
@@ -60,19 +59,21 @@ export default function BP_chart({ chartData }) {
       {
         label: "Low",
         data: low,
-        borderColor: "rgb(252, 99, 255)",
-        backgroundColor: "white",
+        backgroundColor: "rgb(252, 99, 255, 0.7)",
         yAxisID: "y1",
+        barPercentage: 0.6, // Adjust the bar width (0.6 means 60% of the available space)
+        borderRadius: 10, // Adjust the border radius to make the bars slightly curved
       },
       {
         label: "High",
         data: high,
-        borderColor: "rgb(99, 99, 255)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        backgroundColor: "rgba(99, 99, 255, 0.7)",
         yAxisID: "y1",
+        barPercentage: 0.6,
+        borderRadius: 10,
       },
     ],
   };
 
-  return <Line options={options} data={data} />;
+  return <Bar options={options} data={data} />;
 }
