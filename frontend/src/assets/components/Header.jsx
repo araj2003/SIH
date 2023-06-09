@@ -38,13 +38,19 @@ const Header = () => {
             className="h-full w-full object-cover"
           />
         </figure>
-        <nav className="gap-1 hidden md:flex lg:gap-3 text-lg z-20 justify-center text-gray-600">
+        <nav className="hidden lg:flex lg:gap-3 text-lg z-20 justify-center text-gray-600">
           {currentUser ? (
-            <>
-              <NavLink to="/">Predictor</NavLink>
-              <NavLink to="dashboard">Dashboard</NavLink>
-              <NavLink to="contactdoctor">Consult</NavLink>
-            </>
+            <div className="flex lg:gap-4">
+              <NavLink to="/" className="px-1">
+                Predictor
+              </NavLink>
+              <NavLink to="dashboard" className="px-1">
+                Dashboard
+              </NavLink>
+              <NavLink to="contactdoctor" className="px-1">
+                Consult
+              </NavLink>
+            </div>
           ) : (
             <>
               <a href="#services" className="px-1">
@@ -57,7 +63,7 @@ const Header = () => {
           )}
           <LoginBtn />
         </nav>
-        <button className="block md:hidden" onClick={toggleDropdownMenu}>
+        <button className="block lg:hidden" onClick={toggleDropdownMenu}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

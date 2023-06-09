@@ -1,31 +1,50 @@
-import React from "react";
 import Calendar from "./Calendar";
 import Sidebar from "./Sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Record from "./Record";
-import dashboardHero from "../img/dashboard-hero.svg";
 import BP_chart from "./BP_chart";
 import LogModal from "./LogModal";
 import BP_Log from "./BP_Log";
 import ProfileModal from "./ProfileModal";
 import GlucoseLevel from "./GlucoseLevel";
 import Sugar_chart from "./Sugar_chart";
-import CurrentMedications from "./CurrentMedications";
+import Personal from "./Personal";
+import MedicalHistory from "./Medical History";
+
 const PatientProfile = ({ responseData }) => {
   const [record, setRecord] = useState(false);
   const [logModal, setLogModal] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
-  const {
-    age,
+  const { first_name, height, weight, last_name } = responseData;
+  const [bmi, setBmi] = useState(0);
+  const [bmiColor, setBmiColor] = useState("");
 
-    first_name,
+  useEffect(() => {
+    // Calculate BMI
+    const calculateBMI = () => {
+      const heightInMeters = height / 100; // Convert height to meters
+      const bmiValue = weight / (heightInMeters * heightInMeters);
+      setBmi(bmiValue);
 
-    last_name,
-  } = responseData;
+      // Set BMI color
+      if (bmiValue < 18.5) {
+        setBmiColor("bg-purple-400");
+      } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
+        setBmiColor("bg-blue-400");
+      } else if (bmiValue >= 24.9 && bmiValue < 29.9) {
+        setBmiColor("bg-orange-400");
+      } else {
+        setBmiColor("bg-red-400");
+      }
+    };
+
+    calculateBMI();
+  }, [height, weight]);
 
   if (responseData.new_patient) {
     return null;
   }
+
   return (
     <div className="profile flex justify-center flex-col items-center pb-4">
       {Object.keys(responseData).length > 0 ? (
@@ -39,14 +58,19 @@ const PatientProfile = ({ responseData }) => {
               />
             </div>
             <div className="h-screen md:fit-content w-96 sm:w-3/4 lg:w-2/5 bg-white  flex flex-col justify-start items-center">
-              <div className="pt-6 h-40 w-full p-1 justify-between flex items-center greeting">
+              <div className="pt-6 h-40 w-full p-1 justify-between flex items-center greeting pr-8">
                 <div className="w-full md:w-1/2  md:block text-3xl font-semibold text-gray-800 pl-5 ">
                   <p>Hi, {first_name + " " + last_name}</p>
                   <p>Check your</p>
                   <p>Health!</p>
                 </div>
-                <div className="w-1/3 h-5/6 rounded flex justify-center">
-                  <img src={dashboardHero} alt="" className="h-full" />
+                <div className="flex items-center justify-between h-14 md:h-fit md:w-1/4 gap-3 bg-gray-100 rounded-2xl py-2 px-3 ">
+                  <p className="text-xl font-semibold text-gray-900">BMI</p>
+                  <div
+                    className={`bmi w-12 h-10 md:w-16 md:h-12 rounded-full flex items-center justify-center text-white text-lg md:text-xl font-semibold ${bmiColor}`}
+                  >
+                    {bmi.toFixed(1)}
+                  </div>
                 </div>
               </div>
               <div className="charts-container w-full rounded-md flex flex-wrap h-96 sm:h-1/3 py-2">
@@ -57,8 +81,8 @@ const PatientProfile = ({ responseData }) => {
                   <Sugar_chart chartData={responseData.blood_glucose} />
                 </div>
               </div>
-              <div className=" mt-2 w-full h-80 sm:h-96 md:h-1/2 rounded-md overflow-scroll bg-white border shadow">
-                <CurrentMedications responseData={responseData} />
+              <div className=" my-2 w-full h-80  sm:h-96 md:h-1/2 rounded-md overflow-scroll bg-white border shadow">
+                <Personal responseData={responseData} />
               </div>
             </div>
             <div className="sm:w-full px-8 lg:px-0 lg:w-1/2 gap-2 p-1  flex flex-col items-center">
@@ -67,7 +91,9 @@ const PatientProfile = ({ responseData }) => {
                   <Calendar />
                 </div>
 
-                <div className="w-96 mt-2 sm:mt-0 sm:w-2/5 md:w-1/2 h-96 sm:h-full  bg-green-300 rounded-md"></div>
+                <div className="w-96 mt-2 sm:mt-0 sm:w-2/5 md:w-47 lg:mx-2 h-96 sm:h-full border rounded-md">
+                  <MedicalHistory data={responseData.medical_history} />
+                </div>
               </div>
               <div className="lg:h-full justify-center w-full flex-wrap sm:flex-nowrap flex gap-2">
                 <div className="w-96 h-96 md:w-1/2 lg:h-full rounded-md overflow-scroll m-1 border p-1 flex flex-col">
@@ -89,14 +115,7 @@ const PatientProfile = ({ responseData }) => {
               </div>
             </div>
           </div>
-          {/* <div>
-            <p>Medical History: {medical_history.join(",")}</p>
-            
-            <p>Height: {height}</p>
-            <p>Weight: {weight}</p>
-            <p>Current Medication: {current_med.join(",")}</p>
-            
-          </div> */}
+
           <Record setRecord={setRecord} record={record} />
           <LogModal setLogModal={setLogModal} logModal={logModal} />
           <ProfileModal

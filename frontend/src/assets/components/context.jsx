@@ -158,6 +158,7 @@ const AppProvider = ({ children }) => {
   const [formData, setFormData] = useState({
     bp_log: { date: [], high: [], low: [] },
     blood_glucose: { date: [], before: [], after: [] },
+    exercise: "",
   });
 
   useEffect(() => {

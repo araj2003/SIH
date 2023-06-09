@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import SymptomSearch from "./searchSymptoms";
 import { useGlobalContext } from "./context";

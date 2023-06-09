@@ -4,11 +4,11 @@ const GlucoseLevel = ({ responseData }) => {
   const getCellStyles = (value, isAfterColumn) => {
     if (isAfterColumn) {
       if (value > 180) {
-        return "bg-red-200";
+        return "bg-red-100";
       }
     } else {
       if (value > 120) {
-        return "bg-red-200";
+        return "bg-red-100";
       }
     }
     return "";
@@ -44,7 +44,7 @@ const GlucoseLevel = ({ responseData }) => {
                 <tr key={index} className="border-b">
                   <td
                     className={`py-2 px-1 border-r text-gray-800 ${
-                      isFirstDate ? "bg-teal-100" : "px-5"
+                      isFirstDate ? "bg-sky-100" : "px-5"
                     }`}
                   >
                     <div className="flex items-center">

@@ -14,7 +14,8 @@ const RegisterForm = () => {
   const [user_password, setUserPassword] = useState();
 
   // Regular expression for password check
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
   const isPasswordValid = (password) => {
     return passwordRegex.test(password);
@@ -85,8 +86,12 @@ const RegisterForm = () => {
             required
           />
           {!isPasswordValid(user_password) && (
-            <p className="text-red-500 text-sm" style={{ fontSize: '9px', color: 'red' }}>
-            Password must be at least 8 characters long, contain at least 1 letter, 1 digit, and 1 special character.
+            <p
+              className="text-red-500 text-sm"
+              style={{ fontSize: "10px", width: "260px" }}
+            >
+              Password must be at least 8 characters long, contain at least 1
+              letter, 1 digit, and 1 special character.
             </p>
           )}
           <Button variant="outlined" color="primary" type="submit">
