@@ -220,7 +220,7 @@ const PatientForm = ({
                     name="alcohol_cons"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={patientData.alcohol_cons}
+                    value={profileData.alcohol_cons}
                     label="Alcoholic Consumption"
                     onChange={handleInputChange}
                   >
@@ -239,7 +239,7 @@ const PatientForm = ({
                     name="smoke_cons"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={patientData.smoke_cons}
+                    value={profileData.smoke_cons}
                     label="Smoking Consumption"
                     onChange={handleInputChange}
                   >

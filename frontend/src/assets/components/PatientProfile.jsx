@@ -10,11 +10,13 @@ import GlucoseLevel from "./GlucoseLevel";
 import Sugar_chart from "./Sugar_chart";
 import Personal from "./Personal";
 import MedicalHistory from "./Medical History";
+import ConsumptionModal from "./ConsumptionModal";
 
 const PatientProfile = ({ responseData }) => {
   const [record, setRecord] = useState(false);
   const [logModal, setLogModal] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
+  const [consumptionModal, setConsumptionModal] = useState(false);
   const { first_name, height, weight, last_name } = responseData;
   const [bmi, setBmi] = useState(0);
   const [bmiColor, setBmiColor] = useState("");
@@ -55,6 +57,7 @@ const PatientProfile = ({ responseData }) => {
                 setRecord={setRecord}
                 setLogModal={setLogModal}
                 setProfileModal={setProfileModal}
+                setConsumptionModal={setConsumptionModal}
               />
             </div>
             <div className="h-screen md:fit-content w-96 sm:w-3/4 lg:w-2/5 bg-white  flex flex-col justify-start items-center">
@@ -64,7 +67,7 @@ const PatientProfile = ({ responseData }) => {
                   <p>Check your</p>
                   <p>Health!</p>
                 </div>
-                <div className="flex items-center justify-between h-14 md:h-fit md:w-1/4 gap-3 bg-gray-100 rounded-2xl py-2 px-3 ">
+                <div className="flex items-center justify-between h-14 md:h-fit xl:w-1/4 gap-3 bg-gray-100 rounded-2xl py-2 px-3 ">
                   <p className="text-xl font-semibold text-gray-900">BMI</p>
                   <div
                     className={`bmi w-12 h-10 md:w-16 md:h-12 rounded-full flex items-center justify-center text-white text-lg md:text-xl font-semibold ${bmiColor}`}
@@ -121,6 +124,10 @@ const PatientProfile = ({ responseData }) => {
           <ProfileModal
             setProfileModal={setProfileModal}
             profileModal={profileModal}
+          />
+          <ConsumptionModal
+            consumptionModal={consumptionModal}
+            setConsumptionModal={setConsumptionModal}
           />
         </>
       ) : (
