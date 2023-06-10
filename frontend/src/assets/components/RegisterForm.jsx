@@ -27,7 +27,7 @@ const RegisterForm = () => {
     if (isPasswordValid(user_password)) {
       try {
         const fetchResponse = await fetch(
-          `/check_email?email=${user_email}`
+          `http://127.0.0.1:8000/check_email?email=${user_email}`
         );
         const data = await fetchResponse.json();
         console.log(data.email_exists);
