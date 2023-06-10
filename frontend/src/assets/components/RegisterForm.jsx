@@ -74,7 +74,7 @@ const RegisterForm = () => {
               email.current = event.target.value;
             }}
             color="success"
-            helperText="We'll never share your email"
+    
             required
           />
           <p
