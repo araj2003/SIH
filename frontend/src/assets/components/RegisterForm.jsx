@@ -12,6 +12,7 @@ const RegisterForm = () => {
   const [user_email, setUserEmail] = useState();
   const [user_username, setUserUsername] = useState();
   const [user_password, setUserPassword] = useState();
+  const [emailExists, setEmailExists] = useState();
 
   // Regular expression for password check
   const passwordRegex =
@@ -21,14 +22,29 @@ const RegisterForm = () => {
     return passwordRegex.test(password);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevents the default form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault(); 
     if (isPasswordValid(user_password)) {
-      submitRegistration(event); // Call the submitRegistration function if the password is valid
+      try {
+        const fetchResponse = await fetch(
+          `http://127.0.0.01:8000/check_email?email=${user_email}`
+        );
+        const data = await fetchResponse.json();
+        console.log(data.email_exists);
+  
+        if (data.email_exists) {
+          setEmailExists("Email already exists");
+        } else {
+          submitRegistration(event); 
+        }
+      } catch (error) {
+        console.error("Error checking email:", error);
+      }
     } else {
-      console.log("Invalid password"); // Optional: Display an error message or perform other actions for an invalid password
+      console.log("Invalid password"); 
     }
   };
+  
 
   return (
     <div>
@@ -54,12 +70,20 @@ const RegisterForm = () => {
             value={user_email}
             onChange={(event) => {
               setUserEmail(event.target.value);
+              setEmailExists("");
               email.current = event.target.value;
             }}
             color="success"
             helperText="We'll never share your email"
             required
           />
+          <p
+  className="text-gray-500 font-medium text-red-500"
+  style={{ fontSize: "12px", width: "280px", textAlign: "center" }}
+>
+  {emailExists}
+</p>
+
           <TextField
             id="formBasicUsername"
             label="Username"
