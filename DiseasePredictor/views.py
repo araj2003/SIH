@@ -58,13 +58,13 @@ def scale_dataset(dataframe, oversample=False):
 
 svm_model = None
 
-#data = pd.DataFrame.from_records(
-#        symptoms_diseases.objects.all().values()).drop('id', axis=1)
-#
-#train, X, Y = scale_dataset(data, oversample=True)
-#
-#svm_model = SVC(probability=True)
-#svm_model = svm_model.fit(X, Y)
+data = pd.DataFrame.from_records(
+        symptoms_diseases.objects.all().values()).drop('id', axis=1)
+
+train, X, Y = scale_dataset(data, oversample=True)
+
+svm_model = SVC(probability=True)
+svm_model = svm_model.fit(X, Y)
     
 
 def train(request):
