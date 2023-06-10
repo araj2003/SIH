@@ -12,9 +12,7 @@ const Modal = () => {
         {responseCall && (
           <div className="fixed responseCall top-0 flex flex-col justify-center items-center  w-screen h-screen z-50">
             <div>
-              <div className="rounded-full h-20 w-28 animate-bounce  bg-teal-700 flex items-center italic text-gray-100 font-semibold justify-center">
-                Please Wait..
-              </div>
+              <div className="rounded-full h-20 w-24 animate-bounce  bg-teal-700 flex items-center italic text-gray-100 font-semibold justify-center"></div>
             </div>
             <div className="w-28 h-2 bg-teal-700 rounded-lg"></div>
           </div>

@@ -60,14 +60,17 @@ const PatientProfile = ({ responseData }) => {
                 setConsumptionModal={setConsumptionModal}
               />
             </div>
-            <div className="sm:h-screen md:fit-content w-96 sm:w-3/4 lg:w-2/5 bg-white  flex flex-col justify-start items-center">
-              <div className="pt-6 h-40 w-full p-1 justify-between flex items-center greeting px-8">
+            <div className="sm:h-screen md:fit-content w-5/6 sm:w-3/4 lg:w-2/5 bg-white  flex flex-col justify-start items-center">
+              <div className="md:pt-6 h-40 w-full p-1 justify-between flex items-center greeting px-3 md:px-8">
                 <div className="w-full md:w-1/2  md:block text-2xl md:text-3xl font-semibold text-gray-800 ">
                   <p>Hi, {first_name + " " + last_name}</p>
-                  <p>Check your Health!</p>
+                  <p>Check your</p>
+                  <p>Health!</p>
                 </div>
                 <div className="flex items-center justify-between h-14 md:h-fit xl:w-1/4 gap-3 bg-gray-100 rounded-2xl py-2 px-3 ">
-                  <p className="text-xl font-semibold text-gray-900">BMI</p>
+                  <p className="text-lg md:text-xl font-semibold text-gray-900">
+                    BMI
+                  </p>
                   <div
                     className={`bmi w-12 h-10 md:w-16 md:h-12 rounded-full flex items-center justify-center text-white text-lg md:text-xl font-semibold ${bmiColor}`}
                   >
@@ -89,28 +92,28 @@ const PatientProfile = ({ responseData }) => {
             </div>
             <div className="sm:w-full lg:px-0 lg:w-1/2 gap-2 p-1  flex flex-col items-center">
               <div className="w-full flex flex-wrap lg:flex-nowrap justify-center">
-                <div className="flex w-96 sm:w-3/5 md:w-1/2 border  rounded-md">
+                <div className="flex w-5/6 sm:w-3/5 md:w-1/2 border  rounded-md">
                   <Calendar />
                 </div>
 
-                <div className="w-96 mt-2 sm:mt-0 sm:w-2/5 md:w-47 lg:mx-2 h-96 sm:h-full border  rounded-md">
+                <div className="w-5/6 bg-gray-50 mt-2 sm:mt-0 sm:w-2/5 md:w-47 lg:mx-2 h-96 sm:h-full border  rounded-md">
                   <MedicalHistory data={responseData.medical_history} />
                 </div>
               </div>
               <div className="lg:h-full justify-center w-full flex-wrap sm:flex-nowrap flex gap-2">
-                <div className="w-96 h-96 md:w-1/2 lg:h-full rounded-md overflow-scroll m-1  border  p-1 flex flex-col">
+                <div className="w-5/6 h-96 md:w-1/2 lg:h-full rounded-md overflow-scroll m-1  border  p-1 flex flex-col">
                   <h2 className="font-semibold text-lg md:text-2xl py-1 text-teal-900 text-center">
                     Glucose
                   </h2>
-                  <div className="flex-grow">
+                  <div className="flex-grow bg-gray-50 ">
                     <GlucoseLevel responseData={responseData} />
                   </div>
                 </div>
-                <div className="w-96 h-96 md:w-1/2 lg:h-full rounded-md overflow-scroll  border  m-1 p-1 flex flex-col">
+                <div className="w-5/6  h-96 md:w-1/2 lg:h-full rounded-md overflow-scroll  border  m-1 p-1 flex flex-col">
                   <h2 className="font-semibold text-lg md:text-2xl text-gray-900 text-center p-2 ">
                     Blood Pressure
                   </h2>
-                  <div className="flex-grow">
+                  <div className="flex-grow bg-gray-50">
                     <BP_Log responseData={responseData} />
                   </div>
                 </div>

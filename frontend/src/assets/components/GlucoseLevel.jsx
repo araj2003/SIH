@@ -48,6 +48,11 @@ const GlucoseLevel = ({ responseData }) => {
             const currentBefore = responseData.blood_glucose.before[index];
             const currentAfter = responseData.blood_glucose.after[index];
 
+            // Skip the date if both before and after values are empty
+            if (!currentBefore && !currentAfter) {
+              return null;
+            }
+
             const isFirstDate = prevDate !== date;
             prevDate = date;
 

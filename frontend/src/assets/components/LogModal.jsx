@@ -36,14 +36,25 @@ const LogModal = ({ logModal, setLogModal }) => {
       const updatedFormData = { ...data };
 
       // Append form values and date to bp_log
-      updatedFormData.bp_log.high.push(highRef.current.value);
-      updatedFormData.bp_log.low.push(lowRef.current.value);
-      updatedFormData.bp_log.date.push(dateRef.current);
+      const highValue = highRef.current.value;
+      const lowValue = lowRef.current.value;
+      const dateValue = dateRef.current;
+
+      if (highValue !== "" && lowValue !== "") {
+        updatedFormData.bp_log.high.push(highValue);
+        updatedFormData.bp_log.low.push(lowValue);
+        updatedFormData.bp_log.date.push(dateValue);
+      }
 
       // Append form values and date to blood_glucose
-      updatedFormData.blood_glucose.before.push(beforeRef.current.value);
-      updatedFormData.blood_glucose.after.push(afterRef.current.value);
-      updatedFormData.blood_glucose.date.push(dateRef.current);
+      const beforeValue = beforeRef.current.value;
+      const afterValue = afterRef.current.value;
+
+      if (beforeValue !== "" && afterValue !== "") {
+        updatedFormData.blood_glucose.before.push(beforeValue);
+        updatedFormData.blood_glucose.after.push(afterValue);
+        updatedFormData.blood_glucose.date.push(dateValue);
+      }
 
       return updatedFormData;
     });

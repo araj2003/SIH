@@ -18,7 +18,9 @@ const Personal = ({ responseData }) => {
 
   return (
     <div className="px-4 py-6 bg-white rounded-lg ">
-      <h3 className="text-2xl md:text-3xl font-semibold mb-4">Personal Info</h3>
+      <h3 className="text-2xl md:text-3xl text-gray-800 font-semibold mb-4">
+        Personal Info
+      </h3>
       <div className="grid grid-cols-2 gap-6 text-sm md:text-base">
         <div className="border-b border-r  p-2 rounded-lg">
           <div className="text-gray-700 font-semibold">Age:</div>
