@@ -49,7 +49,9 @@ env_file_path = os.path.join(root_dir, '.env')
 load_dotenv(env_file_path)
 
 # Access environment variables
-POSTGRES_PASS = os.getenv('POSTGRES_PASS')
+DATABASE_NAME = os.getenv('DATABASE_NAME')
+USER = os.getenv('USER')
+DATABASE_PASS = os.getenv('DATABASE_PASS')
 
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
@@ -110,9 +112,9 @@ WSGI_APPLICATION = 'Backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': POSTGRES_PASS,
+        'NAME': DATABASE_NAME,
+        'USER': USER,
+        'PASSWORD': DATABASE_PASS,
         'HOST': 'localhost',
         'PORT': 5432,
     }
