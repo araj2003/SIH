@@ -1,26 +1,41 @@
-1. Setup your postgresql database and create a .env file and add following:
-USER = <Postgres_Username>
-DATABASE_NAME = <Database_Name>
-DATABASE_PASS = <Database_Password>
+# Project Setup Instructions
 
-2. Run pip install -r requirements.txt
+## Setup PostgreSQL Database and .env File
 
-3. Run python manage.py makemigrations
+1. Setup your PostgreSQL database and create a .env file:
+   - Create a file called `.env` in your project's root directory.
+   - Add the following lines to the `.env` file, replacing the placeholders with your actual database credentials:
 
-4. Run python manage.py migrate
+     ```
+     USER = <Postgres_Username>
+     DATABASE_NAME = <Database_Name>
+     DATABASE_PASS = <Database_Password>
+     ```
 
-5. cd frontend
+## Install Python Dependencies
 
-6. npm install 
+2. Run the following command to install the required Python dependencies:
 
-7. npm run build
+pip install -r requirements.txt
 
-8. cd ..
+## Database Migrations
 
-9. python manage.py runserver
+3. Run the following command to create database migration files based on your Django models:
 
-10. Navigate to http://127.0.0.1:8000/insertpd to insert predictor data
+python manage.py makemigrations
 
-11. Navigate to http://127.0.0.1:8000/insert to insert doctor data
+4. Run the following command to apply the migrations and create the necessary tables in the database:
 
-12. Navigate to http://127.0.0.1:8000
+python manage.py migrate
+
+## Frontend Setup
+
+5. Change directory to the frontend folder:
+
+cd frontend
+
+6. Run the following command to install the required frontend dependencies:
+
+npm install
+
+
