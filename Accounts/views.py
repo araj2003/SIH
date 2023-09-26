@@ -244,3 +244,18 @@ def insert_data(request):
         cursor.executemany(query, values)
 
         return render(request, 'index.html')
+
+def check_admin(request):
+    email = request.GET.get('email')
+    if email:
+        try:
+            user = AppUser.objects.get(email=email)  # Retrieve the user by email
+            is_superuser = user.is_superuser  # Access the is_superuser attribute
+            response_data = {'email_exists': True, 'is_superuser': is_superuser}
+            return JsonResponse(response_data)
+        except AppUser.DoesNotExist:
+            response_data = {'email_exists': False, 'is_superuser': False}
+            return JsonResponse(response_data)
+    else:
+        response_data = {'error': 'Email parameter is missing'}
+        return JsonResponse(response_data, status=400)

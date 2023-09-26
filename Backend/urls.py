@@ -12,6 +12,5 @@ urlpatterns = [
     path("contactdoctor", index),
     path("dashboard", index),
     path('icon.svg', load_icon),
-    re_path(r'^.*/$', index),
 ]
 
