@@ -47,9 +47,9 @@ const Header = () => {
               <NavLink to="dashboard" className="px-1">
                 Dashboard
               </NavLink>
-              <NavLink to="contactdoctor" className="px-1">
+              {/* <NavLink to="contactdoctor" className="px-1">
                 Consult
-              </NavLink>
+              </NavLink> */}
             </div>
           ) : (
             <>

@@ -27,10 +27,11 @@ const docOptions = [
   "Physician executive",
 ];
 
-const ContactDoctor = () => {
+const ContactDoctor = ({doctor}) => {
   const [doctors, setDoctors] = useState([]);
   const [speciality, setSpeciality] = useState(null);
-  const doctorType = useRef("All");
+  console.log(doctor)
+  const doctorType = useRef("");
 
   const fetchData = async () => {
     try {
@@ -43,7 +44,9 @@ const ContactDoctor = () => {
       console.error(error);
     }
   };
-
+  useEffect(() => {
+    doctorType.current = doctor
+  },[doctor])
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -70,9 +73,9 @@ const ContactDoctor = () => {
   };
 
   return (
-    <section className="w-screen flex flex-col items-center p-5 h-full pt-24">
+    <section className="w-screen flex flex-col items-center p-5 h-full ">
       <div className="flex w-80 md:w-3/5   justify-center gap-3 items-center mt-4 mb-4">
-        <Autocomplete
+        {/* <Autocomplete
           options={docOptions}
           value={speciality}
           onChange={(e, newValue) => {
@@ -93,9 +96,9 @@ const ContactDoctor = () => {
           className="w-24 text-base font-semibold text-center hover:text-white hover:bg-emerald-500 rounded-lg  border-emerald-500 border-2 text-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-100 transition-all duration-300 py-2"
         >
           Search
-        </button>
+        </button> */}
       </div>
-      <div className="border-t border-gray-200 mb-8 w-4/5"></div>
+      {/* <div className="border-t border-gray-200 mb-8 w-4/5"></div> */}
 
       <div className="flex justify-center w-full mt-4">
         {doctors.length ? (

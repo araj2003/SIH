@@ -50,7 +50,8 @@ class PatientSerializer(serializers.ModelSerializer):
 class PredictionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Predicted_Diseases
-        fields = ('diseases', 'diseases_prob')
+        fields = ('diseases', 'diseases_prob','consult_doctor')
+		
 
 
 class DoctorProfileSerializer(serializers.ModelSerializer):
