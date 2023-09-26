@@ -139,7 +139,7 @@ def predict(request, symptoms=''):
         consultdoctor = "Neurologist"
 
     elif predicted_disease in Allergist_Immunologist:
-        consultdoctor = "Allergist/Immunologist"
+        consultdoctor = "Allergist"
 
     elif predicted_disease in Urologist:
         consultdoctor = "Urologist"
@@ -155,7 +155,8 @@ def predict(request, symptoms=''):
 
     pd_prob = top5_values[0][::-1].astype(float).tolist()
     Predicted_Diseases.objects.all().delete()
-    Predicted_Diseases(diseases=pd, diseases_prob=pd_prob, consult_doctor=consultdoctor).save()
+    Predicted_Diseases(diseases=pd, diseases_prob=pd_prob,
+                       consult_doctor=consultdoctor).save()
     data = Predicted_Diseases.objects.all()
     serializer = PredictionSerializer(data, many=True)
     return Response(serializer.data, template_name=None)

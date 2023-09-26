@@ -27,16 +27,16 @@ const docOptions = [
   "Physician executive",
 ];
 
-const ContactDoctor = ({doctor}) => {
+const ContactDoctor = ({ doctor }) => {
   const [doctors, setDoctors] = useState([]);
   const [speciality, setSpeciality] = useState(null);
-  console.log(doctor)
+  console.log(doctor);
   const doctorType = useRef("");
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/doctor/${doctorType.current}`
+        `http://127.0.0.1:8000/doctor/${doctor.current}`
       );
       console.log(response.data);
       setDoctors(response.data);
@@ -44,14 +44,12 @@ const ContactDoctor = ({doctor}) => {
       console.error(error);
     }
   };
-  useEffect(() => {
-    doctorType.current = doctor
-  },[doctor])
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/doctor/${doctorType.current}`
+          `http://127.0.0.1:8000/doctor/${doctor.current}`
         );
         console.log(response.data);
         setDoctors(response.data);
@@ -61,16 +59,16 @@ const ContactDoctor = ({doctor}) => {
     };
 
     fetchData();
-  }, []);
+  }, [doctor.current]);
 
-  const handleDocChange = () => {
-    if (speciality === "" || !docOptions.includes(speciality)) {
-      alert("Please select a valid option");
-    } else {
-      doctorType.current = speciality;
-      fetchData();
-    }
-  };
+  // const handleDocChange = () => {
+  //   if (speciality === "" || !docOptions.includes(speciality)) {
+  //     alert("Please select a valid option");
+  //   } else {
+  //     doctorType.current = speciality;
+  //     fetchData();
+  //   }
+  // };
 
   return (
     <section className="w-screen flex flex-col items-center p-5 h-full ">

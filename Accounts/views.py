@@ -60,6 +60,7 @@ class UserView(APIView):
         serializer = UserSerializer(request.user)
         return Response({'user': serializer.data}, status=status.HTTP_200_OK)
 
+
 def check_email(request):
     email = request.GET.get('email')
     if email:
@@ -101,13 +102,12 @@ class DoctorProfileListAPIView(generics.ListAPIView):
         if speciality == 'All':
             queryset = DoctorProfile.objects.all()
         else:
-            queryset = DoctorProfile.objects.filter(speciality__icontains=speciality)
-        
+            queryset = DoctorProfile.objects.filter(
+                speciality__icontains=speciality)
+
         queryset = queryset.order_by('?')[:12]
-        
+
         return queryset
-
-
 
 
 def insert_data(request):
@@ -116,142 +116,225 @@ def insert_data(request):
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
     """
     values = [
-    # Family Medicine
-    ('Dr. John Smith', 'Family Medicine', 'male', 15, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-john-smith'),
-    ('Dr. Emma Thompson', 'Family Medicine', 'female', 12, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-emma-thompson'),
-    ('Dr. David Wilson', 'Family Medicine', 'male', 10, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-david-wilson'),
-    ('Dr. Lily Rodriguez', 'Family Medicine', 'female', 8, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-lily-rodriguez'),
-    
+        # Allergist
+        ('Dr. John Smith', 'Allergist', 'male', 15, '123 Main Street, City, State',
+         '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-john-smith'),
+        ('Dr. Emma Thompson', 'Allergist', 'female', 12, '456 Elm Street, City, State',
+         '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-emma-thompson'),
+        ('Dr. David Wilson', 'Allergist', 'male', 10, '789 Oak Street, City, State',
+         '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-david-wilson'),
+        ('Dr. Lily Rodriguez', 'Allergist', 'female', 8, '321 Maple Street, City, State',
+         '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-lily-rodriguez'),
 
-    # Internal Medicine
-    ('Dr. Emily Johnson', 'Internal Medicine', 'female', 20, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-emily-johnson'),
-    ('Dr. Benjamin Davis', 'Internal Medicine', 'male', 18, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-davis'),
-    ('Dr. Sophia Thompson', 'Internal Medicine', 'female', 22, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-thompson'),
-    ('Dr. Daniel Wilson', 'Internal Medicine', 'male', 16, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-daniel-wilson'),
-    
 
-    # Pediatrician
-    ('Dr. Michael Johnson', 'Pediatrician', 'male', 18, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-michael-johnson'),
-    ('Dr. Abigail Smith', 'Pediatrician', 'female', 15, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-abigail-smith'),
-    ('Dr. Ethan Davis', 'Pediatrician', 'male', 10, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-ethan-davis'),
-    ('Dr. Isabella Wilson', 'Pediatrician', 'female', 12, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-isabella-wilson'),
-    
-    # Obstetricians/gynecologist (OBGYNs)
-    ('Dr. Olivia Davis', 'Gynecologist', 'female', 25, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-davis'),
-    ('Dr. Liam Johnson', 'Gynecologist', 'male', 22, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
-    ('Dr. Ava Brown', 'Gynecologist', 'female', 20, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
-    ('Dr. Noah Thompson', 'Gynecologist', 'male', 18, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
+        # # Internal Medicine
+        # ('Dr. Emily Johnson', 'Internal Medicine', 'female', 20, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-emily-johnson'),
+        # ('Dr. Benjamin Davis', 'Internal Medicine', 'male', 18, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-davis'),
+        # ('Dr. Sophia Thompson', 'Internal Medicine', 'female', 22, '789 Oak Street, City, State',
+        #  '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-thompson'),
+        # ('Dr. Daniel Wilson', 'Internal Medicine', 'male', 16, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-daniel-wilson'),
 
-    # Cardiologist
-    ('Dr. Benjamin Smith', 'Cardiologist', 'male', 22, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-smith'),
-    ('Dr. Charlotte Johnson', 'Cardiologist', 'female', 20, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
-    ('Dr. Samuel Brown', 'Cardiologist', 'male', 18, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
-    ('Dr. Grace Thompson', 'Cardiologist', 'female', 16, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
-    
-    # Oncologist
-    ('Dr. William Wilson', 'Oncologist', 'male', 30, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-wilson'),
-    ('Dr. Sophia Johnson', 'Oncologist', 'female', 28, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
-    ('Dr. Alexander Brown', 'Oncologist', 'male', 25, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
-    ('Dr. Mia Thompson', 'Oncologist', 'female', 22, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
-    
-    # Gastroenterologist
-    ('Dr. Olivia Smith', 'Gastroenterologist', 'female', 25, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
-    ('Dr. Liam Johnson', 'Gastroenterologist', 'male', 22, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
-    ('Dr. Ava Brown', 'Gastroenterologist', 'female', 20, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
-    ('Dr. Noah Thompson', 'Gastroenterologist', 'male', 18, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
-    
-    # Pulmonologist
-    ('Dr. Benjamin Wilson', 'Pulmonologist', 'male', 20, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
-    ('Dr. Charlotte Johnson', 'Pulmonologist', 'female', 18, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
-    ('Dr. Samuel Brown', 'Pulmonologist', 'male', 16, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
-    ('Dr. Grace Thompson', 'Pulmonologist', 'female', 14, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
-    
-    # Infectious Disease
-    ('Dr. William Smith', 'Infectious Disease', 'male', 18, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-smith'),
-    ('Dr. Sophia Johnson', 'Infectious Disease', 'female', 16, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
-    ('Dr. Alexander Brown', 'Infectious Disease', 'male', 14, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
-    ('Dr. Mia Thompson', 'Infectious Disease', 'female', 12, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
-    
 
-    # Nephrologist
-    ('Dr. Olivia Smith', 'Nephrologist', 'female', 25, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
-    ('Dr. Liam Johnson', 'Nephrologist', 'male', 22, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
-    ('Dr. Ava Brown', 'Nephrologist', 'female', 20, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
-    ('Dr. Noah Thompson', 'Nephrologist', 'male', 18, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
-    
-    # Endocrinologist
-    ('Dr. Benjamin Wilson', 'Endocrinologist', 'male', 20, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
-    ('Dr. Charlotte Johnson', 'Endocrinologist', 'female', 18, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
-    ('Dr. Samuel Brown', 'Endocrinologist', 'male', 16, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
-    ('Dr. Grace Thompson', 'Endocrinologist', 'female', 14, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
-    
-    # Ophthalmologist
-    ('Dr. William Smith', 'Ophthalmologist', 'male', 18, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-smith'),
-    ('Dr. Sophia Johnson', 'Ophthalmologist', 'female', 16, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
-    ('Dr. Alexander Brown', 'Ophthalmologist', 'male', 14, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
-    ('Dr. Mia Thompson', 'Ophthalmologist', 'female', 12, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
-    
-    # Otolaryngologist
-    ('Dr. Olivia Smith', 'Otolaryngologist', 'female', 25, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
-    ('Dr. Liam Johnson', 'Otolaryngologist', 'male', 22, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
-    ('Dr. Ava Brown', 'Otolaryngologist', 'female', 20, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
-    ('Dr. Noah Thompson', 'Otolaryngologist', 'male', 18, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
-    
-    # Dermatologist
-    ('Dr. Benjamin Wilson', 'Dermatologist', 'male', 20, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
-    ('Dr. Charlotte Johnson', 'Dermatologist', 'female', 18, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
-    ('Dr. Samuel Brown', 'Dermatologist', 'male', 16, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
-    ('Dr. Grace Thompson', 'Dermatologist', 'female', 14, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
-    
-    # Psychiatrist
-    ('Dr. William Smith', 'Psychiatrist', 'male', 18, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-smith'),
-    ('Dr. Sophia Johnson', 'Psychiatrist', 'female', 16, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
-    ('Dr. Alexander Brown', 'Psychiatrist', 'male', 14, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
-    ('Dr. Mia Thompson', 'Psychiatrist', 'female', 12, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
-    
-    # Neurologist
-    ('Dr. Olivia Smith', 'Neurologist', 'female', 25, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
-    ('Dr. Liam Johnson', 'Neurologist', 'male', 22, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
-    ('Dr. Ava Brown', 'Neurologist', 'female', 20, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
-    ('Dr. Noah Thompson', 'Neurologist', 'male', 18, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
-    
-    # Radiologist
-    ('Dr. Benjamin Wilson', 'Radiologist', 'male', 20, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
-    ('Dr. Charlotte Johnson', 'Radiologist', 'female', 18, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
-    ('Dr. Samuel Brown', 'Radiologist', 'male', 16, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
-    ('Dr. Grace Thompson', 'Radiologist', 'female', 14, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
-    
-    # Anesthesiologist
-    ('Dr. William Smith', 'Anesthesiologist', 'male', 18, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-smith'),
-    ('Dr. Sophia Johnson', 'Anesthesiologist', 'female', 16, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
-    ('Dr. Alexander Brown', 'Anesthesiologist', 'male', 14, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
-    ('Dr. Mia Thompson', 'Anesthesiologist', 'female', 12, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
-    
-    # Surgeon
-    ('Dr. Olivia Smith', 'Surgeon', 'female', 25, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
-    ('Dr. Liam Johnson', 'Surgeon', 'male', 22, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
-    ('Dr. Ava Brown', 'Surgeon', 'female', 20, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
-    ('Dr. Noah Thompson', 'Surgeon', 'male', 18, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
-    
-    # Physician Executive
-    ('Dr. Benjamin Wilson', 'Physician Executive', 'male', 20, '123 Main Street, City, State', '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
-    ('Dr. Charlotte Johnson', 'Physician Executive', 'female', 18, '456 Elm Street, City, State', '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
-    ('Dr. Samuel Brown', 'Physician Executive', 'male', 16, '789 Oak Street, City, State', '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
-    ('Dr. Grace Thompson', 'Physician Executive', 'female', 14, '321 Maple Street, City, State', '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson')
-]
+        # # Pediatrician
+        # ('Dr. Michael Johnson', 'Pediatrician', 'male', 18, '123 Main Street, City, State', '1234567890',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-michael-johnson'),
+        # ('Dr. Abigail Smith', 'Pediatrician', 'female', 15, '456 Elm Street, City, State', '9876543210',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-abigail-smith'),
+        # ('Dr. Ethan Davis', 'Pediatrician', 'male', 10, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-ethan-davis'),
+        # ('Dr. Isabella Wilson', 'Pediatrician', 'female', 12, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-isabella-wilson'),
+
+        # # Obstetricians/gynecologist (OBGYNs)
+        # ('Dr. Olivia Davis', 'Gynecologist', 'female', 25, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-davis'),
+        # ('Dr. Liam Johnson', 'Gynecologist', 'male', 22, '456 Elm Street, City, State', '9876543210',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
+        # ('Dr. Ava Brown', 'Gynecologist', 'female', 20, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
+        # ('Dr. Noah Thompson', 'Gynecologist', 'male', 18, '321 Maple Street, City, State', '1357924680',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
+
+        # # Cardiologist
+        # ('Dr. Benjamin Smith', 'Cardiologist', 'male', 22, '123 Main Street, City, State', '1234567890',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-smith'),
+        # ('Dr. Charlotte Johnson', 'Cardiologist', 'female', 20, '456 Elm Street, City, State', '9876543210',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
+        # ('Dr. Samuel Brown', 'Cardiologist', 'male', 18, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
+        # ('Dr. Grace Thompson', 'Cardiologist', 'female', 16, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
+
+        # # Oncologist
+        # ('Dr. William Wilson', 'Oncologist', 'male', 30, '123 Main Street, City, State', '1234567890',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-wilson'),
+        # ('Dr. Sophia Johnson', 'Oncologist', 'female', 28, '456 Elm Street, City, State', '9876543210',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
+        # ('Dr. Alexander Brown', 'Oncologist', 'male', 25, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
+        # ('Dr. Mia Thompson', 'Oncologist', 'female', 22, '321 Maple Street, City, State', '1357924680',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
+
+        # # Gastroenterologist
+        # ('Dr. Olivia Smith', 'Gastroenterologist', 'female', 25, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
+        # ('Dr. Liam Johnson', 'Gastroenterologist', 'male', 22, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
+        # ('Dr. Ava Brown', 'Gastroenterologist', 'female', 20, '789 Oak Street, City, State',
+        #  '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
+        # ('Dr. Noah Thompson', 'Gastroenterologist', 'male', 18, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
+
+        # # Pulmonologist
+        # ('Dr. Benjamin Wilson', 'Allergist', 'male', 20, '123 Main Street, City, State', '1234567890',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
+        # ('Dr. Charlotte Johnson', 'Pulmonologist', 'female', 18, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
+        # ('Dr. Samuel Brown', 'Pulmonologist', 'male', 16, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
+        # ('Dr. Grace Thompson', 'Pulmonologist', 'female', 14, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
+
+        # # Infectious Disease
+        # ('Dr. William Smith', 'Infectious Disease', 'male', 18, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-smith'),
+        # ('Dr. Sophia Johnson', 'Infectious Disease', 'female', 16, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
+        # ('Dr. Alexander Brown', 'Infectious Disease', 'male', 14, '789 Oak Street, City, State',
+        #  '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
+        # ('Dr. Mia Thompson', 'Infectious Disease', 'female', 12, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
+
+
+        # # Nephrologist
+        # ('Dr. Olivia Smith', 'Nephrologist', 'female', 25, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
+        # ('Dr. Liam Johnson', 'Nephrologist', 'male', 22, '456 Elm Street, City, State', '9876543210',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
+        # ('Dr. Ava Brown', 'Nephrologist', 'female', 20, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
+        # ('Dr. Noah Thompson', 'Nephrologist', 'male', 18, '321 Maple Street, City, State', '1357924680',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
+
+        # # Endocrinologist
+        # ('Dr. Benjamin Wilson', 'Endocrinologist', 'male', 20, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
+        # ('Dr. Charlotte Johnson', 'Endocrinologist', 'female', 18, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
+        # ('Dr. Samuel Brown', 'Endocrinologist', 'male', 16, '789 Oak Street, City, State',
+        #  '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
+        # ('Dr. Grace Thompson', 'Endocrinologist', 'female', 14, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
+
+        # # Ophthalmologist
+        # ('Dr. William Smith', 'Ophthalmologist', 'male', 18, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-smith'),
+        # ('Dr. Sophia Johnson', 'Ophthalmologist', 'female', 16, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
+        # ('Dr. Alexander Brown', 'Ophthalmologist', 'male', 14, '789 Oak Street, City, State',
+        #  '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
+        # ('Dr. Mia Thompson', 'Ophthalmologist', 'female', 12, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
+
+        # # Otolaryngologist
+        # ('Dr. Olivia Smith', 'Otolaryngologist', 'female', 25, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
+        # ('Dr. Liam Johnson', 'Otolaryngologist', 'male', 22, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
+        # ('Dr. Ava Brown', 'Otolaryngologist', 'female', 20, '789 Oak Street, City, State',
+        #  '2468135790', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
+        # ('Dr. Noah Thompson', 'Otolaryngologist', 'male', 18, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
+
+        # # Dermatologist
+        # ('Dr. Benjamin Wilson', 'Dermatologist', 'male', 20, '123 Main Street, City, State', '1234567890',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
+        # ('Dr. Charlotte Johnson', 'Dermatologist', 'female', 18, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
+        # ('Dr. Samuel Brown', 'Dermatologist', 'male', 16, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
+        # ('Dr. Grace Thompson', 'Dermatologist', 'female', 14, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
+
+        # # Psychiatrist
+        # ('Dr. William Smith', 'Psychiatrist', 'male', 18, '123 Main Street, City, State', '1234567890',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-smith'),
+        # ('Dr. Sophia Johnson', 'Psychiatrist', 'female', 16, '456 Elm Street, City, State', '9876543210',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
+        # ('Dr. Alexander Brown', 'Psychiatrist', 'male', 14, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
+        # ('Dr. Mia Thompson', 'Psychiatrist', 'female', 12, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
+
+        # # Neurologist
+        # ('Dr. Olivia Smith', 'Neurologist', 'female', 25, '123 Main Street, City, State', '1234567890',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
+        # ('Dr. Liam Johnson', 'Neurologist', 'male', 22, '456 Elm Street, City, State', '9876543210',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
+        # ('Dr. Ava Brown', 'Neurologist', 'female', 20, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
+        # ('Dr. Noah Thompson', 'Neurologist', 'male', 18, '321 Maple Street, City, State', '1357924680',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
+
+        # # Radiologist
+        # ('Dr. Benjamin Wilson', 'Radiologist', 'male', 20, '123 Main Street, City, State', '1234567890',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
+        # ('Dr. Charlotte Johnson', 'Radiologist', 'female', 18, '456 Elm Street, City, State', '9876543210',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
+        # ('Dr. Samuel Brown', 'Radiologist', 'male', 16, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
+        # ('Dr. Grace Thompson', 'Radiologist', 'female', 14, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson'),
+
+        # # Anesthesiologist
+        # ('Dr. William Smith', 'Anesthesiologist', 'male', 18, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-william-smith'),
+        # ('Dr. Sophia Johnson', 'Anesthesiologist', 'female', 16, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-sophia-johnson'),
+        # ('Dr. Alexander Brown', 'Anesthesiologist', 'male', 14, '789 Oak Street, City, State',
+        #  '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-alexander-brown'),
+        # ('Dr. Mia Thompson', 'Anesthesiologist', 'female', 12, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-mia-thompson'),
+
+        # # Surgeon
+        # ('Dr. Olivia Smith', 'Surgeon', 'female', 25, '123 Main Street, City, State', '1234567890',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-olivia-smith'),
+        # ('Dr. Liam Johnson', 'Surgeon', 'male', 22, '456 Elm Street, City, State', '9876543210',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-liam-johnson'),
+        # ('Dr. Ava Brown', 'Surgeon', 'female', 20, '789 Oak Street, City, State', '2468135790',
+        #  'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-ava-brown'),
+        # ('Dr. Noah Thompson', 'Surgeon', 'male', 18, '321 Maple Street, City, State', '1357924680',
+        #  'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-noah-thompson'),
+
+        # # Physician Executive
+        # ('Dr. Benjamin Wilson', 'Physician Executive', 'male', 20, '123 Main Street, City, State',
+        #  '1234567890', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-benjamin-wilson'),
+        # ('Dr. Charlotte Johnson', 'Physician Executive', 'female', 18, '456 Elm Street, City, State',
+        #  '9876543210', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-charlotte-johnson'),
+        # ('Dr. Samuel Brown', 'Physician Executive', 'male', 16, '789 Oak Street, City, State',
+        #  '2468135790', 'https://svgshare.com/i/tfW.svg', 'https://example.com/doctors/dr-samuel-brown'),
+        # ('Dr. Grace Thompson', 'Physician Executive', 'female', 14, '321 Maple Street, City, State',
+        #  '1357924680', 'https://svgshare.com/i/teF.svg', 'https://example.com/doctors/dr-grace-thompson')
+    ]
 
     with connection.cursor() as cursor:
         cursor.executemany(query, values)
 
         return render(request, 'index.html')
 
+
 def check_admin(request):
     email = request.GET.get('email')
     if email:
         try:
-            user = AppUser.objects.get(email=email)  # Retrieve the user by email
+            # Retrieve the user by email
+            user = AppUser.objects.get(email=email)
             is_superuser = user.is_superuser  # Access the is_superuser attribute
-            response_data = {'email_exists': True, 'is_superuser': is_superuser}
+            response_data = {'email_exists': True,
+                             'is_superuser': is_superuser}
             return JsonResponse(response_data)
         except AppUser.DoesNotExist:
             response_data = {'email_exists': False, 'is_superuser': False}

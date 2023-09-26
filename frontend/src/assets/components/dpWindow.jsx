@@ -6,21 +6,20 @@ import cancelIcon from "../img/cross icon.svg";
 import axios from "axios";
 import Prediction from "./Prediction";
 import dpImg from "../img/dp-image.svg";
-import ContactDoctor from './ContactDoctor'
-
-
+import ContactDoctor from "./ContactDoctor";
 
 const DpWindow = () => {
   let { options } = useGlobalContext();
   let index = useRef(null);
   let allSymptomsString = useRef(null);
   const [symptoms, setSymptoms] = useState([]);
-  const [prediction, setPrediction] = useState([{consult_doctor: ""}]);
+  const [prediction, setPrediction] = useState(null);
+  const doctorType = useRef(null);
   const [copySymptoms, setCopySymptoms] = useState([]);
   const [allSymptoms, setAllSymptoms] = useState(
     Array(options.length + 1).fill("0")
   );
-    console.log(prediction);
+  console.log(prediction);
   const [selectedSymptom, setSelectedSymptom] = useState(null);
   const isDuplicate = (symptom) => symptoms.includes(symptom);
 
@@ -91,6 +90,12 @@ const DpWindow = () => {
       });
   }, [copySymptoms]); // axios useEffect
 
+  useEffect(() => {
+    if (prediction) {
+      doctorType.current = prediction[0].consult_doctor;
+    }
+  }, [prediction]);
+
   return (
     <div className="dpWindow w-full flex items-center flex-col justify-evenly pt-20">
       <div className="bttns-container flex w-2/3  xl:w-1/2 justify-center items-center">
@@ -156,7 +161,7 @@ const DpWindow = () => {
           )}
         </div>
       </div>
-      {prediction[0].consult_doctor && <ContactDoctor doctor = {prediction[0].consult_doctor}/>}
+      {prediction && doctorType && <ContactDoctor doctor={doctorType} />}
       <section className="w-full flex justify-center sm:px-8 md:px-10 lg:px-12 xl:px-14 flex-wrap">
         <div className="hero flex flex-col justify-center sm:w-5/6 md:w-4/5 lg:w-3/5 xl:w-2/5  px-5 md:px-6 lg:pd-8">
           <div className="hero-text text-3xl lg:text-4xl mb-5">
