@@ -112,10 +112,10 @@ WSGI_APPLICATION = 'Backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': medware,
+        'NAME': 'medware',
         'USER': 'personal_owner',
-        'PASSWORD': C3B0xHowPpNE,
-        'HOST': ep-old-thunder-a5xtrbkj.us-east-2.aws.neon.tech,
+        'PASSWORD': 'C3B0xHowPpNE',
+        'HOST': 'ep-old-thunder-a5xtrbkj.us-east-2.aws.neon.tech',
         'PORT': 5432,
         'sslmode': 'require',
     }
