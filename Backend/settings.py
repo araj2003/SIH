@@ -48,10 +48,11 @@ env_file_path = os.path.join(root_dir, '.env')
 # Load environment variables from .env file
 load_dotenv(env_file_path)
 
-# # Access environment variables
-# DATABASE_NAME = os.getenv('DATABASE_NAME')
-# USER = os.getenv('USER')
-# DATABASE_PASS = os.getenv('DATABASE_PASS')
+# Access environment variables
+DATABASE_NAME = os.getenv('DATABASE_NAME')
+USER = os.getenv('USER')
+PASS = os.getenv('DATABASE_PASS')
+HOST = os.getenv('HOST')
 
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
@@ -111,14 +112,14 @@ WSGI_APPLICATION = 'Backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'neondb',
-        'USER': 'kshitij.tanwar2002',
-        'PASSWORD': 'a4xircm6knle',
-        'HOST': 'ep-withered-mode-48681455.us-east-2.aws.neon.tech',
-        'PORT': '5432',
+        'NAME': DATABASE_NAME,
+        'USER': 'personal_owner',
+        'PASSWORD': PASS,
+        'HOST': HOST,
+        'PORT': 5432,
+        'sslmode': 'require',
     }
 }
-
 AUTH_USER_MODEL = 'Accounts.AppUser'
 
 REST_FRAMEWORK = {
