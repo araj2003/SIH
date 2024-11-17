@@ -28,7 +28,7 @@ const SignIn = () => {
 
     try {
       const fetchResponse = await fetch(
-        "http://127.0.0.01:8000/check_email?email=" + email.current
+        "https://sih-q7gj.onrender.com/check_email?email=" + email.current
       );
       const data = await fetchResponse.json();
       console.log(data.email_exists);
